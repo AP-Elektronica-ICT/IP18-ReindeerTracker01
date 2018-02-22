@@ -14,6 +14,7 @@ namespace ReindeerTracker
 			InitializeComponent();
 
 			MainPage = new ReindeerTracker.MainPage();
+            
 		}
 
 		protected override void OnStart ()
