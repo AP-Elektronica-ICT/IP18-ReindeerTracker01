@@ -1,0 +1,12 @@
+﻿<Properties StartupConfiguration="{37B965FE-5EFC-45D6-A0FE-4B4F2B867316}|Default">
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ReindeerTracker.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.F9B2BA90-9FFD-4A23-9629-40DEB9A0FCF7">
+    <MonoDevelop.MacDev.AppleDevelopmentTeam />
+  </MonoDevelop.Ide.ItemProperties.ReindeerTracker.iOS>
+</Properties>
