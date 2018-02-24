@@ -1,14 +1,50 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Reindeer Tracker
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
+<ion-content>
   <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
+    Google Maps hier
   </p>
+
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>ID</ion-col>
+      <ion-col>Last Activity</ion-col>
+      <ion-col>Status</ion-col>
+      <ion-col>Battery</ion-col>
+    </ion-row>
+
+  </ion-grid>
+
+  <ion-list>
+    <button ion-item *ngFor="let item of data" (click)="itemSelected(item)">
+      
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            {{item.id}}
+          </ion-col>
+          <ion-col>
+            {{item.activity | date:'HH:mm'}}
+            <br>{{item.activity | date:'d/MM/yy'}}
+          </ion-col>
+          <ion-col>
+            <div *ngIf="item.status">Alive</div>
+            <div *ngIf="!item.status">Dead</div>
+          </ion-col>
+          <ion-col>
+            {{item.battery}}%
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+    </button>  
+  </ion-list>
+
 </ion-content>
