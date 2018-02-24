@@ -9,23 +9,25 @@ export class ConnectivityService {
  
   onDevice: boolean;
  
-  constructor(public platform: Platform){
+  constructor(public platform: Platform, private network: Network){
     this.onDevice = this.platform.is('cordova');
   }
  
   isOnline(): boolean {
-    if(this.onDevice && Network.connection){
-      return Network.connection !== Connection.NONE;
+    if(this.onDevice && this.network.type){
+      return this.network.type !== Connection.NONE;
     } else {
       return navigator.onLine;
     }
   }
  
   isOffline(): boolean {
-    if(this.onDevice && Network.connection){
-      return Network.connection === Connection.NONE;
+    if(this.onDevice && this.network.type){
+      return this.network.type === Connection.NONE;
     } else {
       return !navigator.onLine;  
     }
   }
+
+
 }
