@@ -1,7 +1,8 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController} from 'ionic-angular';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
 import { Geolocation } from '@ionic-native/geolocation'; 
+import { DetailPage } from '../detail/detail';
 declare var google;
  
 @Component({
@@ -14,18 +15,20 @@ export class HomePage{
  
   map: any;
   mapInitialised: boolean = false;
-  apiKey: any = "AIzaSyDZi9ck-Szv3dDW-9oDReN93WTB5NZz_Zc";
-  ;
-
-
+  apiKey: string = "AIzaSyA4JravLPxlSKJZ9gadEoSmv27MPH00xAI";
+  markers: any = [];
+  
  
   constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation) {
-
+    this.loadGoogleMaps();
   }
 
   ionViewDidLoad() {
-    this.loadGoogleMaps();
+    console.log('ionViewDidLoad Maps');
+      
+      
   }
+
 
 
   data: IReindeer[] = 
@@ -34,40 +37,19 @@ export class HomePage{
       "id": 1,
       "activity":  new Date(2018,2,23,14,2),
       "status": true,
-      "battery": 75
+      "battery": 98,
+      "lat":51.347732,
+      "long":4.705509
     },
     {
       "id": 2,
       "activity":  new Date(2017,2,23,4,2),
       "status": false,
-      "battery": 35
-    },
-    {
-      "id": 3,
-      "activity":  new Date(2018,2,23,14,2),
-      "status": true,
-      "battery": 75
-    },
-    {
-      "id": 4,
-      "activity":  new Date(2017,2,23,4,2),
-      "status": false,
-      "battery": 35
-    },
-    {
-      "id": 5,
-      "activity":  new Date(2018,2,23,14,2),
-      "status": true,
-      "battery": 75
-    },
-    {
-      "id": 6,
-      "activity":  new Date(2017,2,23,4,2),
-      "status": false,
-      "battery": 35
+      "battery": 35,
+      "lat":51.347899,
+      "long":4.711914
     }
   ]
-
 
 
  
@@ -115,6 +97,7 @@ export class HomePage{
     }
  
   }
+
  
   }
  
@@ -129,11 +112,18 @@ export class HomePage{
       let mapOptions = {
         center: latLng,
         zoom: 15,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        mapTypeId: google.maps.MapTypeId.HYBRID,
+        disableDefaultUI: true
       }
+
+      
  
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
- 
+      
+      this.addMarker(51.347732,4.705509,"1");
+      this.addMarker(51.347899,4.711914,"2");
+
+
     });
  
   }
@@ -171,11 +161,39 @@ export class HomePage{
       this.disableMap();
     };
  
-    document.addEventListener('online', onOnline, false);
-    document.addEventListener('offline', onOffline, false);
+    window.addEventListener('online', onOnline, false);
+    window.addEventListener('offline', onOffline, false);
+
+    
  
   }
  
+
+  addMarker(lat: number, lng: number, lbl: string): void {
+
+    let latLng = new google.maps.LatLng(lat, lng);
+
+    
+    var image = 'https://thumb.ibb.co/dfB2fx/deer.png';
+
+    let marker = new google.maps.Marker({
+      map: this.map,
+      animation: google.maps.Animation.DROP,
+      position: latLng,
+      //label: lbl,
+      icon:image
+    });
+
+    this.markers.push(marker);
+
+  }
+
+  openDetail(id: number){
+    this.nav.push(DetailPage, {
+      id: id
+  });
+
+  }
 }
 
 interface IReindeer
@@ -184,4 +202,6 @@ id : number;
 activity : Date;
 status : boolean;
 battery : number;
+lat: number;
+long: number;
 }

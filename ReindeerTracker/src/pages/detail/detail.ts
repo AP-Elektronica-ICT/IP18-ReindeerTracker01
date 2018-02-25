@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 @Component({
   selector: 'page-detail',
@@ -7,8 +7,8 @@ import { NavController } from 'ionic-angular';
 })
 export class DetailPage {
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    console.log("ID IS:" + this.navParams.get('id')) //Data die je meekrijgt van de homepage
   }
 
 }
