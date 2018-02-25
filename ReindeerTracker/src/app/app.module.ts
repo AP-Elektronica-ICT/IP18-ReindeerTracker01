@@ -6,6 +6,9 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { ConnectivityService } from '../providers/connectivity-service/connectivity-service';
+import { Network } from '@ionic-native/network';
+import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../pages/detail/detail';
 
 @NgModule({
@@ -27,7 +30,10 @@ import { DetailPage } from '../pages/detail/detail';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    ConnectivityService,
+    Network,
+    Geolocation,
   ]
 })
 export class AppModule {}
