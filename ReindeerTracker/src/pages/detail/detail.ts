@@ -17,6 +17,7 @@ export class DetailPage {
   mapInitialised: boolean = false;
   apiKey: string = "AIzaSyA4JravLPxlSKJZ9gadEoSmv27MPH00xAI";
   markers: any = [];
+  avaregeDistance :any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation) {
     console.log("ID IS:" + this.navParams.get('item').id) //Data die je meekrijgt van de homepage
@@ -123,6 +124,17 @@ export class DetailPage {
       });
       Showplan.setMap(this.map);
 
+      var antennasCircle = new google.maps.Circle({
+        strokeColor: "#FF0000",
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: "#FF0000",
+        fillOpacity: 0.35,
+        center: {lat: 51.24013, lng: 4.41485},
+        radius:  this.calculateAvarageDistence()*1000
+      });
+      antennasCircle.setMap(this.map);
+
 
     });
  
@@ -192,6 +204,33 @@ export class DetailPage {
       item : item
   });
 
+  }
+
+  calculateAvarageDistence(){
+    this.avaregeDistance= (this.getDistanceFromLatLonInKm(51.23013,4.41585,51.25013,4.31585)+
+    this.getDistanceFromLatLonInKm(51.25013,4.31585,51.23083,4.45585)+
+    this.getDistanceFromLatLonInKm(51.23083,4.45585,51.24013,4.41485))/3
+    console.log(this.avaregeDistance);
+    return this.avaregeDistance;
+
+  }
+
+  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = this.deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+  }
+  
+  deg2rad(deg) {
+    return deg * (Math.PI/180)
   }
 }
 

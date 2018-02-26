@@ -21,7 +21,7 @@
     <ion-grid  >
         <ion-row>
           <ion-col>
-              <ion-card ion-item *ngFor="let item of data">
+              <ion-card class="card" ion-item *ngFor="let item of data">
                   <ion-card-content>
                     id:{{item.id}}
                     <br>status:{{item.status}}
@@ -38,7 +38,7 @@
 
     <div #map id="map"></div>
 
-    <ion-card  ion-item *ngFor="let item of data">
+    <ion-card class="card" ion-item *ngFor="let item of data">
       <ion-card-content>
         -name:{{item.name}}
         <br>-age:{{item.age}}
