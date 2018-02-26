@@ -27,7 +27,7 @@
   
     </ion-grid>
   
-    <ion-list no-lines>
+    <ion-list>
       <ion-grid>
         <button ion-item *ngFor="let item of data" (click)="openDetail(item)">
   
@@ -52,9 +52,6 @@
   
   
         </button>
-        <ion-row>
-            <button ion-item (click)="openDetail(item)">   <ion-icon name="add-circle"></ion-icon>Add new reindeer</button>
-        </ion-row>
       </ion-grid>
         
     </ion-list>

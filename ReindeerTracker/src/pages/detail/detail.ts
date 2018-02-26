@@ -18,6 +18,7 @@ export class DetailPage {
   apiKey: string = "AIzaSyA4JravLPxlSKJZ9gadEoSmv27MPH00xAI";
   markers: any = [];
   avaregeDistance :any;
+  markerspath: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation) {
     console.log("ID IS:" + this.navParams.get('item').id) //Data die je meekrijgt van de homepage
@@ -110,14 +111,19 @@ export class DetailPage {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       
       this.addMarker(51.24013,4.41485,"4");
+      this.addMarker(51.23000,4.41485,"4");
+
+      var latlngbounds = new google.maps.LatLngBounds();
+      for (var i = 0; i < this.markers.length; i++) {
+        latlngbounds.extend(this.markers[i].position);
+        this.markerspath.push(this.markers[i].position);
+      }
+      this.map.fitBounds(latlngbounds);
+
+      
 
       var Showplan = new google.maps.Polyline({
-        path:[
-          new google.maps.LatLng(51.23013,4.41585),
-          new google.maps.LatLng(51.25013,4.31585),
-          new google.maps.LatLng(51.23083,4.45585),
-          new google.maps.LatLng(51.24013,4.41485),
-        ],
+        path:this.markerspath,
         strokeColor:"#FF0000",
         strokeOpacity:0.8,
         strokeWeight:4
