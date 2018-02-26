@@ -34,7 +34,7 @@ export class HomePage{
   data: IReindeer[] = 
   [
     {
-      "id": 1,
+      "id": 74585,
       "activity":  new Date(2018,2,23,14,2),
       "status": true,
       "battery": 98,
@@ -42,7 +42,7 @@ export class HomePage{
       "long":4.705509
     },
     {
-      "id": 2,
+      "id": 35982,
       "activity":  new Date(2017,2,23,4,2),
       "status": false,
       "battery": 35,
@@ -113,16 +113,23 @@ export class HomePage{
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.HYBRID,
-        disableDefaultUI: true
+        disableDefaultUI: true,
+        mapTypeControl: true
       }
 
-      
  
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       
-      this.addMarker(51.347732,4.705509,"1");
-      this.addMarker(51.347899,4.711914,"2");
+      this.addMarker(51.347732,4.705509,"1","https://thumb.ibb.co/dfB2fx/deer.png");
+      this.addMarker(51.347899,4.711914,"2","https://thumb.ibb.co/dfB2fx/deer.png");
+      this.addMarker(position.coords.latitude,position.coords.longitude,"1","");
 
+      this.markers[2].addListener('click', function() {
+        console.log("HEJ");
+        this.nav.push(DetailPage);
+      });
+
+      
 
     });
  
@@ -169,19 +176,18 @@ export class HomePage{
   }
  
 
-  addMarker(lat: number, lng: number, lbl: string): void {
+  addMarker(lat: number, lng: number, lbl: string, icon: string): void {
 
     let latLng = new google.maps.LatLng(lat, lng);
 
     
-    var image = 'https://thumb.ibb.co/dfB2fx/deer.png';
 
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
       position: latLng,
       //label: lbl,
-      icon:image
+      icon:icon
     });
 
     this.markers.push(marker);

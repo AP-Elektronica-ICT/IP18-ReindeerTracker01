@@ -9,52 +9,59 @@
         Reindeer Tracker
       </ion-title>
   
-      <ion-buttons end>
-        <button ion-button icon-only (click)="openSettings()">
-          <ion-icon name="settings"></ion-icon>
-        </button>
-      </ion-buttons>
     </ion-navbar>
   
   </ion-header>
-
-<ion-content>
-
-  <div #map id="map"></div> 
-
-  <ion-grid>
-    <ion-row>
-      <ion-col col-1>ID</ion-col>
-      <ion-col col-5>Last Activity</ion-col>
-      <ion-col col-4>Status</ion-col>
-      <ion-col col-2>Battery</ion-col>
-    </ion-row>
-
-  </ion-grid>
-
-  <ion-list>
-    <button ion-item *ngFor="let item of data" (click)="openDetail(item)">
-      
+  
+  <ion-content>
+  
+    <div #map id="map"></div>
+  
+    <ion-grid>
+      <ion-row>
+        <ion-col col-3>ID</ion-col>
+        <ion-col col-3>Last Activity</ion-col>
+        <ion-col col-4>Status</ion-col>
+        <ion-col col-2>Battery</ion-col>
+      </ion-row>
+  
+    </ion-grid>
+  
+    <ion-list no-lines>
       <ion-grid>
-        <ion-row>
-          <ion-col col-1>
-            {{item.id}}
-          </ion-col>
-          <ion-col col-5>
-            {{item.activity | date:'d/MM/yy'}}
-            <br>{{item.activity | date:'HH:mm'}}
-          </ion-col>
-          <ion-col col-4>
-            <div *ngIf="item.status">Alive</div>
-            <div *ngIf="!item.status">Dead</div>
-          </ion-col>
-          <ion-col col-2>
+        <button ion-item *ngFor="let item of data" (click)="openDetail(item)">
+  
+          <ion-row>
+            <ion-col col-3>
+              {{item.id}}
+            </ion-col>
+            <ion-col col-3>
+              {{item.activity | date:'d/MM/yy'}}
+              <br>{{item.activity | date:'HH:mm'}}
+            </ion-col>
+            <ion-col col-4>
+              <div *ngIf="item.status">Alive</div>
+              <div *ngIf="!item.status">Dead</div>
+            </ion-col>
+            <ion-col col-2>
               {{item.battery}}%
-          </ion-col>
+            </ion-col>
+          </ion-row>
+  
+  
+  
+  
+        </button>
+        <ion-row>
+            <button ion-item (click)="openDetail(item)">   <ion-icon name="add-circle"></ion-icon>Add new reindeer</button>
         </ion-row>
       </ion-grid>
+        
+    </ion-list>
+  
+  
+  </ion-content>
 
-    </button>  
-  </ion-list>
 
-</ion-content>
+
+  

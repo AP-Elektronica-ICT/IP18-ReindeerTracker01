@@ -10,12 +10,16 @@ import { ConnectivityService } from '../providers/connectivity-service/connectiv
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../pages/detail/detail';
+import { LoginPage } from '../pages/login/login';
+import { SettingsPage } from '../pages/settings/settings';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    DetailPage
+    DetailPage,
+    LoginPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +29,9 @@ import { DetailPage } from '../pages/detail/detail';
   entryComponents: [
     MyApp,
     HomePage,
-    DetailPage
+    DetailPage,
+    LoginPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,
