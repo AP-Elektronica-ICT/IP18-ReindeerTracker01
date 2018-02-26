@@ -12,6 +12,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../pages/detail/detail';
 import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { SettingsPage } from '../pages/settings/settings';
     ConnectivityService,
     Network,
     Geolocation,
+    BarcodeScanner
   ]
 })
 export class AppModule {}
