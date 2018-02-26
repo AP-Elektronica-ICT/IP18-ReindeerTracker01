@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../detail/detail';
+import { SettingsPage } from '../settings/settings';
 declare var google;
 
 @Component({
@@ -22,14 +23,6 @@ export class HomePage {
   constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation) {
     this.loadGoogleMaps();
   }
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Maps');
-
-
-  }
-
-
 
   data: IReindeer[] =
     [
@@ -59,11 +52,9 @@ export class HomePage {
 
     if (typeof google == "undefined" || typeof google.maps == "undefined") {
 
-      console.log("Google maps JavaScript needs to be loaded.");
       this.disableMap();
 
       if (this.connectivityService.isOnline()) {
-        console.log("online, loading map");
 
         //Load the SDK
         window['mapInit'] = () => {
@@ -87,12 +78,10 @@ export class HomePage {
     else {
 
       if (this.connectivityService.isOnline()) {
-        console.log("showing map");
         this.initMap();
         this.enableMap();
       }
       else {
-        console.log("disabling map");
         this.disableMap();
       }
 
@@ -198,7 +187,13 @@ export class HomePage {
     this.nav.push(DetailPage, {
       item: item
     });
-
+  }
+  refresh() {
+    console.log("refresh");
+    //Refresh code hier
+  }
+  openSettings() {
+    this.nav.push(SettingsPage);
   }
 }
 

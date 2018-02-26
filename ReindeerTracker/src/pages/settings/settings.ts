@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @Component({
@@ -8,12 +8,12 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class SettingsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController) {
 
   }
 
-  addCode() {
 
+  addTracker() {
 
     let confirm = this.alertCtrl.create({
       title: 'Choose an option',
@@ -37,12 +37,12 @@ export class SettingsPage {
   }
 
   scanCode() {
-    console.log('Scan clicked');
     this.Scanner.scan().then((barcodeData) => {
       console.log(barcodeData.text);
-      return barcodeData.text;
+      return Number(barcodeData.text);
     }, (err) => {
       console.log("Error:" + err);
+      this.showError(err);
     });
   }
 
@@ -66,7 +66,7 @@ export class SettingsPage {
           handler: data => {
             var key = Number(data.title)
             if (Number.isInteger(key) && key > 0 && key < 100000 && data.title.length == 5) {
-              //Juiste code ingevoerd
+              return key;
             }
             else {
               let confirm = this.alertCtrl.create({
@@ -94,6 +94,17 @@ export class SettingsPage {
     prompt.present();
   }
 
+  removeTracker(){
+    //verwijder tracker uit database
+  }
 
+
+  showError(error: string){
+    let toast = this.toastCtrl.create({
+      message: error,
+      duration: 3000
+    });
+    toast.present();
+  }
 
 }

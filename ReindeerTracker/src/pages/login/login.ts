@@ -19,9 +19,5 @@ export class LoginPage {
     this.nav.push(HomePage);
   }
 
-  settingsPage(){
-    this.nav.push(SettingsPage);
-  }
-
 
 }

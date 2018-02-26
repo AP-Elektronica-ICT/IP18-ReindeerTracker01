@@ -15,7 +15,19 @@
 
 <ion-content>
 
+    <ion-card>
 
-    <button ion-button color="light" (click)="addCode()">Add Tracker</button>
+        <ion-card-header>
+            Add or remove a tracker to the system.
+        </ion-card-header>
+        <ion-card-content>
+            <button ion-button color="secondary" (click)="addTracker()">Add</button>
+            <button ion-button color="danger" (click)="removeTracker()">Remove</button>
+        </ion-card-content>
+
+    </ion-card>
+
+
+
 
 </ion-content>

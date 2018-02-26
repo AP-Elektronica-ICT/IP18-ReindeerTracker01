@@ -60,5 +60,15 @@
   </ion-content>
 
 
-
+  <ion-footer>
+      <ion-toolbar>
+          <ion-grid>
+              <ion-row>
+                <ion-col col-6 (click)='refresh()'><ion-icon name="refresh"></ion-icon></ion-col>
+                <ion-col col-6 (click)='openSettings()'><ion-icon name="settings"></ion-icon></ion-col>
+              </ion-row>
+            </ion-grid>
+      </ion-toolbar>
+    </ion-footer>
   
+
