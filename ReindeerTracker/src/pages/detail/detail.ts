@@ -34,7 +34,8 @@ export class DetailPage {
       "lat":51.347732,
       "long":4.705509,
       "name":'sven',
-      "age":4
+      "age":4,
+      "avarageDistance":this.calculateAvarageDistence().toFixed(2)
     }
   ]
 
@@ -103,7 +104,8 @@ export class DetailPage {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.HYBRID,
-        disableDefaultUI: true
+        disableDefaultUI: true,
+        mapTypeControl: true
       }
 
       
@@ -137,7 +139,7 @@ export class DetailPage {
         fillColor: "#FF0000",
         fillOpacity: 0.35,
         center: {lat: 51.24013, lng: 4.41485},
-        radius:  this.calculateAvarageDistence()*1000
+        //radius:  this.calculateAvarageDistence()*1000
       });
       antennasCircle.setMap(this.map);
 
@@ -252,5 +254,6 @@ lat: number;
 long: number;
 name: string;
 age: number;
+avarageDistance:number;
 
 }
