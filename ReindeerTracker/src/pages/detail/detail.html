@@ -1,29 +1,48 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-     Reindeer Tracker
-    </ion-title>
-  </ion-navbar>
-</ion-header>
 
-<ion-grid>
-    <ion-row>
-      <ion-col>
-        <div>1 of 2</div>
-      </ion-col>
-      <ion-col>
-        <div>2 of 2</div>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <div>1 of 3</div>
-      </ion-col>
-      <ion-col>
-        <div>2 of 3</div>
-      </ion-col>
-      <ion-col>
-        <div>3 of 3</div>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Reindeer Tracker
+    </ion-title>
+
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openSettings()">
+        <ion-icon name="settings"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+<ion-content >
+    <ion-grid  >
+        <ion-row>
+          <ion-col>
+              <ion-card ion-item *ngFor="let item of data">
+                  <ion-card-content>
+                    id:{{item.id}}
+                    <br>status:{{item.status}}
+                    <br>battery:{{item.battery}}%
+                    <br>last activity:{{item.activity  | date:'d/MM/yy'}}
+                  </ion-card-content>
+                </ion-card>
+          </ion-col>
+          <ion-col>
+            <ion-img class="fullsize" src="assets/imgs/sven.jpg"></ion-img>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+
+    <div #map id="map"></div>
+
+    <ion-card  ion-item *ngFor="let item of data">
+      <ion-card-content>
+        -name:{{item.name}}
+        <br>-age:{{item.age}}
+      </ion-card-content>
+    
+    </ion-card>
+</ion-content>

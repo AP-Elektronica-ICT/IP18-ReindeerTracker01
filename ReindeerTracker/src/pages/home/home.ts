@@ -188,9 +188,9 @@ export class HomePage{
 
   }
 
-  openDetail(id: number){
+  openDetail(item : any){
     this.nav.push(DetailPage, {
-      id: id
+      item : item
   });
 
   }
