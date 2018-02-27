@@ -205,7 +205,7 @@ export class HomePage {
   }
 }
 
-interface IReindeer {
+export interface IReindeer {
   serialnumber: number;
   reindeerId: number;
   time: Date;

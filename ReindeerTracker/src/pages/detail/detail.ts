@@ -243,7 +243,7 @@ export class DetailPage {
 }
 
 
-interface IDetails {
+export interface IDetails {
   id: number;
   time: Date;
   status: boolean;
