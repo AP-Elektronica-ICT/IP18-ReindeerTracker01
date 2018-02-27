@@ -155,14 +155,12 @@ export class HomePage {
             this.initMap();
           }
 
-          this.enableMap();
         }
       }, 2000);
 
     };
 
     let onOffline = () => {
-      this.disableMap();
     };
 
     window.addEventListener('online', onOnline, false);
