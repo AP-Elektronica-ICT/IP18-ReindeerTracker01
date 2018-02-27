@@ -27,17 +27,17 @@
   
     </ion-grid>
   
-    <ion-list>
+    <ion-list *ngIf="reindeer">
       <ion-grid>
-        <button ion-item *ngFor="let item of data" (click)="openDetail(item)">
+        <button ion-item *ngFor="let item of reindeer" (click)="openDetail(item)">
   
           <ion-row>
             <ion-col col-3>
-              {{item.id}}
+              {{item.serialnumber}}
             </ion-col>
             <ion-col col-3>
-              {{item.activity | date:'d/MM/yy'}}
-              <br>{{item.activity | date:'HH:mm'}}
+              {{item.time | date:'d/MM/yy'}}
+              <br>{{item.time | date:'HH:mm'}}
             </ion-col>
             <ion-col col-4>
               <div *ngIf="item.status">Alive</div>

@@ -8,6 +8,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 })
 export class SettingsPage {
 
+  trackers: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController) {
 
   }
@@ -107,4 +109,14 @@ export class SettingsPage {
     toast.present();
   }
 
+}
+
+
+interface ITracker {
+  serialnumber: number;
+  time: Date;
+  status: boolean;
+  battery: number;
+  lat: number;
+  long: number;
 }

@@ -13,6 +13,8 @@ import { DetailPage } from '../pages/detail/detail';
 import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { ReindeerServiceProvider } from '../providers/reindeer-service/reindeer-service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    HttpClientModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +44,8 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
     ConnectivityService,
     Network,
     Geolocation,
-    BarcodeScanner
+    BarcodeScanner,
+    ReindeerServiceProvider
   ]
 })
 export class AppModule {}

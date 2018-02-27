@@ -25,6 +25,12 @@
             <button ion-button color="danger" (click)="removeTracker()">Remove</button>
         </ion-card-content>
 
+        <ion-list *ngIf="trackers">
+            <button ion-item *ngFor="let tracker of trackers" (click)="itemSelected(item)">
+              {{ tracker.serialnumber }}
+            </button>  
+        </ion-list>
+
     </ion-card>
 
 

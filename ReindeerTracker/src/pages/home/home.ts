@@ -4,6 +4,7 @@ import { ConnectivityService } from '../../providers/connectivity-service/connec
 import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../detail/detail';
 import { SettingsPage } from '../settings/settings';
+import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 declare var google;
 
 @Component({
@@ -18,13 +19,16 @@ export class HomePage {
   mapInitialised: boolean = false;
   apiKey: string = "AIzaSyA4JravLPxlSKJZ9gadEoSmv27MPH00xAI";
   markers: any = [];
+  reindeer: IReindeer[];
 
 
-  constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation) {
+  constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
     this.loadGoogleMaps();
+    this.loadReindeer();
+    
   }
 
-  data: IReindeer[] =
+  /*data: IReindeer[] =
     [
       {
         "id": 74585,
@@ -42,8 +46,19 @@ export class HomePage {
         "lat": 51.347899,
         "long": 4.711914
       }
-    ]
+    ]*/
 
+
+  loadReindeer() {
+    this.reindeerProvider.getUsers()
+      .then(data => {
+        this.reindeer = data;
+        //this.addMarker(51.347732, 4.705509, "1", "");
+        this.initMap();
+        
+        console.log(data);
+      });
+  }
 
 
   loadGoogleMaps() {
@@ -108,17 +123,18 @@ export class HomePage {
 
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-      this.addMarker(51.347732, 4.705509, "1", "https://thumb.ibb.co/dfB2fx/deer.png");
       this.addMarker(51.247899, 4.811914, "2", "https://thumb.ibb.co/dfB2fx/deer.png");
-      this.addMarker(position.coords.latitude, position.coords.longitude, "1", "");
+      this.addMarker(51.347732, 4.705509, "1", "https://thumb.ibb.co/dfB2fx/deer.png");
 
+      
+      this.addMarker(position.coords.latitude, position.coords.longitude, "1", "");
 
       var latlngbounds = new google.maps.LatLngBounds();
       for (var i = 0; i < this.markers.length; i++) {
-        latlngbounds.extend(this.markers[i].position);        
+        latlngbounds.extend(this.markers[i].position);
       }
       this.map.fitBounds(latlngbounds);
+      
 
     });
 
@@ -181,6 +197,8 @@ export class HomePage {
 
     this.markers.push(marker);
 
+    
+
   }
 
   openDetail(item: any) {
@@ -199,7 +217,7 @@ export class HomePage {
 
 interface IReindeer {
   id: number;
-  activity: Date;
+  time: Date;
   status: boolean;
   battery: number;
   lat: number;
