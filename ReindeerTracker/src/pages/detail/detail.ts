@@ -84,7 +84,6 @@ export class DetailPage {
       .then(data => {
         this.details = data;
         this.initMap(); 
-        console.log(this.details.length);
           for(let x = 0;x<this.details[0].locations.length;x++){
           this.addMarker(this.details[0].locations[x].lat,this.details[0].locations[x].long,"4");
           console.log(this.details[0].locations[x].lat)
