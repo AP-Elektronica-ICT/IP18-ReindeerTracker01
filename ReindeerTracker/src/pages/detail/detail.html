@@ -21,12 +21,12 @@
     <ion-grid  >
         <ion-row>
           <ion-col>
-              <ion-card class="card" ion-item *ngFor="let item of data">
+              <ion-card class="card" ion-item *ngFor="let detail of details">
                   <ion-card-content>
-                    id:{{item.id}}
-                    <br>status:{{item.status}}
-                    <br>battery:{{item.battery}}%
-                    <br>last activity:{{item.activity  | date:'d/MM/yy'}}
+                    id:{{detail.serialnumber}}
+                    <br>status:{{detail.status}}
+                    <br>battery:{{detail.battery}}%
+                    <br>last activity:{{detail.time  | date:'d/MM/yy'}}
                   </ion-card-content>
                 </ion-card>
           </ion-col>
@@ -38,11 +38,10 @@
 
     <div #map id="map"></div>
 
-    <ion-card class="card" ion-item *ngFor="let item of data">
+    <ion-card class="card" ion-item *ngFor="let detail of details">
       <ion-card-content>
-        -name:{{item.name}}
-        <br>-age:{{item.age}}
-        <br>-{{item.name}} walks arround {{item.avarageDistance}} a week
+        -name:{{detail.name}}
+        <br>-age:{{detail.age}}
       </ion-card-content>
     
     </ion-card>

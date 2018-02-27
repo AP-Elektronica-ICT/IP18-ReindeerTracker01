@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
 import { Geolocation } from '@ionic-native/geolocation'; 
+import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 declare var google;
 
 @Component({
@@ -19,30 +20,16 @@ export class DetailPage {
   markers: any = [];
   avaregeDistance :any;
   markerspath: any = [];
+  details: IDetails[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation,public reindeerProvider: ReindeerServiceProvider) {
     console.log("ID IS:" + this.navParams.get('item').id) //Data die je meekrijgt van de homepage
     this.loadGoogleMaps();
+    this.loadDetails();
   }
-  data: IReindeer[] = 
-  [
-    {
-      "id": 1,
-      "activity":  new Date(2018,2,23,14,2),
-      "status": true,
-      "battery": 98,
-      "lat":51.347732,
-      "long":4.705509,
-      "name":'sven',
-      "age":4,
-      "avarageDistance":this.calculateAvarageDistence().toFixed(2)
-    }
-  ]
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad Maps');
-      
-      
+    console.log('ionViewDidLoad Maps');   
   }
   loadGoogleMaps(){
  
@@ -92,6 +79,21 @@ export class DetailPage {
  
   }
 
+  loadDetails() {
+    this.reindeerProvider.getDetails()
+      .then(data => {
+        this.details = data;
+        this.initMap(); 
+        console.log(this.details.length);
+          for(let x = 0;x<this.details[0].locations.length;x++){
+          this.addMarker(this.details[0].locations[x].lat,this.details[0].locations[x].long,"4");
+          console.log(this.details[0].locations[x].lat)
+          }
+        
+        //console.log(data);
+      });
+  }
+
   initMap(){
  
     this.mapInitialised = true;
@@ -112,8 +114,7 @@ export class DetailPage {
  
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       
-      this.addMarker(51.24013,4.41485,"4");
-      this.addMarker(51.23000,4.41485,"4");
+
 
       var latlngbounds = new google.maps.LatLngBounds();
       for (var i = 0; i < this.markers.length; i++) {
@@ -243,17 +244,14 @@ export class DetailPage {
 }
 
 
-
-interface IReindeer
-{
-id : number;
-activity : Date;
-status : boolean;
-battery : number;
-lat: number;
-long: number;
-name: string;
-age: number;
-avarageDistance:number;
-
+interface IDetails {
+  id: number;
+  time: Date;
+  status: boolean;
+  battery: number;
+  lat: number;
+  long: number;
+  age: number;
+  name: string;
+  locations: any[];
 }
