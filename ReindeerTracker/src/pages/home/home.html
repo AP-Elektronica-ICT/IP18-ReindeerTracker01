@@ -1,22 +1,22 @@
 <ion-header>
 
-    <ion-navbar color="primary">
-      <button ion-button icon-only menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-  
-      <ion-title>
-        Reindeer Tracker
-      </ion-title>
-  
-    </ion-navbar>
-  
-  </ion-header>
-  
-  <ion-content>
-  
-    <div #map id="map"></div>
-  
+  <ion-navbar color="primary">
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Reindeer Tracker
+    </ion-title>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+  <div #map id="map"></div>
+
     <ion-grid>
       <ion-row>
         <ion-col col-3>ID</ion-col>
@@ -24,51 +24,52 @@
         <ion-col col-4>Status</ion-col>
         <ion-col col-2>Battery</ion-col>
       </ion-row>
-  
     </ion-grid>
-  
-    <ion-list *ngIf="reindeer">
-      <ion-grid>
-        <button ion-item *ngFor="let item of reindeer" (click)="openDetail(item)">
-  
-          <ion-row>
-            <ion-col col-3>
-              {{item.serialnumber}}
-            </ion-col>
-            <ion-col col-3>
-              {{item.time | date:'d/MM/yy'}}
-              <br>{{item.time | date:'HH:mm'}}
-            </ion-col>
-            <ion-col col-4>
-              <div *ngIf="item.status">Alive</div>
-              <div *ngIf="!item.status">Dead</div>
-            </ion-col>
-            <ion-col col-2>
-              {{item.battery}}%
-            </ion-col>
-          </ion-row>
-  
-  
-  
-  
-        </button>
-      </ion-grid>
-        
-    </ion-list>
-  
-  
-  </ion-content>
+
+  <ion-list *ngIf="reindeer">
+    <ion-grid>
+      <button ion-item *ngFor="let item of reindeer" (click)="openDetail(item)">
+
+        <ion-row>
+          <ion-col col-3>
+            {{item.serialnumber}}
+          </ion-col>
+          <ion-col col-3>
+            {{item.time | date:'d/MM/yy'}}
+            <br>{{item.time | date:'HH:mm'}}
+          </ion-col>
+          <ion-col col-4>
+            <div *ngIf="item.status">Alive</div>
+            <div *ngIf="!item.status">Dead</div>
+          </ion-col>
+          <ion-col col-2>
+            {{item.battery}}%
+          </ion-col>
+        </ion-row>
 
 
-  <ion-footer>
-      <ion-toolbar>
-          <ion-grid>
-              <ion-row>
-                <ion-col col-6 (click)='refresh()'><ion-icon name="refresh"></ion-icon></ion-col>
-                <ion-col col-6 (click)='openSettings()'><ion-icon name="settings"></ion-icon></ion-col>
-              </ion-row>
-            </ion-grid>
-      </ion-toolbar>
-    </ion-footer>
-  
 
+
+      </button>
+    </ion-grid>
+
+  </ion-list>
+
+
+</ion-content>
+
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6 (click)='refresh()'>
+          <ion-icon name="refresh"></ion-icon>
+        </ion-col>
+        <ion-col col-6 (click)='openSettings()'>
+          <ion-icon name="settings"></ion-icon>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+</ion-footer>

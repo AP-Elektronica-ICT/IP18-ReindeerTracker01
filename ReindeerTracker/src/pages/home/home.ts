@@ -23,9 +23,8 @@ export class HomePage {
 
 
   constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
-    this.loadGoogleMaps();
+    //this.loadGoogleMaps();
     this.loadReindeer();
-    
   }
 
   /*data: IReindeer[] =
@@ -49,15 +48,15 @@ export class HomePage {
     ]*/
 
 
+
   loadReindeer() {
     this.reindeerProvider.getUsers()
       .then(data => {
-        this.reindeer = data;
-        //this.addMarker(51.347732, 4.705509, "1", "");
-        this.initMap();
-        
+        this.reindeer = data;        
         console.log(data);
       });
+      
+    this.loadGoogleMaps();
   }
 
 
@@ -67,14 +66,10 @@ export class HomePage {
 
     if (typeof google == "undefined" || typeof google.maps == "undefined") {
 
-      this.disableMap();
-
       if (this.connectivityService.isOnline()) {
 
-        //Load the SDK
         window['mapInit'] = () => {
           this.initMap();
-          this.enableMap();
         }
 
         let script = document.createElement("script");
@@ -94,12 +89,7 @@ export class HomePage {
 
       if (this.connectivityService.isOnline()) {
         this.initMap();
-        this.enableMap();
       }
-      else {
-        this.disableMap();
-      }
-
     }
 
 
@@ -123,14 +113,21 @@ export class HomePage {
 
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      this.addMarker(51.247899, 4.811914, "2", "https://thumb.ibb.co/dfB2fx/deer.png");
-      this.addMarker(51.347732, 4.705509, "1", "https://thumb.ibb.co/dfB2fx/deer.png");
-
-      
       this.addMarker(position.coords.latitude, position.coords.longitude, "1", "");
 
+      for(let i = 0; i<this.reindeer.length; i++){
+        this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "1", "https://thumb.ibb.co/dfB2fx/deer.png");
+      }
+
+      for(let i = 0; i<this.markers.length; i++){
+        this.markers[i + 1].addListener('click', function() {
+          console.log(this.reindeer[i].serialnumber);
+        });
+        
+      }
+      
       var latlngbounds = new google.maps.LatLngBounds();
-      for (var i = 0; i < this.markers.length; i++) {
+      for (let i = 0; i < this.markers.length; i++) {
         latlngbounds.extend(this.markers[i].position);
       }
       this.map.fitBounds(latlngbounds);
@@ -138,14 +135,7 @@ export class HomePage {
 
     });
 
-  }
 
-  disableMap() {
-    console.log("disable map");
-  }
-
-  enableMap() {
-    console.log("enable map");
   }
 
   addConnectivityListeners() {
@@ -208,7 +198,7 @@ export class HomePage {
   }
   refresh() {
     console.log("refresh");
-    //Refresh code hier
+    this.loadReindeer();
   }
   openSettings() {
     this.nav.push(SettingsPage);
@@ -216,7 +206,8 @@ export class HomePage {
 }
 
 interface IReindeer {
-  id: number;
+  serialnumber: number;
+  reindeerId:number;
   time: Date;
   status: boolean;
   battery: number;
