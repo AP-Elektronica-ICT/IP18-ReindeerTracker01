@@ -1,7 +1,7 @@
 <?php
 
 
-include "../db_login.php";
+include $_SERVER["DOCUMENT_ROOT"]."/Reindeertracker/API/db_login.php";
 
 
 $query = "select * from data";
