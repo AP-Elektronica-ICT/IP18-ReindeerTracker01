@@ -12,9 +12,9 @@ export class ReindeerServiceProvider {
   constructor(public http: HttpClient) { 
   } 
  
-  getUsers(): Promise<IReindeer>  { 
+  getUsers(): Promise<IReindeer[]>  { 
     return new Promise(resolve => { 
-      this.http.get<IReindeer>('https://www.disite.be/Reindeertracker/API/reindeer/list/?userId=1').subscribe(data => { 
+      this.http.get<IReindeer[]>('https://www.disite.be/Reindeertracker/API/reindeer/list/?userId=1').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -33,9 +33,9 @@ export class ReindeerServiceProvider {
     }); 
   } 
 
-  getDetails(): Promise<IDetails>  { 
+  getDetails(): Promise<IDetails[]>  { 
     return new Promise(resolve => { 
-      this.http.get<IDetails>('https://www.disite.be/Reindeertracker/API/reindeer/detail/?reindeerId=1&limit=5').subscribe(data => { 
+      this.http.get<IDetails[]>('https://www.disite.be/Reindeertracker/API/reindeer/detail/?reindeerId=1&limit=5').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
