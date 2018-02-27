@@ -14,8 +14,6 @@
         $status = "";
         $time = "";
         $battery = "";
-        $lat = "";
-        $long = "";
 
         $query = "select * from data where serialnumber = '$serialnumber' order by time DESC LIMIT 1;";
         $result = mysql_query($query);
@@ -24,8 +22,6 @@
             $status = $row['status'];
             $battery = $row['battery'];
             $time = $row['time'];
-            $lat = $row['latitude'];
-            $long = $row['longitude'];
         }
         
         $data = array();
@@ -38,7 +34,7 @@
             $array = array("lat"=>$lat,"long"=>$long);
             array_push($data,$array);
         }
-        $array = array("serialnumber"=>$serialnumber,"name"=>$name,"age"=>$age, "status"=>$status, "battery"=>$battery,"time"=>$time,"lat"=>$lat,"long"=>$long,"locations"=>$data );
+        $array = array("serialnumber"=>$serialnumber,"name"=>$name,"age"=>$age, "status"=>$status, "battery"=>$battery,"time"=>$time,"locations"=>$data );
         array_push($json, $array);
     }
     echo json_encode($json);
