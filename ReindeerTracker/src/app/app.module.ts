@@ -14,7 +14,8 @@ import { LoginPage } from '../pages/login/login';
 import { SettingsPage } from '../pages/settings/settings';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ReindeerServiceProvider } from '../providers/reindeer-service/reindeer-service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+import { TrackersPage } from '../pages/trackers/trackers';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HomePage,
     DetailPage,
     LoginPage,
-    SettingsPage
+    SettingsPage,
+    TrackersPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     HomePage,
     DetailPage,
     LoginPage,
-    SettingsPage
+    SettingsPage,
+    TrackersPage
   ],
   providers: [
     StatusBar,

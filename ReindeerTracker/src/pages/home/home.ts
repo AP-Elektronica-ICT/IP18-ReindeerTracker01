@@ -5,6 +5,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../detail/detail';
 import { SettingsPage } from '../settings/settings';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { Serializer } from '@angular/compiler';
 declare var google;
 
 @Component({
@@ -52,10 +53,10 @@ export class HomePage {
   loadReindeer() {
     this.reindeerProvider.getUsers()
       .then(data => {
-        this.reindeer = data;        
+        this.reindeer = data;
         console.log(data);
       });
-      
+
     this.loadGoogleMaps();
   }
 
@@ -115,23 +116,24 @@ export class HomePage {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       this.addMarker(position.coords.latitude, position.coords.longitude, "1", "");
 
-      for(let i = 0; i<this.reindeer.length; i++){
+      for (let i = 0; i < this.reindeer.length; i++) {
         this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "1", "https://thumb.ibb.co/dfB2fx/deer.png");
       }
 
-      for(let i = 0; i<this.markers.length; i++){
-        this.markers[i + 1].addListener('click', function() {
-          console.log(this.reindeer[i].serialnumber);
-        });
-        
+      for (let i = 1; i < this.markers.length; i++) {
+        this.markers[i].addListener('click', (event) => {
+          this.openDetail(i-1);
+      });
+
       }
-      
+
+
       var latlngbounds = new google.maps.LatLngBounds();
       for (let i = 0; i < this.markers.length; i++) {
         latlngbounds.extend(this.markers[i].position);
       }
       this.map.fitBounds(latlngbounds);
-      
+
 
     });
 
@@ -186,15 +188,15 @@ export class HomePage {
     });
 
     this.markers.push(marker);
-
-    
-
   }
 
-  openDetail(item: any) {
+
+  openDetail(item: number) {
     this.nav.push(DetailPage, {
-      item: item
+      item: this.reindeer[item].serialnumber
     });
+
+    console.log(this.reindeer[item].serialnumber)
   }
   refresh() {
     console.log("refresh");
@@ -207,7 +209,7 @@ export class HomePage {
 
 interface IReindeer {
   serialnumber: number;
-  reindeerId:number;
+  reindeerId: number;
   time: Date;
   status: boolean;
   battery: number;
