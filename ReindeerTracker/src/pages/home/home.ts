@@ -122,7 +122,7 @@ export class HomePage {
 
       for (let i = 1; i < this.markers.length; i++) {
         this.markers[i].addListener('click', (event) => {
-          this.openDetail(i-1);
+          this.openDetail(false,i-1);
       });
 
       }
@@ -189,12 +189,19 @@ export class HomePage {
   }
 
 
-  openDetail(item: number) {
-    this.nav.push(DetailPage, {
-      item: this.reindeer[item].serialnumber
+  openDetail(isSerialnumber: boolean, item: number) {
+    if(isSerialnumber){
+      this.nav.push(DetailPage, {
+        item: item
     });
-
-    console.log(this.reindeer[item].serialnumber)
+    }
+    else{
+      this.nav.push(DetailPage, {
+        item: this.reindeer[item].serialnumber
+    });
+    }
+    
+    
   }
   refresh() {
     console.log("refresh");

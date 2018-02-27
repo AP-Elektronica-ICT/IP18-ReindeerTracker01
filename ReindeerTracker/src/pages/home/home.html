@@ -28,7 +28,7 @@
 
   <ion-list *ngIf="reindeer">
     <ion-grid>
-      <button ion-item *ngFor="let item of reindeer" (click)="openDetail(item)">
+      <button ion-item *ngFor="let item of reindeer" (click)="openDetail(true, item.serialnumber)">
 
         <ion-row>
           <ion-col col-3>
