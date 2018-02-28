@@ -34,9 +34,9 @@ export class ReindeerServiceProvider {
     }); 
   } 
 
-  getDetails(): Promise<IDetails[]>  { 
+  getDetails( reindeerId:string): Promise<IDetails[]>  { 
     return new Promise(resolve => { 
-      this.http.get<IDetails[]>('https://www.disite.be/Reindeertracker/API/reindeer/detail/?reindeerId=1&limit=5').subscribe(data => { 
+      this.http.get<IDetails[]>('https://www.disite.be/Reindeertracker/API/reindeer/detail/?reindeerId='+reindeerId+'&limit=5').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 

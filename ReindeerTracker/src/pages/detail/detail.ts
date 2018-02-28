@@ -21,9 +21,11 @@ export class DetailPage {
   avaregeDistance :any;
   markerspath: any = [];
   details: IDetails[];
+  LastLocLat: number;
+  LastLocLong: number;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation,public reindeerProvider: ReindeerServiceProvider) {
-    console.log("ID IS:" + this.navParams.get('item').id) //Data die je meekrijgt van de homepage
+    console.log("ID IS:" + this.navParams.get('item')) //Data die je meekrijgt van de homepage
     this.loadGoogleMaps();
     this.loadDetails();
   }
@@ -80,13 +82,21 @@ export class DetailPage {
   }
 
   loadDetails() {
-    this.reindeerProvider.getDetails()
+    this.reindeerProvider.getDetails(this.navParams.get('item').toString())
       .then(data => {
         this.details = data;
         this.initMap(); 
-          for(let x = 0;x<this.details[0].locations.length;x++){
-          this.addMarker(this.details[0].locations[x].lat,this.details[0].locations[x].long,"4");
-          console.log(this.details[0].locations[x].lat)
+          for(let i = 0;i<this.details[0].locations.length;i++){
+            
+            if(i == this.details[0].locations.length-1){
+              this.LastLocLat = this.details[0].locations[i].lat;
+              this.LastLocLong = this.details[0].locations[i].long;
+              //console.log(this.details[0].locations[i].lat)
+            }
+            else{
+              this.addMarker(this.details[0].locations[i].lat,this.details[0].locations[i].long, "https://thumb.ibb.co/dfB2fx/deer.png");
+            }
+          
           }
         
         //console.log(data);
@@ -189,10 +199,9 @@ export class DetailPage {
   }
  
 
-  addMarker(lat: number, lng: number, lbl: string,): void {
+  addMarker(lat: number, lng: number, image: string): void {
 
     let latLng = new google.maps.LatLng(lat, lng);
-    var image = 'https://thumb.ibb.co/dfB2fx/deer.png';
      
 
     let marker = new google.maps.Marker({
@@ -207,39 +216,7 @@ export class DetailPage {
 
   }
 
-  openDetail(item : any){
-    this.nav.push(DetailPage, {
-      item : item
-  });
-
-  }
-
-  calculateAvarageDistence(){
-    this.avaregeDistance= (this.getDistanceFromLatLonInKm(51.23013,4.41585,51.25013,4.31585)+
-    this.getDistanceFromLatLonInKm(51.25013,4.31585,51.23083,4.45585)+
-    this.getDistanceFromLatLonInKm(51.23083,4.45585,51.24013,4.41485))/3
-    console.log(this.avaregeDistance);
-    return this.avaregeDistance;
-
-  }
-
-  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
-    var R = 6371; // Radius of the earth in km
-    var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
-    var dLon = this.deg2rad(lon2-lon1); 
-    var a = 
-      Math.sin(dLat/2) * Math.sin(dLat/2) +
-      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
-      Math.sin(dLon/2) * Math.sin(dLon/2)
-      ; 
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
-    var d = R * c; // Distance in km
-    return d;
-  }
   
-  deg2rad(deg) {
-    return deg * (Math.PI/180)
-  }
 }
 
 
