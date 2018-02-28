@@ -197,7 +197,7 @@ export class HomePage {
     }
     else{
       this.nav.push(DetailPage, {
-        item: this.reindeer[item].serialnumber
+        item: this.reindeer[item].reindeerId
     });
     }
     

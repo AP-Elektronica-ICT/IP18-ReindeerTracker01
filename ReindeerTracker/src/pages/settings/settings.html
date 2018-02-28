@@ -1,39 +1,22 @@
 <ion-header>
-
     <ion-navbar color="primary">
         <button ion-button icon-only menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
-
         <ion-title>
             Reindeer Tracker
         </ion-title>
-
     </ion-navbar>
-
 </ion-header>
 
 <ion-content>
 
-    <ion-card>
-
-        <ion-card-header>
-            Add or remove a tracker to the system.
-        </ion-card-header>
-        <ion-card-content>
-            <button ion-button color="secondary" (click)="addTracker()">Add</button>
-            <button ion-button color="danger" (click)="removeTracker()">Remove</button>
-        </ion-card-content>
-
-        <ion-list *ngIf="trackers">
-            <button ion-item *ngFor="let tracker of trackers" (click)="itemSelected(item)">
-              {{ tracker.serialnumber }}
-            </button>  
-        </ion-list>
-
-    </ion-card>
-
-
-
+    <button ion-button color="secondary" full (click)="manageTrackers()">Manage trackers</button>
 
 </ion-content>
+
+    
+
+
+
+

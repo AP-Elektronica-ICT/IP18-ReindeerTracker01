@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>
+            Reindeer Tracker
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+    <div *ngIf="trackers">
+
+        <ion-list>
+            <ion-list-header>
+                Assigned trackers
+            </ion-list-header>
+            <div *ngFor="let tracker of trackers">
+                <ion-item *ngIf="tracker.assigned == 'true' ">
+                    <button ion-button color="dark">ID: {{ tracker.serialnumber }}</button>
+                    <button ion-button color="default" (click)="unassignTracker()" item-end>Unassign&nbsp;
+                        <ion-icon name="close"></ion-icon>
+                    </button>
+                    <button ion-button color="danger" (click)="removeTracker()" item-end>Remove&nbsp;
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
+                </ion-item>
+            </div>
+
+        </ion-list>
+
+        <ion-list>
+            <ion-list-header>
+                Unassigned trackers
+            </ion-list-header>
+
+            <div *ngFor="let tracker of trackers">
+                <ion-item *ngIf="tracker.assigned == 'false' ">
+                    <button ion-button color="dark">ID: {{ tracker.serialnumber }}</button>
+                    <button ion-button color="secondary" (click)="assignTracker()" item-end>Assign&nbsp;
+                        <ion-icon name="add"></ion-icon>
+                    </button>
+                    <button ion-button color="danger" (click)="removeTracker()" item-end>Remove&nbsp;
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
+                </ion-item>
+            </div>
+
+        </ion-list>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="secondary">
+        <ion-grid>
+            <ion-row>
+                <ion-col (click)='addTracker()'>
+                    <ion-title>
+                        Add new tracker
+                    </ion-title>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>
