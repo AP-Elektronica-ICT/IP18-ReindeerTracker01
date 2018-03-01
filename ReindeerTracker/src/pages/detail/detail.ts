@@ -119,7 +119,7 @@ export class DetailPage {
       for (var i = 0; i < this.markers.length; i++) {
         latlngbounds.extend(this.markers[i].position);
         this.markerspath.push(this.markers[i].position);
-      }
+      } 
       this.map.fitBounds(latlngbounds);
 
       var Showplan = new google.maps.Polyline({

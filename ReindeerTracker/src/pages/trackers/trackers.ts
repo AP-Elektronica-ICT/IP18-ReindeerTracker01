@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ToastController } from 'ioni
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 
+
 @Component({
   selector: 'page-trakers',
   templateUrl: 'trackers.html'
@@ -10,6 +11,7 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 export class TrackersPage {
 
   trackers: any;
+  userId: number = 1;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
     this.getTrackers();
@@ -25,10 +27,9 @@ export class TrackersPage {
         {
           text: 'Enter manually',
           handler: () => {
-            
-            this.manualEnterCode(function (code: number) {
-              //console.log("Functie klaar" + code);
-              this.checkTrackers(code);
+
+            this.manualEnterCode(function (code: number, newThis: any) {
+              newThis.checkTrackers(code);
             });
           }
         },
@@ -77,7 +78,7 @@ export class TrackersPage {
         {
           text: 'Add key',
           handler: data => {
-            callbackFunction(data.title);
+            callbackFunction(data.title, this);
           }
         }
       ]
@@ -104,13 +105,49 @@ export class TrackersPage {
       });
   }
 
-   checkTrackers(serialnumber: number) {
+  checkTrackers(serialnumber: number) {
     this.reindeerProvider.checkTracker(serialnumber)
       .then(data => {
-        this.trackers = data;
-        console.log(data);
+        console.log("Added:"+data[0].added);
+        console.log("Exist:"+data[0].exist);
+
+
+        if (data[0].exist  && !data[0].added) {
+          this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
+            .then(data => {
+              if(data){
+                let toast = this.toastCtrl.create({
+                  message: 'Tracker succesfully added to the system.',
+                  duration: 3000
+                });
+                toast.present();
+              }
+              else{
+                let toast = this.toastCtrl.create({
+                  message: 'Something went wrong, please try again later',
+                  duration: 3000
+                });
+                toast.present();
+              }
+             });
+        }
+        else if(data[0].exist && data[0].added){
+          let toast = this.toastCtrl.create({
+            message: 'This tracker is already registered to the system.',
+            duration: 3000
+          });
+          toast.present();
+        }
+        else if(!data[0].exist){
+          let toast = this.toastCtrl.create({
+            message: 'This is not a valid key.',
+            duration: 3000
+          });
+          toast.present();
+        }
       });
   }
+
 
 }
 
@@ -124,6 +161,7 @@ export interface ICheckTracker {
   exist: boolean;
   added: boolean;
 }
+
 
 
 /*

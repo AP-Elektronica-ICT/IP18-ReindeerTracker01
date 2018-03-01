@@ -189,7 +189,7 @@ export class HomePage {
   }
 
 
-  openDetail(isSerialnumber: boolean, item: number) {
+  openDetail(isSerialnumber: boolean, item: any) {
     if(isSerialnumber){
       this.nav.push(DetailPage, {
         item: item
@@ -216,8 +216,8 @@ export class HomePage {
 }
 
 export interface IReindeer {
-  serialnumber: number;
-  reindeerId: number;
+  serialnumber: string;
+  reindeerId: string;
   time: Date;
   status: boolean;
   battery: number;

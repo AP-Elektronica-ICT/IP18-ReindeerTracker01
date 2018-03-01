@@ -65,10 +65,12 @@ export class ReindeerServiceProvider {
   } 
  
   addTracker(data) { 
+    console.log(data);
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/list/?userId=1', JSON.stringify(data)) 
+      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
+          console.log("DATA: " + res);
         }, (err) => { 
           reject(err); 
         }); 
