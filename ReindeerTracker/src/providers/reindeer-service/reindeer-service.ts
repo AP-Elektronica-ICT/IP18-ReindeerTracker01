@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core'; 
 import { HttpClient } from '@angular/common/http'; 
 import 'rxjs/add/operator/map'; 
-import { Observable } from 'rxjs/Observable';
 import { IReindeer } from '../../pages/home/home';
 import { IDetails } from '../../pages/detail/detail';
-import { ITracker } from '../../pages/trackers/trackers';
+import { ITracker, ICheckTracker } from '../../pages/trackers/trackers';
 
  
 @Injectable() 
@@ -75,5 +74,16 @@ export class ReindeerServiceProvider {
         }); 
     }); 
   } 
+
+  checkTracker(serialnumber: number): Promise<ICheckTracker[]>  { 
+    return new Promise(resolve => { 
+      this.http.get<ICheckTracker[]>('https://www.disite.be/Reindeertracker/API/trackers/check/?serialnumber=' + serialnumber).subscribe(data => { 
+        resolve(data); 
+      }, err => { 
+        console.log(err); 
+      }); 
+    }); 
+  } 
+ 
  
 }

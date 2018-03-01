@@ -11,7 +11,7 @@ export class TrackersPage {
 
   trackers: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController,  public reindeerProvider: ReindeerServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
     this.getTrackers();
   }
 
@@ -24,11 +24,21 @@ export class TrackersPage {
       buttons: [
         {
           text: 'Enter manually',
-          handler: () => { this.manualEnterCode(); }
+          handler: () => {
+            
+            this.manualEnterCode(function (code: number) {
+              //console.log("Functie klaar" + code);
+              this.checkTrackers(code);
+            });
+          }
         },
         {
           text: 'Scan code',
-          handler: () => { this.scanCode(); }
+          handler: () => {
+            this.scanCode(function (code: number) {
+              console.log("Functie klaar" + code);
+            });
+          }
         },
         {
           text: 'Cancel',
@@ -39,17 +49,17 @@ export class TrackersPage {
     confirm.present();
   }
 
-  scanCode() {
+  scanCode(callbackFunction: any) {
     this.Scanner.scan().then((barcodeData) => {
       console.log(barcodeData.text);
-      return Number(barcodeData.text);
+      callbackFunction(Number(barcodeData.text));
     }, (err) => {
       console.log("Error:" + err);
       this.showError(err);
     });
   }
 
-  manualEnterCode() {
+  manualEnterCode(callbackFunction: any) {
     let prompt = this.alertCtrl.create({
       title: 'Enter code',
       message: "Enter the 5 digit key displayed on the bottom of the tag.",
@@ -67,6 +77,56 @@ export class TrackersPage {
         {
           text: 'Add key',
           handler: data => {
+            callbackFunction(data.title);
+          }
+        }
+      ]
+    });
+    prompt.present();
+
+  }
+
+
+  showError(error: string) {
+    let toast = this.toastCtrl.create({
+      message: error,
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  getTrackers() {
+
+    this.reindeerProvider.getTrackers(1)
+      .then(data => {
+        this.trackers = data;
+        console.log(data);
+      });
+  }
+
+   checkTrackers(serialnumber: number) {
+    this.reindeerProvider.checkTracker(serialnumber)
+      .then(data => {
+        this.trackers = data;
+        console.log(data);
+      });
+  }
+
+}
+
+
+export interface ITracker {
+  serialnumber: number;
+  assigned: boolean;
+}
+
+export interface ICheckTracker {
+  exist: boolean;
+  added: boolean;
+}
+
+
+/*
             var key = Number(data.title)
             if (Number.isInteger(key) && key > 0 && key < 100000 && data.title.length == 5) {
               return key;
@@ -89,40 +149,4 @@ export class TrackersPage {
                 ]
               });
               confirm.present();
-            }
-          }
-        }
-      ]
-    });
-    prompt.present();
-  }
-
-  removeTracker(){
-    //verwijder tracker uit database
-  }
-
-
-  showError(error: string){
-    let toast = this.toastCtrl.create({
-      message: error,
-      duration: 3000
-    });
-    toast.present();
-  }
-
-  getTrackers(){
-
-      this.reindeerProvider.getTrackers(1)
-        .then(data => {
-          this.trackers = data;
-          console.log(data);
-        });
-  }
-
-}
-
-
-export interface ITracker {
-  serialnumber: number;
-  assigned: boolean;
-}
+            }*/
