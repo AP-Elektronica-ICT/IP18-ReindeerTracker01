@@ -1,5 +1,5 @@
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -24,14 +24,10 @@ export class DetailPage {
   LastLocLat: number;
   LastLocLong: number;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
-    //console.log("ID IS:" + this.navParams.get('item')) //Data die je meekrijgt van de homepage
+  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
     this.loadDetails();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad Maps');
-  }
   loadGoogleMaps() {
 
     this.addConnectivityListeners();
@@ -67,10 +63,6 @@ export class DetailPage {
         console.log("showing map");
         this.initMap();
       }
-      else {
-        console.log("disabling map");
-
-      }
 
     }
 
@@ -82,9 +74,6 @@ export class DetailPage {
       .then(data => {
         this.details = data;
         this.loadGoogleMaps();
-
-
-        //console.log(data);
       });
   }
 
@@ -112,9 +101,24 @@ export class DetailPage {
 
 
       for (let i = 0; i < this.details[0].locations.length - 1; i++) {
-          this.addMarker(this.details[0].locations[i].lat, this.details[0].locations[i].long, "https://thumb.ibb.co/jOO0Nc/pin.png");
-          }
-          this.addMarker(this.details[0].locations[this.details[0].locations.length-1].lat, this.details[0].locations[this.details[0].locations.length-1].long, "https://thumb.ibb.co/dfB2fx/deer.png");
+        this.addMarker(this.details[0].locations[i].lat, this.details[0].locations[i].long, "https://thumb.ibb.co/jOO0Nc/pin.png");
+      }
+      this.addMarker(this.details[0].locations[this.details[0].locations.length - 1].lat, this.details[0].locations[this.details[0].locations.length - 1].long, "https://thumb.ibb.co/dfB2fx/deer.png");
+
+      for (let i = 0; i < this.markers.length; i++) {
+        this.markers[i].addListener('click', (event) => {
+          let toast = this.toastCtrl.create({
+            message: "Date Location " + this.details[0].locations[i].time.toString(),
+            duration: 2000,
+          });
+
+          toast.present(toast);
+
+        });
+
+      }
+
+
       var latlngbounds = new google.maps.LatLngBounds();
       for (var i = 0; i < this.markers.length; i++) {
         latlngbounds.extend(this.markers[i].position);
@@ -143,6 +147,8 @@ export class DetailPage {
 
 
     });
+
+
 
   }
 
@@ -177,6 +183,8 @@ export class DetailPage {
   }
 
 
+
+
   addMarker(lat: number, lng: number, image: string): void {
 
     let latLng = new google.maps.LatLng(lat, lng);
@@ -185,6 +193,7 @@ export class DetailPage {
     let marker = new google.maps.Marker({
       map: this.map,
       animation: google.maps.Animation.DROP,
+      title: 'Uluru (Ayers Rock)',
       position: latLng,
       //label: lbl,
       icon: image
@@ -192,6 +201,13 @@ export class DetailPage {
 
     this.markers.push(marker);
 
+  }
+
+  refresh() {
+    console.log("refresh");
+    console.log(this.markers.length);
+    console.log(this.markers.length);
+    this.loadDetails();
   }
 
 
