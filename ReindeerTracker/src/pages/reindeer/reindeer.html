@@ -19,7 +19,7 @@
                 </ion-list-header>
                 <div *ngFor="let reindeers of reindeer">
                     <ion-item *ngIf="reindeers.status == 'true' ">
-                        <button ion-button color="dark">ID: {{ reindeers.reindeerId }}</button>
+                        <button ion-button color="dark">ReindeerID: {{ reindeers.reindeerId }}</button>
                         <button ion-button color="default" (click)="unassignReindeer()" item-end>Edit&nbsp;
                             <ion-icon name="create"></ion-icon>
                         </button>
@@ -38,7 +38,7 @@
     
                 <div *ngFor="let reindeers of reindeer">
                     <ion-item *ngIf="reindeers.status == 'false' ">
-                        <button ion-button color="dark">ID: {{ reindeers.reindeerId }}</button>
+                        <button ion-button color="dark">ReindeerID: {{ reindeers.reindeerId }}</button>
                         <button ion-button color="secondary" (click)="assignReindeer()" item-end>Edit&nbsp;
                             <ion-icon name="create"></ion-icon>
                         </button>

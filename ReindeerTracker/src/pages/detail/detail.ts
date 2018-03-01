@@ -140,8 +140,8 @@ export class DetailPage {
         strokeWeight: 2,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
-        center: { lat: 51.24013, lng: 4.41485 },
-        //radius:  this.calculateAvarageDistence()*1000
+        center: { lat:parseFloat(this.details[0].locations[this.details[0].locations.length - 1].lat) , lng: parseFloat(this.details[0].locations[this.details[0].locations.length - 1].long)},
+        radius:  100
       });
       Circle.setMap(this.map);
 
