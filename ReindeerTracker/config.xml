@@ -91,7 +91,7 @@
         <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
     </plugin>
     <plugin name="cordova-plugin-qrscanner" spec="^2.5.0" />
+    <allow-navigation href="http://172.16.221.75:8100" />
     <engine name="ios" spec="^4.5.4" />
     <engine name="android" spec="7.0.0" />
-    <allow-navigation href="http://172.16.221.75:8100" />
 </widget>

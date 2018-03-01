@@ -6,6 +6,7 @@ import { DetailPage } from '../detail/detail';
 import { SettingsPage } from '../settings/settings';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { Serializer } from '@angular/compiler';
+import { ReindeerPage } from '../reindeer/reindeer';
 declare var google;
 
 @Component({
@@ -24,7 +25,6 @@ export class HomePage {
 
 
   constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
-    //this.loadGoogleMaps();
     this.loadReindeer();
   }
 
@@ -209,6 +209,9 @@ export class HomePage {
   }
   openSettings() {
     this.nav.push(SettingsPage);
+  }
+  addReindeer(){
+    this.nav.push(ReindeerPage);
   }
 }
 
