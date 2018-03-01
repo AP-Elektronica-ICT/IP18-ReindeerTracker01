@@ -13,7 +13,8 @@ if(isset($_POST))
     $battery = $data['battery'];
 
     $sql = "INSERT INTO data (serialnumber,latitude, longitude,status,battery)
-    VALUES($serienumber,'$lat','$long','$status',$battery)";
+    VALUES($serialnumber,'$lat','$long','$status',$battery)";
+    echo $sql;
   
     if(!mysql_query($sql,$con))
     {
