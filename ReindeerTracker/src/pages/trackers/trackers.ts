@@ -53,7 +53,7 @@ export class TrackersPage {
   scanCode(callbackFunction: any) {
     this.Scanner.scan().then((barcodeData) => {
       console.log(barcodeData.text);
-      callbackFunction(Number(barcodeData.text),this);
+      callbackFunction(Number(barcodeData.text), this);
     }, (err) => {
       console.log("Error:" + err);
       this.showError(err);
@@ -108,37 +108,38 @@ export class TrackersPage {
   checkTrackers(serialnumber: number) {
     this.reindeerProvider.checkTracker(serialnumber)
       .then(data => {
-        console.log("Added:"+data[0].added);
-        console.log("Exist:"+data[0].exist);
+        console.log("Added:" + data[0].added);
+        console.log("Exist:" + data[0].exist);
 
 
-        if (data[0].exist  && !data[0].added) {
+        if (data[0].exist && !data[0].added) {
           this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}' /*"{'serialnumber':'" + serialnumber + "','userId':'" + this.userId + "'}"*/)
             .then(data => {
-              if(data){
+              if (data) {
                 let toast = this.toastCtrl.create({
                   message: 'Tracker succesfully added to the system.',
                   duration: 3000
                 });
                 toast.present();
+                this.refresh();
               }
-              else{
+              else {
                 let toast = this.toastCtrl.create({
                   message: 'Something went wrong, please try again later',
                   duration: 3000
                 });
                 toast.present();
               }
-             });
+            });
         }
-        else if(data[0].exist && data[0].added){
+        else if (data[0].exist && data[0].added) {
           let toast = this.toastCtrl.create({
             message: 'This tracker is already registered to the system.',
             duration: 3000
           });
           toast.present();
         }
-        else if(!data[0].exist){
+        else if (!data[0].exist) {
           let toast = this.toastCtrl.create({
             message: 'This is not a valid key.',
             duration: 3000
@@ -148,6 +149,16 @@ export class TrackersPage {
       });
   }
 
+  refresh() {
+    this.trackers = [];
+    this.getTrackers();
+    let toast = this.toastCtrl.create({
+      message: 'Refreshing data...',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
+  }
 
 }
 

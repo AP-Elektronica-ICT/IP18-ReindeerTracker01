@@ -204,10 +204,15 @@ export class DetailPage {
   }
 
   refresh() {
-    console.log("refresh");
-    console.log(this.markers.length);
-    console.log(this.markers.length);
+    this.markers = [];
+    this.markerspath =  [];
     this.loadDetails();
+    let toast = this.toastCtrl.create({
+      message: 'Refreshing data...',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
 
 

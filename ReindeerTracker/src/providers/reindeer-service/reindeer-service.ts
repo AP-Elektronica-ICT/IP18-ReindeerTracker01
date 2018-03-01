@@ -72,9 +72,9 @@ export class ReindeerServiceProvider {
       
       this.http.post('https://www.disite.be/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
         .subscribe(res => { 
-          resolve(res); 
-        }, (err) => { 
-          reject(err); 
+          //resolve(res); 
+        }, err => { 
+          console.log(err) 
         }); 
     }); 
   } 

@@ -1,8 +1,10 @@
 <ion-header>
         <ion-navbar color="primary">
-            <button ion-button icon-only menuToggle>
-                <ion-icon name="menu"></ion-icon>
-            </button>
+            <ion-buttons end>
+                <button ion-button icon-only (click)="refresh()">
+                    <ion-icon name="refresh"></ion-icon>
+                </button>
+            </ion-buttons>
             <ion-title>
                 Reindeer Tracker
             </ion-title>
@@ -15,7 +17,7 @@
     
             <ion-list>
                 <ion-list-header>
-                    Living Reindeers
+                    Living Reindeer
                 </ion-list-header>
                 <div *ngFor="let reindeers of reindeer">
                     <ion-item *ngIf="reindeers.status == 'true' ">
@@ -33,7 +35,7 @@
     
             <ion-list>
                 <ion-list-header>
-                    Dead Reindeers
+                    Dead Reindeer
                 </ion-list-header>
     
                 <div *ngFor="let reindeers of reindeer">

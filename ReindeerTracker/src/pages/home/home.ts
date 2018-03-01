@@ -1,11 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../detail/detail';
 import { SettingsPage } from '../settings/settings';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
-import { Serializer } from '@angular/compiler';
 import { ReindeerPage } from '../reindeer/reindeer';
 declare var google;
 
@@ -24,7 +23,7 @@ export class HomePage {
   reindeer: IReindeer[];
 
 
-  constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
+  constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider,public toastCtrl: ToastController) {
     this.loadReindeer();
   }
 
@@ -204,8 +203,14 @@ export class HomePage {
     
   }
   refresh() {
-    console.log("refresh");
+    this.markers = [];
     this.loadReindeer();
+    let toast = this.toastCtrl.create({
+      message: 'Refreshing data...',
+      duration: 2000,
+      position: 'top'
+    });
+    toast.present();
   }
   openSettings() {
     this.nav.push(SettingsPage);
