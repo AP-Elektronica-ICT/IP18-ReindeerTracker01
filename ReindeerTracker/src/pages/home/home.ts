@@ -210,7 +210,7 @@ export class HomePage {
   openSettings() {
     this.nav.push(SettingsPage);
   }
-  addReindeer(){
+  EditReindeerList(){
     this.nav.push(ReindeerPage);
   }
 }
