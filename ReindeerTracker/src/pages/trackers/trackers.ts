@@ -36,8 +36,8 @@ export class TrackersPage {
         {
           text: 'Scan code',
           handler: () => {
-            this.scanCode(function (code: number) {
-              console.log("Functie klaar" + code);
+            this.scanCode(function (code: number, newThis: any) {
+              newThis.checkTrackers(code);
             });
           }
         },
@@ -53,7 +53,7 @@ export class TrackersPage {
   scanCode(callbackFunction: any) {
     this.Scanner.scan().then((barcodeData) => {
       console.log(barcodeData.text);
-      callbackFunction(Number(barcodeData.text));
+      callbackFunction(Number(barcodeData.text),this);
     }, (err) => {
       console.log("Error:" + err);
       this.showError(err);
@@ -113,7 +113,7 @@ export class TrackersPage {
 
 
         if (data[0].exist  && !data[0].added) {
-          this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
+          this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}' /*"{'serialnumber':'" + serialnumber + "','userId':'" + this.userId + "'}"*/)
             .then(data => {
               if(data){
                 let toast = this.toastCtrl.create({

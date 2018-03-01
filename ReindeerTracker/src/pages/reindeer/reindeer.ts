@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { IReindeer } from '../home/home';
 
 
 @Component({
@@ -24,14 +25,4 @@ loadReindeer() {
     });
 }
 
-}
-
-export interface IReindeer {
-  serialnumber: number;
-  reindeerId: number;
-  time: Date;
-  status: boolean;
-  battery: number;
-  lat: number;
-  long: number;
 }

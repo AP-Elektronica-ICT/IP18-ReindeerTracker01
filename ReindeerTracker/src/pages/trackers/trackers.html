@@ -19,7 +19,7 @@
             </ion-list-header>
             <div *ngFor="let tracker of trackers">
                 <ion-item *ngIf="tracker.assigned == 'true' ">
-                    <button ion-button color="dark">ID: {{ tracker.serialnumber }}</button>
+                    <button ion-button color="dark">Serialnumber: {{ tracker.serialnumber }}</button>
                     <button ion-button color="default" (click)="unassignTracker()" item-end>Unassign&nbsp;
                         <ion-icon name="close"></ion-icon>
                     </button>
@@ -38,7 +38,7 @@
 
             <div *ngFor="let tracker of trackers">
                 <ion-item *ngIf="tracker.assigned == 'false' ">
-                    <button ion-button color="dark">ID: {{ tracker.serialnumber }}</button>
+                    <button ion-button color="dark">Serialnumber: {{ tracker.serialnumber }}</button>
                     <button ion-button color="secondary" (click)="assignTracker()" item-end>Assign&nbsp;
                         <ion-icon name="add"></ion-icon>
                     </button>
