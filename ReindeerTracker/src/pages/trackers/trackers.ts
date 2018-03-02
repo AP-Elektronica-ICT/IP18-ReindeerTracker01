@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { IDetails } from '../detail/detail';
 
 
 @Component({
@@ -11,7 +12,8 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 export class TrackersPage {
 
   trackers: any;
-  userId: number = 1;
+  userId: string = "1";
+  reindeer: IDetails[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
     this.getTrackers();
@@ -39,6 +41,82 @@ export class TrackersPage {
             this.scanCode(function (code: number, newThis: any) {
               newThis.checkTrackers(code);
             });
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: () => { }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  deleteTracker(serialnumber: string) {
+    let confirm = this.alertCtrl.create({
+      title: 'Choose an option',
+      message: "Do you really want to delete this tracker? This action can't be undone unless you scan the tracker again.",
+      buttons: [
+        {
+          text: 'Yes, delete permanently',
+          handler: () => {
+            this.reindeerProvider.deleteTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
+              .then(data => {
+                if (data) {
+                  let toast = this.toastCtrl.create({
+                    message: 'Tracker succesfully removed from the system.',
+                    duration: 3000
+                  });
+                  toast.present();
+                  this.refresh();
+                }
+                else {
+                  let toast = this.toastCtrl.create({
+                    message: 'Something went wrong, please try again later',
+                    duration: 3000
+                  });
+                  toast.present();
+                }
+              });
+
+
+          }
+        },
+        {
+          text: 'Cancel',
+          handler: () => { }
+        }
+      ]
+    });
+    confirm.present();
+  }
+
+  unassignTracker(serialnumber: string) {
+    let confirm = this.alertCtrl.create({
+      title: 'Choose an option',
+      message: "Do you want to unassign this tracker?",
+      buttons: [
+        {
+          text: 'Yes, unassign',
+          handler: () => {
+            this.reindeerProvider.unassignTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
+              .then(data => {
+                if (data) {
+                  let toast = this.toastCtrl.create({
+                    message: 'Tracker succesfully removed from the system.',
+                    duration: 3000
+                  });
+                  toast.present();
+                  this.refresh();
+                }
+                else {
+                  let toast = this.toastCtrl.create({
+                    message: 'Something went wrong, please try again later',
+                    duration: 3000
+                  });
+                  toast.present();
+                }
+              });
           }
         },
         {
@@ -87,11 +165,11 @@ export class TrackersPage {
 
   }
 
-
   showError(error: string) {
     let toast = this.toastCtrl.create({
       message: error,
-      duration: 3000
+      duration: 3000,
+      position: 'top'
     });
     toast.present();
   }
@@ -106,19 +184,16 @@ export class TrackersPage {
   }
 
   checkTrackers(serialnumber: number) {
-    this.reindeerProvider.checkTracker(serialnumber)
+    this.reindeerProvider.checkBeforeAddTracker(serialnumber)
       .then(data => {
-        console.log("Added:" + data[0].added);
-        console.log("Exist:" + data[0].exist);
-
-
         if (data[0].exist && !data[0].added) {
-          this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}' /*"{'serialnumber':'" + serialnumber + "','userId':'" + this.userId + "'}"*/)
+          this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
             .then(data => {
               if (data) {
                 let toast = this.toastCtrl.create({
                   message: 'Tracker succesfully added to the system.',
-                  duration: 3000
+                  duration: 3000,
+                  position: 'top'
                 });
                 toast.present();
                 this.refresh();
@@ -126,7 +201,8 @@ export class TrackersPage {
               else {
                 let toast = this.toastCtrl.create({
                   message: 'Something went wrong, please try again later',
-                  duration: 3000
+                  duration: 3000,
+                  position: 'top'
                 });
                 toast.present();
               }
@@ -135,29 +211,114 @@ export class TrackersPage {
         else if (data[0].exist && data[0].added) {
           let toast = this.toastCtrl.create({
             message: 'This tracker is already registered to the system.',
-            duration: 3000
+            duration: 3000,
+            position: 'top'
           });
           toast.present();
         }
         else if (!data[0].exist) {
           let toast = this.toastCtrl.create({
             message: 'This is not a valid key.',
-            duration: 3000
+            duration: 3000,
+            position: 'top'
           });
           toast.present();
         }
       });
   }
 
+  assignTracker(serialnumber: number) {
+
+    this.reindeerProvider.getDetails(this.userId)
+      .then(data => {
+        this.reindeer = data;
+        console.log(data);
+
+        let alert = this.alertCtrl.create();
+        alert.setTitle('Assign tracker to:');
+
+        for (let i = 0; i < this.reindeer.length; i++) {
+          if (this.reindeer[i].reindeerId != "0") {
+            console.log(this.reindeer[i].reindeerId);
+            alert.addInput({
+              type: 'radio',
+              label: "ID: " + this.reindeer[i].reindeerId + " Name: " + this.reindeer[i].name,
+              value: this.reindeer[i].reindeerId,
+              checked: true
+            });
+          }
+        }
+
+
+        alert.addButton('Cancel');
+        alert.addButton({
+          text: 'Assign',
+          handler: data => {
+            console.log("Reindeerid: " + data);
+            this.reindeerProvider.assignTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '","reindeerId":"' + data + '"}')
+              .then(data => {
+                if (data) {
+                  let toast = this.toastCtrl.create({
+                    message: 'The tracker is successfully assigned to the reindeer.',
+                    duration: 3000,
+                    position: 'top'
+                  });
+                  toast.present();
+                  this.refresh();
+                }
+                else {
+                  let toast = this.toastCtrl.create({
+                    message: 'Something went wrong, please try again later',
+                    duration: 3000,
+                    position: 'top'
+                  });
+                  toast.present();
+                }
+              });
+
+          }
+        });
+        alert.present();
+
+      });
+  }
+
+  searchName() {
+    return "Jos";
+  }
+
+  showInfo(serial: string) {
+    this.reindeerProvider.getReindeer(this.userId)
+      .then(data => {
+        let reindeerList = data;
+        for (let i = 0; i < reindeerList.length; i++) {
+          if (reindeerList[i].serialnumber == serial) {
+            this.reindeerProvider.getDetails(reindeerList[i].reindeerId)
+              .then(data => {
+                let reindeerDetailList = data;
+                let alert = this.alertCtrl.create({
+                  title: 'More info:',
+                  subTitle: `Tracker ID: ` + serial + `<br>Reindeer ID: ` + reindeerDetailList[0].reindeerId + `<br>Reindeer name: ` + reindeerDetailList[0].name,
+                  buttons: ['Close']
+                });
+                alert.present();
+              });
+          }
+        }
+      });
+  }
+
   refresh() {
+    console.log("Refresh start");
     this.trackers = [];
     this.getTrackers();
     let toast = this.toastCtrl.create({
       message: 'Refreshing data...',
       duration: 2000,
-      position: 'top'
+      position: 'middle'
     });
     toast.present();
+    console.log("Refresh done");
   }
 
 }
@@ -172,30 +333,3 @@ export interface ICheckTracker {
   exist: boolean;
   added: boolean;
 }
-
-
-
-/*
-            var key = Number(data.title)
-            if (Number.isInteger(key) && key > 0 && key < 100000 && data.title.length == 5) {
-              return key;
-            }
-            else {
-              let confirm = this.alertCtrl.create({
-                title: 'Unvalid key',
-                message: 'The key you entered is unvalid, please try again.',
-                buttons: [
-                  {
-                    text: 'Cancel',
-                    handler: () => { }
-                  },
-                  {
-                    text: 'Retry',
-                    handler: () => {
-                      this.manualEnterCode();
-                    }
-                  }
-                ]
-              });
-              confirm.present();
-            }*/

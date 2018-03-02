@@ -11,8 +11,8 @@ export class ReindeerServiceProvider {
  
   constructor(public http: HttpClient) { 
   } 
- 
-  getUsers(): Promise<IReindeer[]>  { 
+ //-------------------------------------------------------------------------------------------------------//
+  getReindeer(id: string): Promise<IReindeer[]>  { 
     return new Promise(resolve => { 
       this.http.get<IReindeer[]>('https://www.disite.be/Reindeertracker/API/reindeer/list/?userId=1').subscribe(data => { 
         resolve(data); 
@@ -32,7 +32,7 @@ export class ReindeerServiceProvider {
         }); 
     }); 
   } 
-
+ //-------------------------------------------------------------------------------------------------------//
   getDetails( reindeerId:string): Promise<IDetails[]>  { 
     return new Promise(resolve => { 
       this.http.get<IDetails[]>('https://www.disite.be/Reindeertracker/API/reindeer/detail/?reindeerId='+reindeerId+'&limit=5').subscribe(data => { 
@@ -53,7 +53,7 @@ export class ReindeerServiceProvider {
         }); 
     }); 
   } 
-
+ //-------------------------------------------------------------------------------------------------------//
   getTrackers(id: number): Promise<ITracker[]>  { 
     return new Promise(resolve => { 
       this.http.get<ITracker[]>('https://www.disite.be/Reindeertracker/API/trackers/list/?userId=' + id).subscribe(data => { 
@@ -63,23 +63,7 @@ export class ReindeerServiceProvider {
       }); 
     }); 
   } 
- 
-  addTracker(data) { 
-    console.log(data);
-
-
-    return new Promise((resolve, reject) => { 
-      
-      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
-        .subscribe(res => { 
-          //resolve(res); 
-        }, err => { 
-          console.log(err) 
-        }); 
-    }); 
-  } 
-
-  checkTracker(serialnumber: number): Promise<ICheckTracker[]>  { 
+  checkBeforeAddTracker(serialnumber: number): Promise<ICheckTracker[]>  { 
     return new Promise(resolve => { 
       this.http.get<ICheckTracker[]>('https://www.disite.be/Reindeertracker/API/trackers/check/?serialnumber=' + serialnumber).subscribe(data => { 
         resolve(data); 
@@ -89,5 +73,49 @@ export class ReindeerServiceProvider {
     }); 
   } 
  
+  addTracker(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  } 
+
+  assignTracker(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/assign/', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  } 
+
+  deleteTracker(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/delete/', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }
+
+  unassignTracker(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/unassign/', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }
+  //-------------------------------------------------------------------------------------------------------//
  
 }

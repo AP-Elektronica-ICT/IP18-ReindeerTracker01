@@ -34,10 +34,8 @@ export class DetailPage {
 
     if (typeof google == "undefined" || typeof google.maps == "undefined") {
 
-      console.log("Google maps JavaScript needs to be loaded.");
 
       if (this.connectivityService.isOnline()) {
-        console.log("online, loading map");
 
         //Load the SDK
         window['mapInit'] = () => {
@@ -60,7 +58,6 @@ export class DetailPage {
     else {
 
       if (this.connectivityService.isOnline()) {
-        console.log("showing map");
         this.initMap();
       }
 
@@ -70,7 +67,7 @@ export class DetailPage {
   }
 
   loadDetails() {
-    this.reindeerProvider.getDetails(this.navParams.get('item').toString())
+    this.reindeerProvider.getDetails(this.navParams.get('reindeerId').toString())
       .then(data => {
         this.details = data;
         this.loadGoogleMaps();
@@ -220,7 +217,8 @@ export class DetailPage {
 
 
 export interface IDetails {
-  id: number;
+  reindeerId: string;
+  serialnumber: string;
   time: Date;
   status: boolean;
   battery: number;

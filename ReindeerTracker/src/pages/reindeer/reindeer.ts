@@ -11,6 +11,7 @@ import { IReindeer } from '../home/home';
 })
 export class ReindeerPage {
   reindeer: IReindeer[];
+  userId: string = "1";
 
     constructor(public nav: NavController, public navParams: NavParams,public reindeerProvider: ReindeerServiceProvider,private toastCtrl: ToastController) {
       this.loadReindeer();
@@ -18,7 +19,7 @@ export class ReindeerPage {
 }
 
 loadReindeer() {
-  this.reindeerProvider.getUsers()
+  this.reindeerProvider.getReindeer(this.userId)
     .then(data => {
       this.reindeer = data;
       console.log(data);

@@ -21,6 +21,7 @@ export class HomePage {
   apiKey: string = "AIzaSyA4JravLPxlSKJZ9gadEoSmv27MPH00xAI";
   markers: any = [];
   reindeer: IReindeer[];
+  userId: string = "1";
 
 
   constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider,public toastCtrl: ToastController) {
@@ -50,7 +51,7 @@ export class HomePage {
 
 
   loadReindeer() {
-    this.reindeerProvider.getUsers()
+    this.reindeerProvider.getReindeer(this.userId)
       .then(data => {
         this.reindeer = data;
         console.log(data);
@@ -191,12 +192,12 @@ export class HomePage {
   openDetail(isSerialnumber: boolean, item: any) {
     if(isSerialnumber){
       this.nav.push(DetailPage, {
-        item: item
+        reindeerId: item
     });
     }
     else{
       this.nav.push(DetailPage, {
-        item: this.reindeer[item].reindeerId
+        reindeerId: this.reindeer[item].reindeerId
     });
     }
     
