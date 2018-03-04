@@ -25,6 +25,10 @@ export class HomePage {
 
 
   constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider,public toastCtrl: ToastController) {
+    
+  }
+
+  ionViewDidLoad() {
     this.loadReindeer();
   }
 

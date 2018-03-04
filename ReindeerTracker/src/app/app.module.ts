@@ -17,6 +17,8 @@ import { ReindeerServiceProvider } from '../providers/reindeer-service/reindeer-
 import { HttpClientModule } from '@angular/common/http';
 import { TrackersPage } from '../pages/trackers/trackers';
 import { ReindeerPage } from '../pages/reindeer/reindeer';
+import { AddReindeerPage } from '../pages/addreindeer/addreindeer';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,8 @@ import { ReindeerPage } from '../pages/reindeer/reindeer';
     LoginPage,
     SettingsPage,
     TrackersPage,
-    ReindeerPage
+    ReindeerPage,
+    AddReindeerPage
   ],
   imports: [
     BrowserModule,
@@ -41,7 +44,8 @@ import { ReindeerPage } from '../pages/reindeer/reindeer';
     LoginPage,
     SettingsPage,
     TrackersPage,
-    ReindeerPage
+    ReindeerPage,
+    AddReindeerPage
   ],
   providers: [
     StatusBar,
@@ -51,7 +55,8 @@ import { ReindeerPage } from '../pages/reindeer/reindeer';
     Network,
     Geolocation,
     BarcodeScanner,
-    ReindeerServiceProvider
+    ReindeerServiceProvider,
+    Camera
   ]
 })
 export class AppModule {}

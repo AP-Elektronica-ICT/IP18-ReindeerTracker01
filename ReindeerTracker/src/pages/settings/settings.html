@@ -9,17 +9,15 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content padding>
 
+
+    <button ion-button color="secondary" block (click)="manageTrackers()">Manage trackers</button>
     <br>
-    <button ion-button color="secondary" full (click)="manageTrackers()">Manage trackers</button>
+    <button ion-button color="secondary" block (click)="manageReindeer()">Manage reindeer</button>
     <br>
-    <button ion-button color="secondary" full (click)="manageReindeer()">Manage reindeer</button>
+    <button ion-button color="danger" block (click)="logout()">Logout&nbsp;
+        <ion-icon name="exit"></ion-icon>
+    </button>
 
 </ion-content>
-
-    
-
-
-
-

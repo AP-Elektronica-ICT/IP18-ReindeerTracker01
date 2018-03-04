@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { IReindeer } from '../home/home';
+import { AddReindeerPage } from '../addreindeer/addreindeer';
 
 
 @Component({
@@ -13,7 +14,7 @@ export class ReindeerPage {
   reindeer: IReindeer[];
   userId: string = "1";
 
-    constructor(public nav: NavController, public navParams: NavParams,public reindeerProvider: ReindeerServiceProvider,private toastCtrl: ToastController) {
+    constructor(public nav: NavController, public navParams: NavParams,public reindeerProvider: ReindeerServiceProvider,private toastCtrl: ToastController, public alertCtrl: AlertController) {
       this.loadReindeer();
 
 }
@@ -24,6 +25,10 @@ loadReindeer() {
       this.reindeer = data;
       console.log(data);
     });
+}
+
+addReindeer(){
+  this.nav.push(AddReindeerPage);
 }
 
 refresh(){

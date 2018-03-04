@@ -24,7 +24,7 @@
                 <ion-item-sliding #item *ngIf="tracker.assigned == 'true' ">
                     <ion-item>
                         <button ion-button color="dark">Serialnumber: {{ tracker.serialnumber }}</button>
-                        <button ion-button color="light">Assigned to: {{ searchName(tracker.serialnumber) }}</button>
+                        <button ion-button color="light">Reindeer: Naam komt hier</button>
                     </ion-item>
 
                     <ion-item-options side="right">
@@ -58,7 +58,7 @@
                     </ion-item>
 
                     <ion-item-options side="right">
-                        <button ion-button color="secondary" (click)="assignTracker(tracker.serialnumber)" item-end>Assign&nbsp;
+                        <button ion-button color="secondary" (click)="assignTracker(tracker.serialnumber)">Assign&nbsp;
                             <ion-icon name="add"></ion-icon>
                         </button>
                         <button ion-button color="danger" (click)="deleteTracker(tracker.serialnumber)">Delete&nbsp;

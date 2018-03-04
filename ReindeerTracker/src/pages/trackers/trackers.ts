@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ToastController } from 'ioni
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { IDetails } from '../detail/detail';
+import { IReindeer } from '../home/home';
 
 
 @Component({
@@ -13,7 +14,8 @@ export class TrackersPage {
 
   trackers: any;
   userId: string = "1";
-  reindeer: IDetails[];
+  reindeerDetails: IDetails[];
+  reindeer: IReindeer[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
     this.getTrackers();
@@ -231,19 +233,19 @@ export class TrackersPage {
 
     this.reindeerProvider.getDetails(this.userId)
       .then(data => {
-        this.reindeer = data;
+        this.reindeerDetails = data;
         console.log(data);
 
         let alert = this.alertCtrl.create();
         alert.setTitle('Assign tracker to:');
 
-        for (let i = 0; i < this.reindeer.length; i++) {
-          if (this.reindeer[i].reindeerId != "0") {
-            console.log(this.reindeer[i].reindeerId);
+        for (let i = 0; i < this.reindeerDetails.length; i++) {
+          if (this.reindeerDetails[i].reindeerId != "0") {
+            console.log(this.reindeerDetails[i].reindeerId);
             alert.addInput({
               type: 'radio',
-              label: "ID: " + this.reindeer[i].reindeerId + " Name: " + this.reindeer[i].name,
-              value: this.reindeer[i].reindeerId,
+              label: "ID: " + this.reindeerDetails[i].reindeerId + " Name: " + this.reindeerDetails[i].name,
+              value: this.reindeerDetails[i].reindeerId,
               checked: true
             });
           }
@@ -283,9 +285,6 @@ export class TrackersPage {
       });
   }
 
-  searchName() {
-    return "Jos";
-  }
 
   showInfo(serial: string) {
     this.reindeerProvider.getReindeer(this.userId)

@@ -1,0 +1,63 @@
+<ion-header>
+
+        <ion-navbar color="primary">
+                <button ion-button icon-only menuToggle>
+                        <ion-icon name="menu"></ion-icon>
+                </button>
+
+                <ion-title>
+                        Reindeer Tracker
+                </ion-title>
+
+        </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+        <form (ngSubmit)="addReindeer()">
+
+                <ion-item>
+                        <ion-label fixed>Name</ion-label>
+                        <ion-input type="text" [(ngModel)]="reindeerForm.name" name="name"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label>Gender</ion-label>
+                        <ion-select [(ngModel)]="reindeerForm.gender" name="gender">
+                                <ion-option value="male">Male</ion-option>
+                                <ion-option value="female">Female</ion-option>
+                        </ion-select>
+                </ion-item>
+                <ion-item>
+                        <ion-label>Alive</ion-label>
+                        <ion-select [(ngModel)]="reindeerForm.alive" name="alive">
+                                <ion-option value="true">Yes</ion-option>
+                                <ion-option value="false">No</ion-option>
+                        </ion-select>
+                </ion-item>
+                <ion-item>
+                        <ion-label>Birth Date</ion-label>
+                        <ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="reindeerForm.birthdate" name="birthdate">
+                        </ion-datetime>
+                </ion-item>
+
+                <ion-item>
+                        <ion-label (click)="takePicture()">Picture</ion-label>
+
+                </ion-item>
+
+                <ion-card *ngIf="reindeerPicture">
+                        <ion-card-content>
+                                <img [src]="reindeerPicture" />
+                        </ion-card-content>
+
+                </ion-card>
+
+                <div padding>
+                        <button ion-button type="submit" block>Add Reindeer</button>
+                </div>
+
+        </form>
+
+</ion-content>
