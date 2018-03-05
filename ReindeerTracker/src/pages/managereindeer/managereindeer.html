@@ -15,7 +15,7 @@
 
 <ion-content>
 
-        <form (ngSubmit)="addReindeer()">
+        <form (ngSubmit)="submitData()">
 
                 <ion-item>
                         <ion-label fixed>Name</ion-label>
@@ -55,7 +55,7 @@
                 </ion-card>
 
                 <div padding>
-                        <button ion-button type="submit" block>Add Reindeer</button>
+                        <button ion-button type="submit" block>{{buttonLabel}} </button>
                 </div>
 
         </form>

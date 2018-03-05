@@ -53,6 +53,7 @@ export class ReindeerServiceProvider {
         }); 
     }); 
   } 
+  
  //-------------------------------------------------------------------------------------------------------//
   getTrackers(id: number): Promise<ITracker[]>  { 
     return new Promise(resolve => { 
@@ -117,5 +118,27 @@ export class ReindeerServiceProvider {
     }); 
   }
   //-------------------------------------------------------------------------------------------------------//
+
+  addReindeer(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  } 
+
+  deleteReindeer(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/delete/', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }
  
 }

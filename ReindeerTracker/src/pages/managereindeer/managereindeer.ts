@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController } from 'ionic-angular';
-import { HomePage } from '../home/home';
-import { SettingsPage } from '../settings/settings';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
-
+import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 
 @Component({
-  selector: 'page-addreindeer',
-  templateUrl: 'addreindeer.html'
+  selector: 'page-managereindeer',
+  templateUrl: 'managereindeer.html'
 
 })
 
-export class AddReindeerPage {
+export class ManageReindeerPage {
+
+  manageType: string;
+  buttonLabel: string;
 
   options: CameraOptions = {
     quality: 100,
@@ -32,8 +32,27 @@ export class AddReindeerPage {
 
   public reindeerPicture: string;
 
-  constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, private camera: Camera) {
+  constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, private camera: Camera, public reindeerProvider: ReindeerServiceProvider) {
+    if(this.navParams.get('manageType') == "add"){
+      this.buttonLabel = "Add reindeer"
+      this.manageType = "add";
+    }
+    else if(this.navParams.get('manageType') == "edit"){
+      this.buttonLabel = "Edit reindeer"
+      this.manageType = "edit";
+      this.loadDetails(this.navParams.get('reindeerId'));
+    }
+    
 
+  }
+
+  submitData(){
+    if(this.manageType == "add"){
+      this.addReindeer();
+    }
+    else{
+      this.updateReindeer();
+    }
   }
 
   addReindeer() {
@@ -56,6 +75,20 @@ export class AddReindeerPage {
       //DATA IN DATABASE ZETTEN
     }
 
+  }
+
+  updateReindeer(){
+
+  }
+
+  loadDetails(reindeerId: string){
+    this.reindeerProvider.getDetails(reindeerId)
+      .then(data => {
+        this.reindeerForm.name = data[0].name;
+        this.reindeerForm.gender = "male"; //this.reindeerForm.gender = data[0].gender;
+        this.reindeerForm.alive = data[0].status.toString();
+        this.reindeerForm.birthdate = data[0].age.toString(); 
+      });
   }
 
   showError(error: string) {
