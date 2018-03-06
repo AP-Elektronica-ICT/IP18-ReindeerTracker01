@@ -8,6 +8,7 @@
     $json = array();
     while($row = mysql_fetch_assoc($result))
     {
+        $id = $row['id'];
         $serialnumber  = $row['serialnumber'];
         $name = $row['name'];
         $age = $row['age'];
@@ -49,7 +50,7 @@
             $array = array("lat"=>$lat,"long"=>$long,"time"=>$tijd);
             array_push($data,$array);
         }
-        $array = array("serialnumber"=>$serialnumber,"name"=>$name,"age"=>$age, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data );
+        $array = array("id"=>$id,"serialnumber"=>$serialnumber,"name"=>$name,"age"=>$age, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data );
         array_push($json, $array);
     }
     echo json_encode($json);
