@@ -14,9 +14,6 @@ if(isset($_POST))
     
     $serialnumber = $data['serialnumber'];
     $userId = $data['userId'];
-
-    
-
     $sql = "update  devices set userId = $userId where serialnumber =$serialnumber;";
     
     if(!mysql_query($sql,$con))
