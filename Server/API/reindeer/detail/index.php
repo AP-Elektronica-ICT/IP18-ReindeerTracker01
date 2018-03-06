@@ -50,7 +50,7 @@
             $array = array("lat"=>$lat,"long"=>$long,"time"=>$tijd);
             array_push($data,$array);
         }
-        $array = array("id"=>$id,"serialnumber"=>$serialnumber,"name"=>$name,"age"=>$age, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data );
+        $array = array("reindeerId"=>$id,"serialnumber"=>$serialnumber,"name"=>$name,"age"=>$age, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data );
         array_push($json, $array);
     }
     echo json_encode($json);
