@@ -23,8 +23,8 @@
             <div *ngFor="let tracker of trackers">
                 <ion-item-sliding #item *ngIf="tracker.assigned == 'true' ">
                     <ion-item>
-                        <button ion-button color="dark">Serialnumber: {{ tracker.serialnumber }}</button>
-                        <button ion-button color="light">Reindeer: Naam komt hier</button>
+                        <button ion-button color="dark">Tracker ID: {{ tracker.serialnumber }}</button>
+                        <button ion-button color="light">Reindeer: {{ tracker.name }}</button>
                     </ion-item>
 
                     <ion-item-options side="right">
@@ -54,7 +54,7 @@
             <div *ngFor="let tracker of trackers">
                 <ion-item-sliding #item *ngIf="tracker.assigned == 'false' ">
                     <ion-item>
-                        <button ion-button color="dark">Serialnumber: {{ tracker.serialnumber }}</button>
+                        <button ion-button color="dark">Tracker ID: {{ tracker.serialnumber }}</button>
                     </ion-item>
 
                     <ion-item-options side="right">

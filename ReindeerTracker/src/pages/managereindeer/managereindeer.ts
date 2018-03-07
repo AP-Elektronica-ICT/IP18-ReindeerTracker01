@@ -11,6 +11,8 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 
 export class ManageReindeerPage {
 
+  userId: string = "1";
+
   manageType: string;
   buttonLabel: string;
 
@@ -27,30 +29,30 @@ export class ManageReindeerPage {
     name: '',
     gender: '',
     alive: '',
-    birthdate: ''
+    birthDate: ''
   };
 
   public reindeerPicture: string;
 
   constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, private camera: Camera, public reindeerProvider: ReindeerServiceProvider) {
-    if(this.navParams.get('manageType') == "add"){
+    if (this.navParams.get('manageType') == "add") {
       this.buttonLabel = "Add reindeer"
       this.manageType = "add";
     }
-    else if(this.navParams.get('manageType') == "edit"){
+    else if (this.navParams.get('manageType') == "edit") {
       this.buttonLabel = "Edit reindeer"
       this.manageType = "edit";
       this.loadDetails(this.navParams.get('reindeerId'));
     }
-    
+
 
   }
 
-  submitData(){
-    if(this.manageType == "add"){
+  submitData() {
+    if (this.manageType == "add") {
       this.addReindeer();
     }
-    else{
+    else {
       this.updateReindeer();
     }
   }
@@ -62,32 +64,48 @@ export class ManageReindeerPage {
     else if (this.reindeerForm.gender == "") {
       this.showError("Please select the gender of the reindeer.");
     }
-    else if (this.reindeerForm.alive == "") {
-      this.showError("Please select if the reindeer is alive.");
-    }
-    else if (this.reindeerForm.birthdate == ""){
+    else if (this.reindeerForm.birthDate == "") {
       this.showError("Please enter the birth date of the reindeer.");
     }
-    else if (this.reindeerPicture == null){
+    else if (this.reindeerPicture == null) {
       this.showError("Please add a picture of the reindeer.");
     }
     else {
-      //DATA IN DATABASE ZETTEN
+      this.reindeerProvider.addReindeer('{"name":"' + this.reindeerForm.name + '","gender":"' + this.reindeerForm.gender + '","birthDate":"' + this.reindeerForm.birthDate + '","picture":"' + this.reindeerPicture + '","userId":"' + this.userId + '"}')
+        .then(data => {
+          if (data) {
+            let toast = this.toastCtrl.create({
+              message: 'The reindeer is successfully added to the system.',
+              duration: 3000,
+              position: 'top'
+            });
+            toast.present();
+            //this.refresh();
+          }
+          else {
+            let toast = this.toastCtrl.create({
+              message: 'Something went wrong, please try again later',
+              duration: 3000,
+              position: 'top'
+            });
+            toast.present();
+          }
+        });
     }
 
   }
 
-  updateReindeer(){
+  updateReindeer() {
 
   }
 
-  loadDetails(reindeerId: string){
+  loadDetails(reindeerId: string) {
     this.reindeerProvider.getDetails(reindeerId)
       .then(data => {
         this.reindeerForm.name = data[0].name;
         this.reindeerForm.gender = "male"; //this.reindeerForm.gender = data[0].gender;
         this.reindeerForm.alive = data[0].status.toString();
-        this.reindeerForm.birthdate = data[0].age.toString(); 
+        this.reindeerForm.birthDate = data[0].age.toString();
       });
   }
 

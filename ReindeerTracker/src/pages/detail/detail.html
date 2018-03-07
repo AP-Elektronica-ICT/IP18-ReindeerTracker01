@@ -19,10 +19,10 @@
           <ion-col>
               <ion-card class="card" ion-item *ngFor="let detail of details">
                   <ion-card-content>
-                    ID:{{detail.reindeerid}}
-                    <br>status:{{detail.status}}
-                    <br>battery:{{detail.battery}}%
-                    <br>last activity:{{detail.time  | date:'d/MM/yy'}}
+                    Reindeer ID:{{detail.reindeerId}}
+                    <br>Status: {{detail.status}}
+                    <br>Battery: {{detail.battery}}%
+                    <br>Last activity: {{detail.time  | date:'d/MM/yy'}}
                   </ion-card-content>
                 </ion-card>
           </ion-col>
@@ -35,9 +35,11 @@
 
     <ion-card class="card" ion-item *ngFor="let detail of details">
       <ion-card-content>
-        -name:{{detail.name}}
-        <br>-age:{{detail.age}}
+        - Name: {{detail.name}}
+        <br>- Age: {{detail.age}}
       </ion-card-content>
+
+      <img [src]="detail.picture" />
     
     </ion-card>
 </ion-content>

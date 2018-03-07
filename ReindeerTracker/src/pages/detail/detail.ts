@@ -227,4 +227,5 @@ export interface IDetails {
   age: number;
   name: string;
   locations: any[];
+  picture: string;
 }

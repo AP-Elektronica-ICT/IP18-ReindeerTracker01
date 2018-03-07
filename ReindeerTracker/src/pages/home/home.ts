@@ -233,4 +233,5 @@ export interface IReindeer {
   battery: number;
   lat: number;
   long: number;
+  name: string;
 }
