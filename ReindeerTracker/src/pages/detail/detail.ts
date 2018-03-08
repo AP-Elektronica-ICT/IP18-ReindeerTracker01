@@ -71,6 +71,7 @@ export class DetailPage {
       .then(data => {
         this.details = data;
         this.loadGoogleMaps();
+        //console.log(data);
       });
   }
 
@@ -130,7 +131,7 @@ export class DetailPage {
         strokeWeight: 4
       });
       Showplan.setMap(this.map);
-
+      console.log(this.details[0].averageDistance)
       var Circle = new google.maps.Circle({
         strokeColor: "#FF0000",
         strokeOpacity: 0.8,
@@ -138,7 +139,7 @@ export class DetailPage {
         fillColor: "#FF0000",
         fillOpacity: 0.35,
         center: { lat:parseFloat(this.details[0].locations[this.details[0].locations.length - 1].lat) , lng: parseFloat(this.details[0].locations[this.details[0].locations.length - 1].long)},
-        radius:  100
+        radius:  this.details[0].averageDistance
       });
       Circle.setMap(this.map);
 
@@ -220,6 +221,7 @@ export interface IDetails {
   reindeerId: string;
   serialnumber: string;
   time: Date;
+  averageDistance: number;
   status: boolean;
   battery: number;
   lat: number;
