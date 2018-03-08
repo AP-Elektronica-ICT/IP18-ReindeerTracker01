@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
-import { IDetails } from '../detail/detail';
 import { IReindeer } from '../home/home';
 
 
@@ -245,7 +244,7 @@ export class TrackersPage {
               type: 'radio',
               label: "ID: " + this.reindeer[i].reindeerId + " Name: " + this.reindeer[i].name,
               value: this.reindeer[i].reindeerId,
-              checked: true
+              checked: false
             });
           }
         }
