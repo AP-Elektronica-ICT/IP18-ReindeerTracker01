@@ -7,6 +7,7 @@
     $json = array();
     while($row = mysql_fetch_assoc($result))
     {
+        $name = "";
         $serialnumber = $row['serialnumber'];
         $assigned = "";
         $query2 = "select * from reindeer where serialnumber = '$serialnumber';";
@@ -19,7 +20,11 @@
         {
             $assigned = "false";
         }
-        $array = array("serialnumber"=>$serialnumber,"assigned"=>$assigned);
+        while($row2 = mysql_fetch_assoc($result2))
+        {
+            $name = $row2['name'];
+        }
+        $array = array("serialnumber"=>$serialnumber,"assigned"=>$assigned,"name"=>$name);
         array_push($json, $array);
     }
     echo json_encode($json);

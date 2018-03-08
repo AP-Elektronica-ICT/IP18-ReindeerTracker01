@@ -14,9 +14,10 @@ if(isset($_POST))
     
     $serialnumber = $data['serialnumber'];
     $userId = $data['userId'];
-    $sql = "update  devices set userId = $userId where serialnumber =$serialnumber;";
-    
-    if(!mysql_query($sql,$con))
+
+    $sql1 = "update  devices set userId = 0 where serialnumber =$serialnumber;";
+    $sql2 = "update  reindeer set serialnumber = '' where serialnumber ='$serialnumber';";
+    if(!mysql_query($sql1,$con) && !mysql_query($sql2,$con))
     {
         die('Error : ' . mysql_error());
     }

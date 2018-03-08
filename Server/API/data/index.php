@@ -11,9 +11,16 @@ if(isset($_POST))
     $long = $data['long'];
     $status = $data['status'];
     $battery = $data['battery'];
+    $reindeerId = "";
+    $sql = "select id from reindeer where serialnumber='$serialnumber';";
+    $result = mysql_query($sql);
+    while($row = mysql_fetch_assoc($result))
+    {
+        $reindeerId = $row['id'];
+    }
 
-    $sql = "INSERT INTO data (serialnumber,latitude, longitude,status,battery)
-    VALUES($serialnumber,'$lat','$long','$status',$battery)";
+    $sql = "INSERT INTO data (serialnumber,reindeerId,latitude, longitude,status,battery)
+    VALUES($serialnumber,$reindeerId,'$lat','$long','$status',$battery)";
     echo $sql;
   
     if(!mysql_query($sql,$con))

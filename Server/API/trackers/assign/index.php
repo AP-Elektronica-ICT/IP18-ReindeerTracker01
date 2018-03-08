@@ -9,8 +9,9 @@ if(isset($_POST))
     $data = json_decode($test, true);
     
     $serialnumber = $data['serialnumber'];
+    $reindeerId = $data['reindeerId'];
     
-    $sql = "update  reindeer set serialnumber = '' where serialnumber ='$serialnumber';";
+    $sql = "update  reindeer set serialnumber = '$serialnumber' where id=$reindeerId;";
     
   
     if(!mysql_query($sql,$con))

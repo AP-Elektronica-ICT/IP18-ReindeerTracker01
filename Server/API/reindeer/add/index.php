@@ -2,21 +2,24 @@
 
 include $_SERVER["DOCUMENT_ROOT"]."/Reindeertracker/API/db_login.php";
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS');
-header('Access-Control-Allow-Headers: Origin, Content-Type, X-Auth-Token');
 
 if(isset($_POST))
 {
     $inputJSON = file_get_contents('php://input');
     $test = json_decode($inputJSON, true);
     $data = json_decode($test, true);
-
     
-    $serialnumber = $data['serialnumber'];
+    $name = $data['name'];
+    $gender = $data['gender'];
+    $birthDate = $data['birthDate'];
     $userId = $data['userId'];
-    $sql = "update  devices set userId = $userId where serialnumber =$serialnumber;";
+    $picture = $data['picture'];
     
-    if(!mysql_query($sql,$con))
+
+
+    $query = "insert into reindeer (name, gender, birthDate, userId, picture) values ('$name','$gender','$birthDate',$userId,'$picture');";
+    echo $query;
+    if(!mysql_query($query,$con))
     {
         die('Error : ' . mysql_error());
     }
