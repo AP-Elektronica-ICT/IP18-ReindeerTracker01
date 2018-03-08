@@ -9,6 +9,7 @@
     {
         $id = $row['id'];
         $serialnumber = $row['serialnumber'];
+        $name = $row['name'];
         $battery = "";
         $status = "";
         $time = "";
@@ -17,15 +18,22 @@
         $query2 = "select * from data where serialnumber = '$serialnumber' ORDER by time DESC LIMIT 1";
        
         $result2 = mysql_query($query2);
-        while($row2 = mysql_fetch_array($result2))
+        if(mysql_num_rows($result2) > 0)
         {
-            $battery  = $row2['battery'];
-            $status = $row2['status'];
-            $time = $row2['time'];
-            $lat = $row2['latitude'];
-            $long = $row2['longitude'];
+            while($row2 = mysql_fetch_array($result2))
+            {
+                $battery  = $row2['battery'];
+                $status = $row2['status'];
+                $time = $row2['time'];
+                $lat = $row2['latitude'];
+                $long = $row2['longitude'];
+            }
         }
-        $array = array("reindeerId"=>$id,"serialnumber"=>$serialnumber, "battery"=>$battery,"status"=>$status,"time"=>$time,"lat"=>$lat,"long"=>$long);
+        else
+        {
+            $status = "true";
+        }
+        $array = array("reindeerId"=>$id,"name"=>$name,"serialnumber"=>$serialnumber, "battery"=>$battery,"status"=>$status,"time"=>$time,"lat"=>$lat,"long"=>$long);
         array_push($json, $array);
     }
     echo json_encode($json);
