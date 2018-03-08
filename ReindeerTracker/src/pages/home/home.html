@@ -21,8 +21,8 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col col-3>ID</ion-col>
-      <ion-col col-3>Last Activity</ion-col>
+      <ion-col col-3>TrackerID</ion-col>
+      <ion-col col-3>Name</ion-col>
       <ion-col col-4>Status</ion-col>
       <ion-col col-2>Battery</ion-col>
     </ion-row>
@@ -36,16 +36,15 @@
           <ion-col col-3>
             {{item.serialnumber}}
           </ion-col>
-          <ion-col col-3>
-            {{item.time | date:'d/MM/yy'}}
-            <br>{{item.time | date:'HH:mm'}}
+          <ion-col col-3 style="overflow: hidden;">
+            {{item.name}}
           </ion-col>
           <ion-col col-4>
             <div *ngIf="item.status">Alive</div>
             <div *ngIf="!item.status">Dead</div>
           </ion-col>
           <ion-col col-2>
-            {{item.battery}}%
+            {{item.battery}}<span *ngIf="item.battery">%</span>
           </ion-col>
         </ion-row>
 

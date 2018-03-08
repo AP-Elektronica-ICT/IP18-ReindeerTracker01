@@ -226,7 +226,7 @@ export interface IDetails {
   battery: number;
   lat: number;
   long: number;
-  age: number;
+  birthDate: Date;
   name: string;
   locations: any[];
   picture: string;

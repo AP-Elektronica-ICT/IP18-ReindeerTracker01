@@ -44,8 +44,6 @@ export class ManageReindeerPage {
       this.manageType = "edit";
       this.loadDetails(this.navParams.get('reindeerId'));
     }
-
-
   }
 
   submitData() {
@@ -74,15 +72,16 @@ export class ManageReindeerPage {
       this.reindeerProvider.addReindeer('{"name":"' + this.reindeerForm.name + '","gender":"' + this.reindeerForm.gender + '","birthDate":"' + this.reindeerForm.birthDate + '","picture":"' + this.reindeerPicture + '","userId":"' + this.userId + '"}')
         .then(data => {
           if (data) {
+            this.nav.pop();
             let toast = this.toastCtrl.create({
               message: 'The reindeer is successfully added to the system.',
               duration: 3000,
               position: 'top'
             });
             toast.present();
-            //this.refresh();
           }
           else {
+            this.nav.pop();
             let toast = this.toastCtrl.create({
               message: 'Something went wrong, please try again later',
               duration: 3000,
@@ -105,7 +104,7 @@ export class ManageReindeerPage {
         this.reindeerForm.name = data[0].name;
         this.reindeerForm.gender = "male"; //this.reindeerForm.gender = data[0].gender;
         this.reindeerForm.alive = data[0].status.toString();
-        this.reindeerForm.birthDate = data[0].age.toString();
+        this.reindeerForm.birthDate = data[0].birthDate.toString();
       });
   }
 

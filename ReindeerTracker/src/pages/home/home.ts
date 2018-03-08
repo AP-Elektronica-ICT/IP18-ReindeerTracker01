@@ -228,7 +228,6 @@ export class HomePage {
 export interface IReindeer {
   serialnumber: string;
   reindeerId: string;
-  time: Date;
   status: boolean;
   battery: number;
   lat: number;
