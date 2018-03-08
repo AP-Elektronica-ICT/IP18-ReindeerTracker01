@@ -11,7 +11,8 @@
         $id = $row['id'];
         $serialnumber  = $row['serialnumber'];
         $name = $row['name'];
-        $age = $row['age'];
+        $picture = $row['picture'];
+        $birthDate = $row['birthDate'];
         $status = "";
         $time = "";
         $battery = "";
@@ -50,7 +51,7 @@
             $array = array("lat"=>$lat,"long"=>$long,"time"=>$tijd);
             array_push($data,$array);
         }
-        $array = array("reindeerId"=>$id,"serialnumber"=>$serialnumber,"name"=>$name,"age"=>$age, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data );
+        $array = array("reindeerId"=>$id,"picture"=>$picture,"serialnumber"=>$serialnumber,"name"=>$name,"birthDate"=>$birthDate, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data );
         array_push($json, $array);
     }
     echo json_encode($json);
