@@ -55,9 +55,9 @@ export class ReindeerServiceProvider {
   } 
   
  //-------------------------------------------------------------------------------------------------------//
-  getTrackers(id: number): Promise<ITracker[]>  { 
+  getTrackers(userId: string): Promise<ITracker[]>  { 
     return new Promise(resolve => { 
-      this.http.get<ITracker[]>('https://www.disite.be/Reindeertracker/API/trackers/list/?userId=' + id).subscribe(data => { 
+      this.http.get<ITracker[]>('https://www.disite.be/Reindeertracker/API/trackers/list/?userId=' + userId).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -121,7 +121,7 @@ export class ReindeerServiceProvider {
 
   addReindeer(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
+      this.http.post('https://www.disite.be/Reindeertracker/API/reindeer/add/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 

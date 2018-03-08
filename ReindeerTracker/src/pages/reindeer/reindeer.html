@@ -24,7 +24,7 @@
                     <ion-item-sliding #item *ngIf="deer.status == 'true' ">
                         <ion-item>
                             <button ion-button color="dark">ReindeerID: {{ deer.reindeerId }}</button>
-                            <button ion-button color="light">Reindeer: Naam komt hier</button>
+                            <button ion-button color="light">Reindeer: {{ deer.name }}</button>
                         </ion-item>
     
                         <ion-item-options side="right">
@@ -55,7 +55,7 @@
                     <ion-item-sliding #item *ngIf="deer.status == 'false' ">
                         <ion-item>
                             <button ion-button color="dark">ReindeerID: {{ deer.reindeerId }}</button>
-                            <button ion-button color="light">Reindeer: Naam komt hier</button>
+                            <button ion-button color="light">Reindeer: {{ deer.name }}</button>
                         </ion-item>
     
                         <ion-item-options side="right">

@@ -14,7 +14,6 @@ export class TrackersPage {
 
   trackers: any;
   userId: string = "1";
-  reindeerDetails: IDetails[];
   reindeer: IReindeer[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
@@ -105,7 +104,7 @@ export class TrackersPage {
               .then(data => {
                 if (data) {
                   let toast = this.toastCtrl.create({
-                    message: 'Tracker succesfully removed from the system.',
+                    message: 'Tracker succesfully unassigned from the reindeer.',
                     duration: 3000
                   });
                   toast.present();
@@ -178,7 +177,7 @@ export class TrackersPage {
 
   getTrackers() {
 
-    this.reindeerProvider.getTrackers(1)
+    this.reindeerProvider.getTrackers(this.userId)
       .then(data => {
         this.trackers = data;
         console.log(data);
@@ -231,21 +230,21 @@ export class TrackersPage {
 
   assignTracker(serialnumber: number) {
 
-    this.reindeerProvider.getDetails(this.userId)
+    this.reindeerProvider.getReindeer(this.userId)
       .then(data => {
-        this.reindeerDetails = data;
+        this.reindeer = data;
         console.log(data);
 
         let alert = this.alertCtrl.create();
         alert.setTitle('Assign tracker to:');
 
-        for (let i = 0; i < this.reindeerDetails.length; i++) {
-          if (this.reindeerDetails[i].reindeerId != "0") {
-            console.log(this.reindeerDetails[i].reindeerId);
+        for (let i = 0; i < this.reindeer.length; i++) {
+          if (this.reindeer[i].serialnumber == "") {
+            console.log(this.reindeer[i].reindeerId);
             alert.addInput({
               type: 'radio',
-              label: "ID: " + this.reindeerDetails[i].reindeerId + " Name: " + this.reindeerDetails[i].name,
-              value: this.reindeerDetails[i].reindeerId,
+              label: "ID: " + this.reindeer[i].reindeerId + " Name: " + this.reindeer[i].name,
+              value: this.reindeer[i].reindeerId,
               checked: true
             });
           }
@@ -326,6 +325,7 @@ export class TrackersPage {
 export interface ITracker {
   serialnumber: number;
   assigned: boolean;
+  name: string;
 }
 
 export interface ICheckTracker {
