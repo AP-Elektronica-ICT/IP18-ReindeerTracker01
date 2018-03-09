@@ -14,20 +14,19 @@
 
 </ion-header>
 <ion-content>
-
-  <div #map id="map"></div>
+    <div #map id="map"></div>
 
   <ion-grid>
     <ion-row>
       <ion-col>
         <ion-card class="card" ion-item *ngFor="let detail of details">
           <ion-card-content>
-            Reindeer ID:{{detail.reindeerId}}
-            <br>Name: {{detail.name}}
-            <br>Status: {{detail.status}}
-            <br>Battery: {{detail.battery}}%
-            <br>Last activity: {{detail.time | date:'d/MM/yy'}}
-            <br>Birthdate: {{detail.birthDate}}
+            <span *ngIf="detail.reindeerId">Reindeer ID:{{detail.reindeerId}}</span>
+            <span *ngIf="detail.name"><br>Name: {{detail.name}}</span>
+            <span *ngIf="detail.status"><br>Status: {{detail.status}}</span>
+            <span *ngIf="detail.battery"><br>Battery: {{detail.battery}}%</span>
+            <span *ngIf="detail.time"><br>Last activity: {{detail.time | date:'d/MM/yy'}}</span>
+            <span *ngIf="detail.birthDate"><br>Birthdate: {{detail.birthDate}}</span>
           </ion-card-content>
         </ion-card>
       </ion-col>

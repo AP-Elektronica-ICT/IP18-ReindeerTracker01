@@ -71,13 +71,11 @@ export class DetailPage {
       .then(data => {
         this.details = data;
         this.loadGoogleMaps();
-        //console.log(data);
+        console.log(data);
       });
   }
 
   initMap() {
-
-
 
     this.mapInitialised = true;
 
@@ -97,31 +95,31 @@ export class DetailPage {
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
+      if (this.details[0].locations.length != 0) {
+        for (let i = 0; i < this.details[0].locations.length - 1; i++) {
+          this.addMarker(this.details[0].locations[i].lat, this.details[0].locations[i].long, "https://thumb.ibb.co/jOO0Nc/pin.png");
+        }
+        this.addMarker(this.details[0].locations[this.details[0].locations.length - 1].lat, this.details[0].locations[this.details[0].locations.length - 1].long, "https://thumb.ibb.co/dfB2fx/deer.png");
 
-      for (let i = 0; i < this.details[0].locations.length - 1; i++) {
-        this.addMarker(this.details[0].locations[i].lat, this.details[0].locations[i].long, "https://thumb.ibb.co/jOO0Nc/pin.png");
-      }
-      this.addMarker(this.details[0].locations[this.details[0].locations.length - 1].lat, this.details[0].locations[this.details[0].locations.length - 1].long, "https://thumb.ibb.co/dfB2fx/deer.png");
+        for (let i = 0; i < this.markers.length; i++) {
+          this.markers[i].addListener('click', (event) => {
+            let toast = this.toastCtrl.create({
+              message: "Date Location " + this.details[0].locations[i].time.toString(),
+              duration: 2000,
+            });
 
-      for (let i = 0; i < this.markers.length; i++) {
-        this.markers[i].addListener('click', (event) => {
-          let toast = this.toastCtrl.create({
-            message: "Date Location " + this.details[0].locations[i].time.toString(),
-            duration: 2000,
+            toast.present(toast);
+
           });
 
-          toast.present(toast);
-
-        });
-
-      }
-
+        }
+ 
 
       var latlngbounds = new google.maps.LatLngBounds();
       for (var i = 0; i < this.markers.length; i++) {
         latlngbounds.extend(this.markers[i].position);
         this.markerspath.push(this.markers[i].position);
-      } 
+      }
       this.map.fitBounds(latlngbounds);
 
       var Showplan = new google.maps.Polyline({
@@ -138,13 +136,17 @@ export class DetailPage {
         strokeWeight: 2,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
-        center: { lat:parseFloat(this.details[0].locations[this.details[0].locations.length - 1].lat) , lng: parseFloat(this.details[0].locations[this.details[0].locations.length - 1].long)},
-        radius:  this.details[0].averageDistance
+        center: { lat: parseFloat(this.details[0].locations[this.details[0].locations.length - 1].lat), lng: parseFloat(this.details[0].locations[this.details[0].locations.length - 1].long) },
+        radius: this.details[0].averageDistance
       });
       Circle.setMap(this.map);
-
-
+    }
+    else{
+      this.addMarker(position.coords.latitude, position.coords.longitude, "");
+    }
     });
+    
+
 
 
 
@@ -203,7 +205,7 @@ export class DetailPage {
 
   refresh() {
     this.markers = [];
-    this.markerspath =  [];
+    this.markerspath = [];
     this.loadDetails();
     let toast = this.toastCtrl.create({
       message: 'Refreshing data...',
