@@ -20,7 +20,7 @@ if(isset($_POST))
     }
 
     $sql = "INSERT INTO data (serialnumber,reindeerId,latitude, longitude,status,battery)
-    VALUES($serialnumber,$reindeerId,'$lat','$long','$status',$battery)";
+    VALUES($reindeerId,'$lat','$long','$status',$battery)";
     echo $sql;
   
     if(!mysql_query($sql,$con))
