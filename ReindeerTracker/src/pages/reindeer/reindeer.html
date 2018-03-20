@@ -28,7 +28,7 @@
                         </ion-item>
     
                         <ion-item-options side="right">
-                            <button ion-button color="default" (click)="manageReindeer('edit',deer.reindeerId)">Edit&nbsp;
+                            <button ion-button color="default" (click)="editReindeer(deer.reindeerId)">Edit&nbsp;
                                 <ion-icon name="close"></ion-icon>
                             </button>
                             <button ion-button color="danger" (click)="deleteReindeer(deer.reindeerId)">Delete&nbsp;
@@ -59,7 +59,7 @@
                         </ion-item>
     
                         <ion-item-options side="right">
-                            <button ion-button color="default" (click)="manageReindeer('edit',deer.reindeerId)">Edit&nbsp;
+                            <button ion-button color="default" (click)="editReindeer(deer.reindeerId)">Edit&nbsp;
                                 <ion-icon name="close"></ion-icon>
                             </button>
                             <button ion-button color="danger" (click)="deleteReindeer(deer.reindeerId)">Delete&nbsp;
@@ -83,7 +83,7 @@
         <ion-toolbar color="secondary">
             <ion-grid>
                 <ion-row>
-                    <ion-col (click)='manageReindeer("add","")'>
+                    <ion-col (click)='addReindeer()'>
                         <ion-title>
                             Add new Reindeer
                         </ion-title>

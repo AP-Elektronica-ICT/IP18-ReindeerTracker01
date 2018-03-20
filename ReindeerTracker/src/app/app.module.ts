@@ -18,7 +18,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { TrackersPage } from '../pages/trackers/trackers';
 import { ReindeerPage } from '../pages/reindeer/reindeer';
 import { Camera } from '@ionic-native/camera';
-import { ManageReindeerPage } from '../pages/managereindeer/managereindeer';
+import { EditReindeerPage } from '../pages/editreindeer/editreindeer';
+import { AddReindeerPage } from '../pages/addreindeer/addreindeer';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ManageReindeerPage } from '../pages/managereindeer/managereindeer';
     SettingsPage,
     TrackersPage,
     ReindeerPage,
-    ManageReindeerPage
+    EditReindeerPage,
+    AddReindeerPage,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { ManageReindeerPage } from '../pages/managereindeer/managereindeer';
     SettingsPage,
     TrackersPage,
     ReindeerPage,
-    ManageReindeerPage,
+    EditReindeerPage,
+    AddReindeerPage,
   ],
   providers: [
     StatusBar,

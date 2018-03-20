@@ -14,7 +14,7 @@ export class ReindeerServiceProvider {
  //-------------------------------------------------------------------------------------------------------//
   getReindeer(id: string): Promise<IReindeer[]>  { 
     return new Promise(resolve => { 
-      this.http.get<IReindeer[]>('https://www.disite.be/Reindeertracker/API/reindeer/list/?userId=1').subscribe(data => { 
+      this.http.get<IReindeer[]>('http://168.235.64.81/Reindeertracker/API/reindeer/list/?userId=1').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -24,7 +24,7 @@ export class ReindeerServiceProvider {
  
   addUser(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/list/?userId=1', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/list/?userId=1', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, (err) => { 
@@ -35,7 +35,7 @@ export class ReindeerServiceProvider {
  //-------------------------------------------------------------------------------------------------------//
   getDetails( reindeerId:string): Promise<IDetails[]>  { 
     return new Promise(resolve => { 
-      this.http.get<IDetails[]>('https://www.disite.be/Reindeertracker/API/reindeer/detail/?reindeerId='+reindeerId+'&limit=5').subscribe(data => { 
+      this.http.get<IDetails[]>('http://168.235.64.81/Reindeertracker/API/reindeer/detail/?reindeerId='+reindeerId+'&limit=5').subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -45,7 +45,7 @@ export class ReindeerServiceProvider {
  
   setDetails(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/reindeer/detail/?reindeerId=1&limit=5', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/detail/?reindeerId=1&limit=5', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, (err) => { 
@@ -57,7 +57,7 @@ export class ReindeerServiceProvider {
  //-------------------------------------------------------------------------------------------------------//
   getTrackers(userId: string): Promise<ITracker[]>  { 
     return new Promise(resolve => { 
-      this.http.get<ITracker[]>('https://www.disite.be/Reindeertracker/API/trackers/list/?userId=' + userId).subscribe(data => { 
+      this.http.get<ITracker[]>('http://168.235.64.81/Reindeertracker/API/trackers/list/?userId=' + userId).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -66,7 +66,7 @@ export class ReindeerServiceProvider {
   } 
   checkBeforeAddTracker(serialnumber: number): Promise<ICheckTracker[]>  { 
     return new Promise(resolve => { 
-      this.http.get<ICheckTracker[]>('https://www.disite.be/Reindeertracker/API/trackers/check/?serialnumber=' + serialnumber).subscribe(data => { 
+      this.http.get<ICheckTracker[]>('http://168.235.64.81/API/trackers/check/?serialnumber=' + serialnumber).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -76,7 +76,7 @@ export class ReindeerServiceProvider {
  
   addTracker(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/trackers/add/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -87,7 +87,7 @@ export class ReindeerServiceProvider {
 
   assignTracker(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/assign/', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/trackers/assign/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -98,7 +98,7 @@ export class ReindeerServiceProvider {
 
   deleteTracker(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/delete/', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/trackers/delete/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -109,7 +109,7 @@ export class ReindeerServiceProvider {
 
   unassignTracker(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/unassign/', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/trackers/unassign/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -121,7 +121,7 @@ export class ReindeerServiceProvider {
 
   addReindeer(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/reindeer/add/', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/add/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
@@ -132,7 +132,7 @@ export class ReindeerServiceProvider {
 
   deleteReindeer(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('https://www.disite.be/Reindeertracker/API/trackers/delete/', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/trackers/delete/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 

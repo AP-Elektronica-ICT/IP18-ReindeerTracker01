@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { IReindeer } from '../home/home';
-import { ManageReindeerPage } from '../managereindeer/managereindeer';
 import { DetailPage } from '../detail/detail';
+import { AddReindeerPage } from '../addreindeer/addreindeer';
+import { EditReindeerPage } from '../editreindeer/editreindeer';
 
 
 @Component({
@@ -28,9 +29,12 @@ export class ReindeerPage {
       });
   }
 
-  manageReindeer(manageType: string, reindeerId: string) {
-    this.nav.push(ManageReindeerPage, {
-      manageType: manageType,
+  addReindeer(){
+    this.nav.push(AddReindeerPage);
+  }
+
+  editReindeer(reindeerId: string){
+    this.nav.push(EditReindeerPage, {
       reindeerId: reindeerId,
     });
   }

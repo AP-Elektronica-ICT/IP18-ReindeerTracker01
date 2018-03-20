@@ -112,8 +112,9 @@ export class HomePage {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.HYBRID,
-        disableDefaultUI: true,
+        disableDefaultUI: false,
         mapTypeControl: true
+        
       }
 
 

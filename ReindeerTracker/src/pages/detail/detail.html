@@ -35,11 +35,15 @@
     </ion-row>
   </ion-grid>
 
-  <ion-card class="card" ion-item *ngFor="let detail of details">
+
+  <div *ngFor="let item of details" padding>
+  <ion-card class="card" ion-item *ngFor="let picture of item.pictures">
     <ion-card-content>
-      <img [src]="detail.picture" />
+      <img [src]="picture.url" />
     </ion-card-content>
   </ion-card>
+  </div>
+ 
 </ion-content>
 
 <ion-footer>

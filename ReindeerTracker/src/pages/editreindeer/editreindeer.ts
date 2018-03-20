@@ -1,19 +1,16 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 
 @Component({
-  selector: 'page-managereindeer',
-  templateUrl: 'managereindeer.html'
+  selector: 'page-editreindeer',
+  templateUrl: 'editreindeer.html'
 })
 
-export class ManageReindeerPage {
+export class EditReindeerPage {
 
   userId: string = "1";
-
-  manageType: string;
-  buttonLabel: string;
 
   options: CameraOptions = {
     quality: 100,
@@ -24,36 +21,21 @@ export class ManageReindeerPage {
     targetHeight: 1000
   }
 
+  currentPictures: any = [];
+
   reindeerForm = {
     name: '',
     gender: '',
-    alive: '',
     birthDate: '',
-    
+    addPictures: [],
+    deletePictures: []
   };
 
-  public reindeerPicture: string;
 
-  constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, private camera: Camera, public reindeerProvider: ReindeerServiceProvider) {
-    if (this.navParams.get('manageType') == "add") {
-      this.buttonLabel = "Add reindeer"
-      this.manageType = "add";
-    }
-    else if (this.navParams.get('manageType') == "edit") {
-      this.buttonLabel = "Edit reindeer"
-      this.manageType = "edit";
+  constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, private camera: Camera, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
       this.loadDetails(this.navParams.get('reindeerId'));
-    }
   }
 
-  submitData() {
-    if (this.manageType == "add") {
-      this.addReindeer();
-    }
-    else {
-      this.updateReindeer();
-    }
-  }
 
   addReindeer() {
     if (this.reindeerForm.name == "") {
@@ -87,7 +69,13 @@ export class ManageReindeerPage {
 
   }
 
-  updateReindeer() {
+  editReindeer() {
+    if (this.reindeerForm.name == "") {
+      this.showError("Please enter the name of the reindeer.");
+    }
+    else{
+
+    }
 
   }
 
@@ -95,9 +83,12 @@ export class ManageReindeerPage {
     this.reindeerProvider.getDetails(reindeerId)
       .then(data => {
         this.reindeerForm.name = data[0].name;
-        this.reindeerForm.gender = "male"; //this.reindeerForm.gender = data[0].gender;
-        this.reindeerForm.alive = data[0].status.toString();
+        this.reindeerForm.gender = this.reindeerForm.gender = data[0].gender;
         this.reindeerForm.birthDate = data[0].birthDate.toString();
+
+        for(let i = 0; i < data[0].pictures.length; i++){
+          this.currentPictures.push(data[0].pictures[i]);
+        }
       });
   }
 
@@ -113,12 +104,56 @@ export class ManageReindeerPage {
   takePicture() {
 
     this.camera.getPicture(this.options).then((imageData) => {
-      this.reindeerPicture = 'data:image/jpeg;base64,' + imageData;
+      this.reindeerForm.addPictures.push('data:image/jpeg;base64,' + imageData);
     }, (err) => {
       this.showError("Unable to take picture, please try again.")
     });
 
-    //this.reindeerForm.pictures.push("test");
+  }
+
+  deleteCurrentPicture(id:any){
+    let confirm = this.alertCtrl.create({
+        title: 'Please confirm',
+        message: 'Do you really want to remove this picture?',
+        buttons: [
+          {
+            text: 'Cancel',
+            handler: () => {
+              
+            }
+          },
+          {
+            text: 'Remove',
+            handler: () => {
+                this.reindeerForm.deletePictures.push(this.currentPictures[id].pictureId)
+                this.currentPictures.splice(id,1);
+            }
+          }
+        ]
+      });
+      confirm.present();
+  }
+
+  deleteNewPicture(id:any){
+    let confirm = this.alertCtrl.create({
+      title: 'Please confirm',
+      message: 'Do you really want to remove this picture?',
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            
+          }
+        },
+        {
+          text: 'Remove',
+          handler: () => {
+              this.reindeerForm.addPictures.splice(id,1);
+          }
+        }
+      ]
+    });
+    confirm.present();
   }
 
 

@@ -231,5 +231,6 @@ export interface IDetails {
   birthDate: Date;
   name: string;
   locations: any[];
-  picture: string;
+  pictures: any[];
+  gender: any;
 }

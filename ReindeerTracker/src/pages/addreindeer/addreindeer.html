@@ -1,0 +1,62 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <button ion-button icon-only menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-title>
+            Reindeer Tracker
+        </ion-title>
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+
+    <form (ngSubmit)="addReindeer()">
+
+        <ion-item>
+            <ion-label fixed>Name</ion-label>
+            <ion-input type="text" [(ngModel)]="reindeerForm.name" name="name"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-label>Gender</ion-label>
+            <ion-select [(ngModel)]="reindeerForm.gender" name="gender">
+                <ion-option value="male">Male</ion-option>
+                <ion-option value="female">Female</ion-option>
+            </ion-select>
+        </ion-item>
+        <ion-item>
+            <ion-label>Birth Date</ion-label>
+            <ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="reindeerForm.birthDate" name="birthdate">
+            </ion-datetime>
+        </ion-item>
+
+        <ion-item>
+                <button ion-button (click)="takePicture()" type="button">Add picture</button>
+        </ion-item>
+
+
+        <div *ngIf="reindeerForm.pictures">
+            <ion-card *ngFor="let picture of reindeerForm.pictures; let i = index">
+                <ion-card-content>
+                    <img [src]="picture" />
+                    <br>
+                    <button ion-button block color="danger" (click)="deletePicture(i)" type="button">
+                        Delete&nbsp;
+                        <ion-icon name="trash"></ion-icon>
+                    </button>
+                </ion-card-content>
+            </ion-card>
+        </div>
+
+        <div padding>
+            <button ion-button type="submit" color="secondary" block>Add reindeer</button>
+        </div>
+
+    </form>
+
+</ion-content>
