@@ -32,8 +32,6 @@
         }
 
         $list = array();
-        
-        
         $data = array();
         $query = "select * from data where serialnumber = '$serialnumber' order by time DESC LIMIT $limit";
         $result = mysql_query($query);
@@ -51,7 +49,20 @@
             $array = array("lat"=>$lat,"long"=>$long,"time"=>$tijd);
             array_push($data,$array);
         }
-        $array = array("reindeerId"=>$id,"picture"=>$picture,"serialnumber"=>$serialnumber,"name"=>$name,"birthDate"=>$birthDate, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data );
+
+        $pictures = array();
+        $path =  $_SERVER["DOCUMENT_ROOT"]."/Reindeertracker/API/reindeer/img/$id/";
+        $files = scandir($path);
+        foreach($files as $file)
+        {
+            if($file != "." && $file != "..")
+            {
+            $array = array("pictureId"=>$file,"url"=>"https://".$_SERVER['SERVER_NAME']."/Reindeertracker/API/reindeer/img/$id/".$file);
+            array_push($pictures,$array);
+            }
+        }
+        
+        $array = array("reindeerId"=>$id,"serialnumber"=>$serialnumber,"name"=>$name,"birthDate"=>$birthDate, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data,"pictures"=>$pictures);
         array_push($json, $array);
     }
     echo json_encode($json);

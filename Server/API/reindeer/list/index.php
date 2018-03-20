@@ -24,7 +24,6 @@
             {
                 $battery  = $row2['battery'];
                 $status = $row2['status'];
-                $time = $row2['time'];
                 $lat = $row2['latitude'];
                 $long = $row2['longitude'];
             }
@@ -33,7 +32,7 @@
         {
             $status = "true";
         }
-        $array = array("reindeerId"=>$id,"name"=>$name,"serialnumber"=>$serialnumber, "battery"=>$battery,"status"=>$status,"time"=>$time,"lat"=>$lat,"long"=>$long);
+        $array = array("reindeerId"=>$id,"name"=>$name,"serialnumber"=>$serialnumber, "battery"=>$battery,"status"=>$status,"lat"=>$lat,"long"=>$long);
         array_push($json, $array);
     }
     echo json_encode($json);
