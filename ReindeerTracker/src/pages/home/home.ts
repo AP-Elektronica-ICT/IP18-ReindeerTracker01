@@ -112,9 +112,11 @@ export class HomePage {
         center: latLng,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.HYBRID,
-        disableDefaultUI: false,
-        mapTypeControl: true
-        
+        mapTypeControl: true,
+        zoomControl: true,
+        zoomControlOptions: {
+          position: google.maps.ControlPosition.TOP_CENTER
+        }
       }
 
 
