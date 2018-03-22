@@ -234,4 +234,5 @@ export interface IReindeer {
   lat: number;
   long: number;
   name: string;
+  reported : boolean;
 }
