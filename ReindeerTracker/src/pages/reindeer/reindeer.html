@@ -1,94 +1,121 @@
 <ion-header>
-        <ion-navbar color="primary">
-            <ion-buttons end>
-                <button ion-button icon-only (click)="refresh()">
-                    <ion-icon name="refresh"></ion-icon>
-                </button>
-            </ion-buttons>
-            <ion-title>
-                Reindeer Tracker
-            </ion-title>
-        </ion-navbar>
-    </ion-header>
-    
-    <ion-content>
-    
-        <div *ngIf="reindeer">
-    
-            <ion-list>
-                <ion-list-header>
-                    Living Reindeer
-                </ion-list-header>
+    <ion-navbar color="primary">
+        <ion-buttons end>
+            <button ion-button icon-only (click)="refresh()">
+                <ion-icon name="refresh"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-title>
+            Reindeer Tracker
+        </ion-title>
+    </ion-navbar>
+</ion-header>
 
-                <div *ngFor="let deer of reindeer">
-                    <ion-item-sliding #item *ngIf="deer.status == 'true' ">
-                        <ion-item>
-                            <button ion-button color="dark">ReindeerID: {{ deer.reindeerId }}</button>
-                            <button ion-button color="light">Reindeer: {{ deer.name }}</button>
-                        </ion-item>
-    
-                        <ion-item-options side="right">
-                            <button ion-button color="default" (click)="editReindeer(deer.reindeerId)">Edit&nbsp;
-                                <ion-icon name="close"></ion-icon>
-                            </button>
-                            <button ion-button color="danger" (click)="deleteReindeer(deer.reindeerId)">Delete&nbsp;
-                                <ion-icon name="trash"></ion-icon>
-                            </button>
-                            <button ion-button color="light" (click)="showInfo(deer.reindeerId)">More info&nbsp;
-                                <ion-icon name="information-circle"></ion-icon>
-                            </button>
-    
-                        </ion-item-options>
-    
-    
-                    </ion-item-sliding>
-                </div>
-    
-            </ion-list>
-    
-            <ion-list>
-                <ion-list-header>
-                    Dead Reindeer
-                </ion-list-header>
-    
-                <div *ngFor="let deer of reindeer">
-                    <ion-item-sliding #item *ngIf="deer.status == 'false' ">
-                        <ion-item>
-                            <button ion-button color="dark">ReindeerID: {{ deer.reindeerId }}</button>
-                            <button ion-button color="light">Reindeer: {{ deer.name }}</button>
-                        </ion-item>
-    
-                        <ion-item-options side="right">
-                            <button ion-button color="default" (click)="editReindeer(deer.reindeerId)">Edit&nbsp;
-                                <ion-icon name="close"></ion-icon>
-                            </button>
-                            <button ion-button color="danger" (click)="deleteReindeer(deer.reindeerId)">Delete&nbsp;
-                                <ion-icon name="trash"></ion-icon>
-                            </button>
-                            <button ion-button color="light" (click)="showInfo(deer.reindeerId)">More info&nbsp;
-                                <ion-icon name="information-circle"></ion-icon>
-                            </button>
-    
-                        </ion-item-options>
-    
-    
-                    </ion-item-sliding>
-                </div>
-            </ion-list>
-        </div>
-    
-    </ion-content>
-    
-    <ion-footer>
-        <ion-toolbar color="secondary">
-            <ion-grid>
-                <ion-row>
-                    <ion-col (click)='addReindeer()'>
-                        <ion-title>
-                            Add new Reindeer
-                        </ion-title>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-toolbar>
-    </ion-footer>
+<ion-content>
+
+    <div *ngIf="reindeer">
+
+        <ion-list>
+            <ion-list-header>
+                Living Reindeer
+            </ion-list-header>
+
+            <div *ngFor="let deer of reindeer">
+                <ion-item-sliding #item *ngIf="deer.status == 'true' ">
+                    <ion-item>
+                        <button ion-button color="dark">ReindeerID: {{ deer.reindeerId }}</button>
+                        <button ion-button color="light">Reindeer: {{ deer.name }}</button>
+                    </ion-item>
+
+                    <ion-item-options side="right">
+                        <button ion-button color="default" (click)="editReindeer(deer.reindeerId)">Edit&nbsp;
+                            <ion-icon name="close"></ion-icon>
+                        </button>
+                        <button ion-button color="danger" (click)="deleteReindeer(deer.reindeerId)">Delete&nbsp;
+                            <ion-icon name="trash"></ion-icon>
+                        </button>
+                        <button ion-button color="light" (click)="showInfo(deer.reindeerId)">More info&nbsp;
+                            <ion-icon name="information-circle"></ion-icon>
+                        </button>
+
+                    </ion-item-options>
+
+
+                </ion-item-sliding>
+            </div>
+
+        </ion-list>
+
+        <ion-list>
+            <ion-list-header>
+                Dead Reindeer
+            </ion-list-header>
+
+            <div *ngFor="let deer of reindeer">
+                <ion-item-sliding #item *ngIf="deer.status == 'false' && deer.reported == 'false' ">
+                    <ion-item>
+                        <button ion-button color="dark">ReindeerID: {{ deer.reindeerId }}</button>
+                        <button ion-button color="light">Reindeer: {{ deer.name }}</button>
+                    </ion-item>
+
+                    <ion-item-options side="right">
+                        <button ion-button color="default" (click)="editReindeer(deer.reindeerId)">Edit&nbsp;
+                            <ion-icon name="close"></ion-icon>
+                        </button>
+                        <button ion-button color="danger" (click)="deleteReindeer(deer.reindeerId)">Delete&nbsp;
+                            <ion-icon name="trash"></ion-icon>
+                        </button>
+                        <button ion-button color="light" (click)="showInfo(deer.reindeerId)">More info&nbsp;
+                            <ion-icon name="information-circle"></ion-icon>
+                        </button>
+                        <button ion-button color="dark" (click)="editReindeer(deer.reindeerId)">Report&nbsp;
+                            <ion-icon name="megaphone"></ion-icon>
+                        </button>
+
+                    </ion-item-options>
+
+                </ion-item-sliding>
+            </div>
+        </ion-list>
+
+        <ion-list>
+            <ion-list-header>
+                Reported Reindeer
+            </ion-list-header>
+
+            <div *ngFor="let deer of reindeer">
+                <ion-item-sliding #item *ngIf="deer.status == 'false' && deer.reported == 'true'">
+                    <ion-item>
+                        <button ion-button color="dark">ReindeerID: {{ deer.reindeerId }}</button>
+                        <button ion-button color="light">Reindeer: {{ deer.name }}</button>
+                    </ion-item>
+
+                    <ion-item-options side="right">
+                        <button ion-button color="danger" (click)="deleteReindeer(deer.reindeerId)">Delete&nbsp;
+                            <ion-icon name="trash"></ion-icon>
+                        </button>
+                        <button ion-button color="dark" (click)="editReindeer(deer.reindeerId)">View Report&nbsp;
+                            <ion-icon name="megaphone"></ion-icon>
+                        </button>
+
+                    </ion-item-options>
+                </ion-item-sliding>
+            </div>
+        </ion-list>
+    </div>
+
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="secondary">
+        <ion-grid>
+            <ion-row>
+                <ion-col (click)='addReindeer()'>
+                    <ion-title>
+                        Add new Reindeer
+                    </ion-title>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-toolbar>
+</ion-footer>ç
