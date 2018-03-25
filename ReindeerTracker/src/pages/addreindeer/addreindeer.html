@@ -32,24 +32,6 @@
             </ion-datetime>
         </ion-item>
 
-        <ion-item>
-                <button ion-button (click)="takePicture()" type="button">Add picture</button>
-        </ion-item>
-
-
-        <div *ngIf="reindeerForm.pictures">
-            <ion-card *ngFor="let picture of reindeerForm.pictures; let i = index">
-                <ion-card-content>
-                    <img [src]="picture" />
-                    <br>
-                    <button ion-button block color="danger" (click)="deletePicture(i)" type="button">
-                        Delete&nbsp;
-                        <ion-icon name="trash"></ion-icon>
-                    </button>
-                </ion-card-content>
-            </ion-card>
-        </div>
-
         <div padding>
             <button ion-button type="submit" color="secondary" block>Add reindeer</button>
         </div>

@@ -23,6 +23,8 @@ export class HomePage {
   map: GoogleMap;
   reindeer: IReindeer[];
   userId: string = "1";
+  myLat: number;
+  myLong: number;
 
 
 
@@ -69,80 +71,100 @@ export class HomePage {
     this.reindeerProvider.getReindeer(this.userId)
       .then(data => {
         this.reindeer = data;
-        console.log(data);
+        this.loadGoogleMaps();
       });
 
-    this.loadGoogleMaps();
+
   }
 
 
   loadGoogleMaps() {
 
 
-    this.map = GoogleMaps.create('map_canvas', {
-      camera: {
-        target: {
-          lat: 0,
-          lng: 0
+    if (this.map == null) {
+
+      this.map = GoogleMaps.create('map_canvas', {
+        camera: {
+          target: {
+            lat: 0,
+            lng: 0
+          },
+          zoom: 3
         },
-        zoom: 3
-      },
-      controls: {
-        compass: true,
-        myLocationButton: true,
-        zoom: true
-      }
-    });
+        controls: {
+          compass: true,
+          myLocationButton: true,
+          zoom: true
+        }
+      });
 
-    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+        this.initMarkers()
+
+        this.map.on(GoogleMapsEvent.MY_LOCATION_BUTTON_CLICK).subscribe(() => {
+          this.map.getMyLocation()
+            .then((location: MyLocation) => {
+
+              this.myLat = location.latLng.lat
+              this.myLong = location.latLng.lng
+
+              this.map.animateCamera({
+                target: { lat: this.myLat, lng: this.myLong },
+                zoom: 15,
+                duration: 1000
+              });
+            })
+        });
+      });
+
+    }
+    else {
       this.initMarkers()
-    });
-
+    }
   }
 
   initMarkers() {
 
-    var myLat;
-    var myLong;
-
     this.map.getMyLocation()
       .then((location: MyLocation) => {
 
-        myLat = location.latLng.lat;
-        myLong = location.latLng.lng;
+        this.myLat = location.latLng.lat;
+        this.myLong = location.latLng.lng;
 
-        this.addMarker(myLat, myLong, "", "");
+        this.addMarker(this.myLat, this.myLong, "", "");
 
         for (let i = 0; i < this.reindeer.length; i++) {
-          this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "https://thumb.ibb.co/dfB2fx/deer.png", this.reindeer[i].reindeerId);
+          if (this.reindeer[i].lat != 0 && this.reindeer[i].long != 0)
+            this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "https://thumb.ibb.co/dfB2fx/deer.png", this.reindeer[i].reindeerId);
+        }
+
+        var lat = null;
+        var long = null;
+
+        for (let i = 0; i < this.reindeer.length; i++) {
+          if (this.reindeer[i].status == false && this.reindeer[i].lat != 0 && this.reindeer[i].long != 0) {
+            lat = this.reindeer[i].lat;
+            long = this.reindeer[i].long;
+          }
+        }
+
+        if (lat != null && long != null) {
+          this.map.animateCamera({
+            target: { lat: lat, lng: long },
+            zoom: 2
+          });
+        }
+        else {
+          this.map.animateCamera({
+            target: { lat: this.myLat, lng: this.myLong },
+            zoom: 10,
+            duration: 1000
+          });
         }
 
       })
 
-    var lat = null;
-    var long = null;
 
-    for (let i = 0; i < this.reindeer.length; i++) {
-      if (this.reindeer[i].status == false) {
-        lat = this.reindeer[i].lat;
-        long = this.reindeer[i].long;
-      }
-    }
-
-    if (lat != null && long != null) {
-      this.map.animateCamera({
-        target: { lat: lat, lng: long },
-        zoom: 2
-      });
-    }
-    else{
-      this.map.animateCamera({
-        target: {lat: myLat, lng: myLong},
-        zoom: 10,
-        duration: 1000
-
-      });
-    }
 
   }
 
@@ -172,6 +194,7 @@ export class HomePage {
     });
   }
   refresh() {
+    this.map.clear();
     this.loadReindeer();
     let toast = this.toastCtrl.create({
       message: 'Refreshing data...',
@@ -193,6 +216,7 @@ export class HomePage {
   editSettings() {
     this.nav.push(SettingsPage);
   }
+
 
 }
 
