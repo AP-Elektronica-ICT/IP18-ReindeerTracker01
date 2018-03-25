@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="io.ionic.starter" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>ReindeerTracker</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <name>Anicare</name>
+    <description>Track your reindeer with Anicare!</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
@@ -80,12 +80,6 @@
         <string>Allow the app to know your location</string>
     </config-file>
     <allow-navigation href="http://172.16.221.75:8100" />
-    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
-    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.2">
-        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
-    </plugin>
-    <plugin name="cordova-plugin-qrscanner" spec="^2.5.0" />
-    <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
@@ -93,6 +87,12 @@
     <plugin name="cordova-plugin-splashscreen" spec="^5.0.2" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.1" />
+    <plugin name="phonegap-plugin-barcodescanner" spec="^7.0.2">
+        <variable name="CAMERA_USAGE_DESCRIPTION" value=" " />
+    </plugin>
+    <plugin name="cordova-plugin-qrscanner" spec="^2.5.0" />
+    <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="cordova-plugin-googlemaps" spec="^2.2.8">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAMKHZAe3EbZ7c-A0um5N0trMaPdET02I8" />
         <variable name="API_KEY_FOR_IOS" value="AIzaSyAhmaZaKbLuDXtd6vWO-0xfFi3xbaowAcc" />
@@ -104,6 +104,6 @@
     <plugin name="cordova-plugin-nativegeocoder" spec="^3.1.1">
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Use geocoder service" />
     </plugin>
-    <engine name="ios" spec="^4.5.4" />
+    <plugin name="cordova-sqlite-storage" spec="^2.3.0" />
     <engine name="android" spec="7.0.0" />
 </widget>

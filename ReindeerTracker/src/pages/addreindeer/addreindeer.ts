@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 
 
@@ -13,26 +12,15 @@ export class AddReindeerPage {
 
     userId: string = "1";
   
-    options: CameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      targetWidth: 1000,
-      targetHeight: 1000
-    }
-  
     reindeerForm = {
       name: '',
       gender: '',
-      birthDate: '',
-      pictures: []
+      birthDate: ''    
     };
   
-    constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, private camera: Camera, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
+    constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
 
     }
-  
   
     addReindeer() {
       if (this.reindeerForm.name == "") {
@@ -72,36 +60,5 @@ export class AddReindeerPage {
         position: 'top'
       });
       toast.present();
-    }
-  
-    takePicture() {
-  
-      this.camera.getPicture(this.options).then((imageData) => {
-        this.reindeerForm.pictures.push('data:image/jpeg;base64,' + imageData)
-      }, (err) => {
-        this.showError("Unable to take picture, please try again.")
-      });
-    }
-
-    deletePicture(pictureId:number){
-        let confirm = this.alertCtrl.create({
-            title: 'Please confirm',
-            message: 'Do you really want to remove this picture?',
-            buttons: [
-              {
-                text: 'Cancel',
-                handler: () => {
-                  
-                }
-              },
-              {
-                text: 'Remove',
-                handler: () => {
-                    this.reindeerForm.pictures.splice(pictureId,1);
-                }
-              }
-            ]
-          });
-          confirm.present();
     }
 }
