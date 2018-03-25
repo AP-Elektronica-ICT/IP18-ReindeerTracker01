@@ -5,6 +5,7 @@ import { IReindeer } from '../home/home';
 import { DetailPage } from '../detail/detail';
 import { AddReindeerPage } from '../addreindeer/addreindeer';
 import { EditReindeerPage } from '../editreindeer/editreindeer';
+import { ReportPage } from '../report/report';
 
 
 @Component({
@@ -35,6 +36,12 @@ export class ReindeerPage {
 
   editReindeer(reindeerId: string){
     this.nav.push(EditReindeerPage, {
+      reindeerId: reindeerId,
+    });
+  }
+
+  reportReindeer(reindeerId: string){
+    this.nav.push(ReportPage, {
       reindeerId: reindeerId,
     });
   }
@@ -78,10 +85,10 @@ export class ReindeerPage {
     confirm.present();
   }
 
-  showInfo(reidneerId: string) {
+  showInfo(reindeerId: string) {
 
       this.nav.push(DetailPage, {
-        reindeerId: reidneerId,
+        reindeerId: reindeerId,
     });
     
   }

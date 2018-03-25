@@ -21,6 +21,7 @@ import { Camera } from '@ionic-native/camera';
 import { EditReindeerPage } from '../pages/editreindeer/editreindeer';
 import { AddReindeerPage } from '../pages/addreindeer/addreindeer';
 import { GoogleMaps } from '@ionic-native/google-maps';
+import { ReportPage } from '../pages/report/report';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     ReindeerPage,
     EditReindeerPage,
     AddReindeerPage,
+    ReportPage
   ],
   imports: [
     BrowserModule,
@@ -50,6 +52,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     ReindeerPage,
     EditReindeerPage,
     AddReindeerPage,
+    ReportPage
   ],
   providers: [
     StatusBar,

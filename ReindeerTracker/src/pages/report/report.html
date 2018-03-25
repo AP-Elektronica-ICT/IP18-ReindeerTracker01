@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Reindeer Tracker
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-grid>
+                <ion-card class="card" ion-item *ngFor="let detail of details">
+                    <ion-card-content>
+                        <span *ngIf="detail.reindeerId">Reindeer ID: {{detail.reindeerId}}</span>
+                        <span *ngIf="detail.serialnumber"><br>Serialnumber: {{detail.serialnumber}}</span>
+                        <span *ngIf="detail.name"><br>Name: {{detail.name}}</span>
+                        <span *ngIf="detail.gender"><br>Gender: {{detail.gender}}</span>
+                        <span *ngIf="detail.birthDate"><br>Birthdate: {{detail.birthDate}}</span>
+                        <span ><br>Date when added: {{detail.time | date:'d/MM/yy'}}</span>
+                        <span ><br>Date when found: {{datetime}}</span>
+                        <span ><br>place where added: <br>Lat: <br>Long: <br> City:</span>
+                        <span ><br>place where found: <br>Lat:{{latLast}} <br>Long:{{longLast}} <br> City:</span>
+                        
+                    </ion-card-content>
+                </ion-card>
+    </ion-grid>
+</ion-content>

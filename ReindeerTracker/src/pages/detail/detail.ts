@@ -96,10 +96,10 @@ export class DetailPage {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
       if (this.details[0].locations.length != 0) {
-        for (let i = 0; i < this.details[0].locations.length - 1; i++) {
+        for (let i = 1; i < this.details[0].locations.length - 1; i++) {
           this.addMarker(this.details[0].locations[i].lat, this.details[0].locations[i].long, "https://thumb.ibb.co/jOO0Nc/pin.png");
         }
-        this.addMarker(this.details[0].locations[this.details[0].locations.length - 1].lat, this.details[0].locations[this.details[0].locations.length - 1].long, "https://thumb.ibb.co/dfB2fx/deer.png");
+        this.addMarker(this.details[0].locations[0].lat, this.details[0].locations[0].long, "https://thumb.ibb.co/dfB2fx/deer.png");
 
         for (let i = 0; i < this.markers.length; i++) {
           this.markers[i].addListener('click', (event) => {
@@ -136,7 +136,7 @@ export class DetailPage {
         strokeWeight: 2,
         fillColor: "#FF0000",
         fillOpacity: 0.35,
-        center: { lat: parseFloat(this.details[0].locations[this.details[0].locations.length - 1].lat), lng: parseFloat(this.details[0].locations[this.details[0].locations.length - 1].long) },
+        center: { lat: parseFloat(this.details[0].locations[0].lat), lng: parseFloat(this.details[0].locations[0].long) },
         radius: this.details[0].averageDistance
       });
       Circle.setMap(this.map);
