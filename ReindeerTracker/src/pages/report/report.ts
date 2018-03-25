@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 import { IDetails } from '../detail/detail';
 
 @Component({
@@ -13,13 +14,14 @@ export class ReportPage {
     userId: string = "1";
     details: IDetails[];
     datetime: String;
-    latLast: String;
-    longLast: String;
+    latLast: string;
+    longLast: string;
+    cityLast: String;
 
 
 
 
-    constructor(public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
+    constructor(private nativeGeocoder: NativeGeocoder, public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
         this.loadDetails(this.navParams.get('reindeerId'));
     }
 
@@ -30,22 +32,25 @@ export class ReportPage {
             .then(data => {
                 this.details = data;
                 console.log(data)
+                this.calculations();
             });
-            this.calculations();
 
 
 
     }
 
-    calculations(){
+    calculations() {
         var currentdate = new Date();
         this.datetime = currentdate.getDate() + "/" + (currentdate.getMonth() + 1) + "/" + currentdate.getFullYear()
-        //this.latLast = this.details[0].locations[0].lat
-       // console.log(this.details[0].locations[0].lat)
-        //this.longLast = this.details[0].locations[0].long
+        this.latLast = this.details[0].locations[0].lat
+        this.longLast = this.details[0].locations[0].long
+
+        this.nativeGeocoder.reverseGeocode(parseInt(this.latLast), parseInt( this.longLast))
+            .then((result: NativeGeocoderReverseResult) => this.cityLast = JSON.stringify(result))
+            .catch((error: any) => console.log(error));
     }
 
-    
+
 
 
 

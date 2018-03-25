@@ -20,8 +20,9 @@ import { ReindeerPage } from '../pages/reindeer/reindeer';
 import { Camera } from '@ionic-native/camera';
 import { EditReindeerPage } from '../pages/editreindeer/editreindeer';
 import { AddReindeerPage } from '../pages/addreindeer/addreindeer';
-import { GoogleMaps } from '@ionic-native/google-maps';
+import { GoogleMaps, Geocoder } from '@ionic-native/google-maps';
 import { ReportPage } from '../pages/report/report';
+import { NativeGeocoder } from '@ionic-native/native-geocoder';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { ReportPage } from '../pages/report/report';
     ConnectivityService,
     Network,
     Geolocation,
+    NativeGeocoder,
     BarcodeScanner,
     ReindeerServiceProvider,
     Camera,
