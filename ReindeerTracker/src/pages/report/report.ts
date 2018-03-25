@@ -4,7 +4,7 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 import { IDetails } from '../detail/detail';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Geocoder } from '@ionic-native/google-maps';
-import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder'; 
+import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 
 @Component({
     selector: 'page-report',
@@ -60,8 +60,8 @@ export class ReportPage {
             .then((result: NativeGeocoderReverseResult) => this.cityLast = JSON.stringify(result.locality))
             .catch((error: any) => console.log(error));
 
-            this.nativeGeocoder.reverseGeocode(this.details[0].firstLocationLat, this.details[0].firstLocationLong)
-            .then((result: NativeGeocoderReverseResult) => this.cityFirst = JSON.stringify(result))
+        this.nativeGeocoder.reverseGeocode(this.details[0].firstLocationLat, this.details[0].firstLocationLong)
+            .then((result: NativeGeocoderReverseResult) => this.cityFirst = JSON.stringify(result.locality))
             .catch((error: any) => console.log(error));
     }
 
@@ -75,18 +75,18 @@ export class ReportPage {
 
     }
 
-    deletePicture(){
+    deletePicture() {
         this.picture = null
     }
 
     showError(error: string) {
         let toast = this.toastCtrl.create({
-          message: error,
-          duration: 2000,
-          position: 'top'
+            message: error,
+            duration: 2000,
+            position: 'top'
         });
         toast.present();
-      }
+    }
 
 
 
