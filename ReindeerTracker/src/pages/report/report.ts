@@ -17,6 +17,7 @@ export class ReportPage {
     latLast: string;
     longLast: string;
     cityLast: String;
+    cityFirst: String;
 
 
 
@@ -47,6 +48,10 @@ export class ReportPage {
 
         this.nativeGeocoder.reverseGeocode(parseInt(this.latLast), parseInt( this.longLast))
             .then((result: NativeGeocoderReverseResult) => this.cityLast = JSON.stringify(result))
+            .catch((error: any) => console.log(error));
+
+            this.nativeGeocoder.reverseGeocode(this.details[0].firstLocationLat, this.details[0].firstLocationLong)
+            .then((result: NativeGeocoderReverseResult) => this.cityFirst = JSON.stringify(result))
             .catch((error: any) => console.log(error));
     }
 

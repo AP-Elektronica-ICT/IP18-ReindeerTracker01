@@ -15,9 +15,9 @@
                         <span *ngIf="detail.name"><br>Name: {{detail.name}}</span>
                         <span *ngIf="detail.gender"><br>Gender: {{detail.gender}}</span>
                         <span *ngIf="detail.birthDate"><br>Birthdate: {{detail.birthDate}}</span>
-                        <span ><br>Date when added: {{detail.time | date:'d/MM/yy'}}</span>
+                        <span ><br>Date when added: {{detail.time | date:'d/MM/yyyy'}}</span>
                         <span ><br>Date when found: {{datetime}}</span>
-                        <span ><br>place where added: <br>Lat: <br>Long: <br> City:</span>
+                        <span ><br>place where added: <br>Lat:{{detail.firstLocationLat}} <br>Long:{{detail.firstLocationLong}} <br> City: {{cityFirst}}</span>
                         <span ><br>place where found: <br>Lat: {{latLast}} <br>Long: {{longLast}} <br> City: {{cityLast}}</span>
                         
                     </ion-card-content>

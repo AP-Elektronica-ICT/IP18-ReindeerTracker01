@@ -225,6 +225,8 @@ export interface IDetails {
   time: Date;
   averageDistance: number;
   status: boolean;
+  firstLocationLat : number;
+  firstLocationLong : number;
   battery: number;
   lat: number;
   long: number;
