@@ -23,6 +23,7 @@ import { AddReindeerPage } from '../pages/addreindeer/addreindeer';
 import { GoogleMaps, Geocoder } from '@ionic-native/google-maps';
 import { ReportPage } from '../pages/report/report';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpClientModule
+    HttpClientModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -66,6 +68,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
     BarcodeScanner,
     ReindeerServiceProvider,
     Camera,
-    GoogleMaps  ]
+    GoogleMaps
+  ]
 })
 export class AppModule {}

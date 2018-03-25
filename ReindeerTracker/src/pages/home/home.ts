@@ -10,6 +10,8 @@ import { AddReindeerPage } from '../addreindeer/addreindeer';
 import { ReindeerPage } from '../reindeer/reindeer';
 import { TrackersPage } from '../trackers/trackers';
 import { SettingsPage } from '../settings/settings';
+import { Storage } from '@ionic/storage';
+
 
 
 @Component({
@@ -22,13 +24,11 @@ export class HomePage {
 
   map: GoogleMap;
   reindeer: IReindeer[];
-  userId: string = "1";
+  userId: string;
   myLat: number;
   myLong: number;
 
-
-
-  constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events) {
+  constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events, private storage: Storage) {
     menuEvent.subscribe('menu', (action: string) => {
       switch (action) {
         case 'addReindeer': {
@@ -61,6 +61,10 @@ export class HomePage {
       }
     });
     menu.enable(true);
+
+    storage.get('userId').then((val) => {
+      this.userId = val;
+    });
   }
 
   ionViewDidLoad() {
