@@ -88,6 +88,10 @@ export class ReportPage {
         toast.present();
       }
 
+      hide(){
+          console.log("test");
+      }
+
 
 
 

@@ -25,14 +25,14 @@
                     <br>Date when found: {{datetime}}</span>
                 <span>
                     <br>Place where added:
-                    <br>Lat:
-                    <br>Long:
-                    <br> City:</span>
-                <span>
+                    <br>Lat: {{detail.firstLocationLat}}
+                    <br>Long: {{detail.firstLocationLong}}
+                    <br> City: {{cityFirst}}</span>
+                <span onclick="hide();">
                     <br>Place where found:
-                    <br>Lat:{{latLast}}
-                    <br>Long:{{longLast}}
-                    <br>City:{{cityLast}}
+                    <br>Lat: {{latLast}}
+                    <br>Long: {{longLast}}
+                    <br>City: {{cityLast}}
                 </span>
 
                 <br><button ion-button (click)="takePicture()" type="button">Add picture</button>

@@ -136,7 +136,7 @@ export class DetailPage {
         fillColor: "#FF0000",
         fillOpacity: 0.35,
         center: { lat: parseFloat(this.details[0].locations[0].lat), lng: parseFloat(this.details[0].locations[0].long) },
-        radius: this.details[0].averageDistance
+        radius: /*this.details[0].averageDistance*/0
       });
       Circle.setMap(this.map);
     }
