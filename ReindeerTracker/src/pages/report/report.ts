@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
-import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 import { IDetails } from '../detail/detail';
+import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Geocoder } from '@ionic-native/google-maps';
+import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder'; 
 
 @Component({
     selector: 'page-report',
@@ -14,15 +16,25 @@ export class ReportPage {
     userId: string = "1";
     details: IDetails[];
     datetime: String;
+    picture: string;
     latLast: string;
     longLast: string;
     cityLast: String;
     cityFirst: String;
 
+    options: CameraOptions = {
+        quality: 100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        targetWidth: 1000,
+        targetHeight: 1000
+    }
 
 
 
-    constructor(private nativeGeocoder: NativeGeocoder, public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
+
+    constructor(public nav: NavController, private toastCtrl: ToastController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController, private camera: Camera, public nativeGeocoder: NativeGeocoder) {
         this.loadDetails(this.navParams.get('reindeerId'));
     }
 
@@ -36,8 +48,6 @@ export class ReportPage {
                 this.calculations();
             });
 
-
-
     }
 
     calculations() {
@@ -46,14 +56,37 @@ export class ReportPage {
         this.latLast = this.details[0].locations[0].lat
         this.longLast = this.details[0].locations[0].long
 
-        this.nativeGeocoder.reverseGeocode(parseInt(this.latLast), parseInt( this.longLast))
-            .then((result: NativeGeocoderReverseResult) => this.cityLast = JSON.stringify(result))
+        this.nativeGeocoder.reverseGeocode(parseFloat(this.latLast), parseFloat(this.longLast))
+            .then((result: NativeGeocoderReverseResult) => this.cityLast = JSON.stringify(result.locality))
             .catch((error: any) => console.log(error));
 
             this.nativeGeocoder.reverseGeocode(this.details[0].firstLocationLat, this.details[0].firstLocationLong)
             .then((result: NativeGeocoderReverseResult) => this.cityFirst = JSON.stringify(result))
             .catch((error: any) => console.log(error));
     }
+
+    takePicture() {
+
+        this.camera.getPicture(this.options).then((imageData) => {
+            this.picture = ('data:image/jpeg;base64,' + imageData);
+        }, (err) => {
+            this.showError("Unable to take picture, please try again.")
+        });
+
+    }
+
+    deletePicture(){
+        this.picture = null
+    }
+
+    showError(error: string) {
+        let toast = this.toastCtrl.create({
+          message: error,
+          duration: 2000,
+          position: 'top'
+        });
+        toast.present();
+      }
 
 
 

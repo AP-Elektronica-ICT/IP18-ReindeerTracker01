@@ -107,7 +107,6 @@ export class DetailPage {
               message: "Date Location " + this.details[0].locations[i].time.toString(),
               duration: 2000,
             });
-
             toast.present(toast);
 
           });

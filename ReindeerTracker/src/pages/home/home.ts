@@ -5,10 +5,11 @@ import { ConnectivityService } from '../../providers/connectivity-service/connec
 import { DetailPage } from '../detail/detail';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 
-import { GoogleMaps, GoogleMapsEvent, GoogleMapsAnimation, MyLocation } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMapsEvent, GoogleMapsAnimation, MyLocation, GoogleMap } from '@ionic-native/google-maps';
 import { AddReindeerPage } from '../addreindeer/addreindeer';
 import { ReindeerPage } from '../reindeer/reindeer';
 import { TrackersPage } from '../trackers/trackers';
+import { SettingsPage } from '../settings/settings';
 
 
 @Component({
@@ -19,9 +20,10 @@ export class HomePage {
 
   @ViewChild('map') mapElement: ElementRef;
 
-  map: any;
+  map: GoogleMap;
   reindeer: IReindeer[];
   userId: string = "1";
+
 
 
   constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events) {
@@ -35,8 +37,20 @@ export class HomePage {
           this.showReindeer()
           break;
         }
+        case 'editTrackers': {
+          this.editTrackers()
+          break;
+        }
         case 'refresh': {
           this.refresh()
+          break;
+        }
+        case 'openSettings': {
+          this.editSettings()
+          break;
+        }
+        case 'openAccount': {
+          //this.editSettings()
           break;
         }
         default: {
@@ -71,7 +85,7 @@ export class HomePage {
           lat: 0,
           lng: 0
         },
-        zoom: 30
+        zoom: 3
       },
       controls: {
         compass: true,
@@ -88,10 +102,16 @@ export class HomePage {
 
   initMarkers() {
 
+    var myLat;
+    var myLong;
+
     this.map.getMyLocation()
       .then((location: MyLocation) => {
 
-        this.addMarker(location.latLng.lat, location.latLng.lng, "", "");
+        myLat = location.latLng.lat;
+        myLong = location.latLng.lng;
+
+        this.addMarker(myLat, myLong, "", "");
 
         for (let i = 0; i < this.reindeer.length; i++) {
           this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "https://thumb.ibb.co/dfB2fx/deer.png", this.reindeer[i].reindeerId);
@@ -99,6 +119,30 @@ export class HomePage {
 
       })
 
+    var lat = null;
+    var long = null;
+
+    for (let i = 0; i < this.reindeer.length; i++) {
+      if (this.reindeer[i].status == false) {
+        lat = this.reindeer[i].lat;
+        long = this.reindeer[i].long;
+      }
+    }
+
+    if (lat != null && long != null) {
+      this.map.animateCamera({
+        target: { lat: lat, lng: long },
+        zoom: 2
+      });
+    }
+    else{
+      this.map.animateCamera({
+        target: {lat: myLat, lng: myLong},
+        zoom: 10,
+        duration: 1000
+
+      });
+    }
 
   }
 
@@ -114,6 +158,9 @@ export class HomePage {
         }
       });
     });
+
+
+
 
   }
 
@@ -142,6 +189,9 @@ export class HomePage {
   }
   editTrackers() {
     this.nav.push(TrackersPage);
+  }
+  editSettings() {
+    this.nav.push(SettingsPage);
   }
 
 }

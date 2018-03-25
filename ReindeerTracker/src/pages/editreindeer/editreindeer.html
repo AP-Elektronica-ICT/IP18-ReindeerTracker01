@@ -6,7 +6,7 @@
                 </button>
 
                 <ion-title>
-                        Reindeer Tracker
+                        Edit Reindeer
                 </ion-title>
 
         </ion-navbar>
@@ -34,37 +34,6 @@
                         <ion-datetime displayFormat="DD MMMM YYYY" [(ngModel)]="reindeerForm.birthDate" name="birthdate">
                         </ion-datetime>
                 </ion-item>
-
-                <ion-item>
-                        <button ion-button (click)="takePicture()" type="button">Add picture</button>
-                </ion-item>
-
-
-                <div *ngIf="reindeerForm.addPictures">
-                        <ion-card *ngFor="let picture of reindeerForm.addPictures; let i = index">
-                                <ion-card-content>
-                                        <img [src]="picture" />
-                                        <br>
-                                        <button ion-button block color="danger" (click)="deleteNewPicture(i)" type="button">
-                                                Delete&nbsp;
-                                                <ion-icon name="trash"></ion-icon>
-                                        </button>
-                                </ion-card-content>
-                        </ion-card>
-                </div>
-
-                <div *ngIf="currentPictures">
-                        <ion-card *ngFor="let picture of currentPictures; let i = index">
-                                <ion-card-content>
-                                        <img [src]="picture.url" />
-                                        <br>
-                                        <button ion-button block color="danger" (click)="deleteCurrentPicture(i)" type="button">
-                                                Delete&nbsp;
-                                                <ion-icon name="trash"></ion-icon>
-                                        </button>
-                                </ion-card-content>
-                        </ion-card>
-                </div>
 
                 <div padding>
                         <button ion-button type="submit" color="secondary" block>Edit reindeer</button>

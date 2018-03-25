@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 
 @Component({
@@ -12,27 +11,15 @@ export class EditReindeerPage {
 
   userId: string = "1";
 
-  options: CameraOptions = {
-    quality: 100,
-    destinationType: this.camera.DestinationType.DATA_URL,
-    encodingType: this.camera.EncodingType.JPEG,
-    mediaType: this.camera.MediaType.PICTURE,
-    targetWidth: 1000,
-    targetHeight: 1000
-  }
-
-  currentPictures: any = [];
 
   reindeerForm = {
     name: '',
     gender: '',
-    birthDate: '',
-    addPictures: [],
-    deletePictures: []
+    birthDate: ''
   };
 
 
-  constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, private camera: Camera, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
+  constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
       this.loadDetails(this.navParams.get('reindeerId'));
   }
 
@@ -85,10 +72,6 @@ export class EditReindeerPage {
         this.reindeerForm.name = data[0].name;
         this.reindeerForm.gender = this.reindeerForm.gender = data[0].gender;
         this.reindeerForm.birthDate = data[0].birthDate.toString();
-
-        for(let i = 0; i < data[0].pictures.length; i++){
-          this.currentPictures.push(data[0].pictures[i]);
-        }
       });
   }
 
@@ -100,62 +83,4 @@ export class EditReindeerPage {
     });
     toast.present();
   }
-
-  takePicture() {
-
-    this.camera.getPicture(this.options).then((imageData) => {
-      this.reindeerForm.addPictures.push('data:image/jpeg;base64,' + imageData);
-    }, (err) => {
-      this.showError("Unable to take picture, please try again.")
-    });
-
-  }
-
-  deleteCurrentPicture(id:any){
-    let confirm = this.alertCtrl.create({
-        title: 'Please confirm',
-        message: 'Do you really want to remove this picture?',
-        buttons: [
-          {
-            text: 'Cancel',
-            handler: () => {
-              
-            }
-          },
-          {
-            text: 'Remove',
-            handler: () => {
-                this.reindeerForm.deletePictures.push(this.currentPictures[id].pictureId)
-                this.currentPictures.splice(id,1);
-            }
-          }
-        ]
-      });
-      confirm.present();
-  }
-
-  deleteNewPicture(id:any){
-    let confirm = this.alertCtrl.create({
-      title: 'Please confirm',
-      message: 'Do you really want to remove this picture?',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            
-          }
-        },
-        {
-          text: 'Remove',
-          handler: () => {
-              this.reindeerForm.addPictures.splice(id,1);
-          }
-        }
-      ]
-    });
-    confirm.present();
-  }
-
-
-
 }
