@@ -1,12 +1,15 @@
+
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, MenuController, Events } from 'ionic-angular';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
-import { Geolocation } from '@ionic-native/geolocation';
 import { DetailPage } from '../detail/detail';
-import { SettingsPage } from '../settings/settings';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+
+import { GoogleMaps, GoogleMapsEvent, GoogleMapsAnimation, MyLocation } from '@ionic-native/google-maps';
+import { AddReindeerPage } from '../addreindeer/addreindeer';
 import { ReindeerPage } from '../reindeer/reindeer';
-declare var google;
+import { TrackersPage } from '../trackers/trackers';
+
 
 @Component({
   selector: 'page-home',
@@ -17,42 +20,36 @@ export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
 
   map: any;
-  mapInitialised: boolean = false;
-  apiKey: string = "AIzaSyA4JravLPxlSKJZ9gadEoSmv27MPH00xAI";
-  markers: any = [];
   reindeer: IReindeer[];
   userId: string = "1";
 
 
-  constructor(public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider,public toastCtrl: ToastController) {
-    
+  constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events) {
+    menuEvent.subscribe('menu', (action: string) => {
+      switch (action) {
+        case 'addReindeer': {
+          this.addReindeer()
+          break;
+        }
+        case 'showReindeer': {
+          this.showReindeer()
+          break;
+        }
+        case 'refresh': {
+          this.refresh()
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+    menu.enable(true);
   }
 
   ionViewDidLoad() {
     this.loadReindeer();
   }
-
-  /*data: IReindeer[] =
-    [
-      {
-        "id": 74585,
-        "activity": new Date(2018, 2, 23, 14, 2),
-        "status": true,
-        "battery": 98,
-        "lat": 51.347732,
-        "long": 4.705509
-      },
-      {
-        "id": 35982,
-        "activity": new Date(2017, 2, 23, 4, 2),
-        "status": false,
-        "battery": 35,
-        "lat": 51.347899,
-        "long": 4.711914
-      }
-    ]*/
-
-
 
   loadReindeer() {
     this.reindeerProvider.getReindeer(this.userId)
@@ -67,151 +64,67 @@ export class HomePage {
 
   loadGoogleMaps() {
 
-    this.addConnectivityListeners();
 
-    if (typeof google == "undefined" || typeof google.maps == "undefined") {
-
-      if (this.connectivityService.isOnline()) {
-
-        window['mapInit'] = () => {
-          this.initMap();
-        }
-
-        let script = document.createElement("script");
-        script.id = "googleMaps";
-
-        if (this.apiKey) {
-          script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
-        } else {
-          script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
-        }
-
-        document.body.appendChild(script);
-
+    this.map = GoogleMaps.create('map_canvas', {
+      camera: {
+        target: {
+          lat: 0,
+          lng: 0
+        },
+        zoom: 30
+      },
+      controls: {
+        compass: true,
+        myLocationButton: true,
+        zoom: true
       }
-    }
-    else {
-
-      if (this.connectivityService.isOnline()) {
-        this.initMap();
-      }
-    }
-
-
-  }
-
-  initMap() {
-
-    this.mapInitialised = true;
-
-    this.geolocation.getCurrentPosition().then((position) => {
-
-      let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      let mapOptions = {
-        center: latLng,
-        zoom: 15,
-        mapTypeId: google.maps.MapTypeId.HYBRID,
-        mapTypeControl: true,
-        zoomControl: true,
-        zoomControlOptions: {
-          position: google.maps.ControlPosition.TOP_CENTER
-        }
-      }
-
-
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      this.addMarker(position.coords.latitude, position.coords.longitude, "1", "");
-
-      for (let i = 0; i < this.reindeer.length; i++) {
-        this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "1", "https://thumb.ibb.co/dfB2fx/deer.png");
-      }
-
-      for (let i = 1; i < this.markers.length; i++) {
-        this.markers[i].addListener('click', (event) => {
-          this.openDetail(false,i-1);
-      });
-
-      }
-
-
-      var latlngbounds = new google.maps.LatLngBounds();
-      for (let i = 0; i < this.markers.length; i++) {
-        latlngbounds.extend(this.markers[i].position);
-      }
-      this.map.fitBounds(latlngbounds);
-
-
     });
 
+    this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
+      this.initMarkers()
+    });
 
   }
 
-  addConnectivityListeners() {
+  initMarkers() {
 
-    let onOnline = () => {
+    this.map.getMyLocation()
+      .then((location: MyLocation) => {
 
-      setTimeout(() => {
-        if (typeof google == "undefined" || typeof google.maps == "undefined") {
+        this.addMarker(location.latLng.lat, location.latLng.lng, "", "");
 
-          this.loadGoogleMaps();
-
-        } else {
-
-          if (!this.mapInitialised) {
-            this.initMap();
-          }
-
+        for (let i = 0; i < this.reindeer.length; i++) {
+          this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "https://thumb.ibb.co/dfB2fx/deer.png", this.reindeer[i].reindeerId);
         }
-      }, 2000);
 
-    };
-
-    let onOffline = () => {
-    };
-
-    window.addEventListener('online', onOnline, false);
-    window.addEventListener('offline', onOffline, false);
-
+      })
 
 
   }
 
-
-  addMarker(lat: number, lng: number, lbl: string, icon: string): void {
-
-    let latLng = new google.maps.LatLng(lat, lng);
-
-
-
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: latLng,
-      //label: lbl,
+  addMarker(lat: number, lng: number, icon: string, reindeerId: string): void {
+    this.map.addMarker({
+      position: { lat: lat, lng: lng },
+      animation: GoogleMapsAnimation.BOUNCE,
       icon: icon
+    }).then((marker: any) => {
+      marker.addEventListener(GoogleMapsEvent.MARKER_CLICK).subscribe(() => {
+        if (reindeerId != "") {
+          this.openDetail(reindeerId);
+        }
+      });
     });
 
-    this.markers.push(marker);
   }
 
 
-  openDetail(isSerialnumber: boolean, item: any) {
-    if(isSerialnumber){
-      this.nav.push(DetailPage, {
-        reindeerId: item
+  openDetail(reindeerId: any) {
+
+    this.nav.push(DetailPage, {
+      reindeerId: reindeerId
     });
-    }
-    else{
-      this.nav.push(DetailPage, {
-        reindeerId: this.reindeer[item].reindeerId
-    });
-    }
-    
-    
   }
   refresh() {
-    this.markers = [];
     this.loadReindeer();
     let toast = this.toastCtrl.create({
       message: 'Refreshing data...',
@@ -220,12 +133,17 @@ export class HomePage {
     });
     toast.present();
   }
-  openSettings() {
-    this.nav.push(SettingsPage);
+
+  addReindeer() {
+    this.nav.push(AddReindeerPage);
   }
-  EditReindeerList(){
+  showReindeer() {
     this.nav.push(ReindeerPage);
   }
+  editTrackers() {
+    this.nav.push(TrackersPage);
+  }
+
 }
 
 export interface IReindeer {
@@ -236,5 +154,5 @@ export interface IReindeer {
   lat: number;
   long: number;
   name: string;
-  reported : boolean;
+  reported: boolean;
 }

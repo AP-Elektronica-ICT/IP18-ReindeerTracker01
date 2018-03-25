@@ -1,1 +1,32 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content" persistent="true">
+    <ion-content>
+        <ion-list>
+            <ion-list-header>
+                Reindeer
+            </ion-list-header>
+            <ion-item (click)="buttonPress('addReindeer')">
+                <ion-icon name="add"></ion-icon>&nbsp;Add Reindeer</ion-item>
+            <ion-item (click)="buttonPress('showReindeer')">
+                <ion-icon name="list"></ion-icon>&nbsp;Show Reindeer</ion-item>
+            <ion-list-header>
+                Trackers
+            </ion-list-header>
+            <ion-item (click)="buttonPress('editTrackers')">
+                <ion-icon name="create"></ion-icon>&nbsp;Edit Trackers</ion-item>
+            <ion-list-header>
+                Map
+            </ion-list-header>
+            <ion-item (click)="buttonPress('refresh')">
+                <ion-icon name="refresh"></ion-icon>&nbsp;Refresh Map</ion-item>
+            <ion-list-header>
+                Other
+            </ion-list-header>
+            <ion-item (click)="buttonPress('openSettings')">
+                <ion-icon name="settings"></ion-icon>&nbsp;Settings</ion-item>
+            <ion-item (click)="buttonPress('openAccount')">
+                <ion-icon name="person"></ion-icon>&nbsp;Account</ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav id="nav" #content [root]="rootPage"></ion-nav>

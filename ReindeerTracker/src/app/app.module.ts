@@ -20,6 +20,7 @@ import { ReindeerPage } from '../pages/reindeer/reindeer';
 import { Camera } from '@ionic-native/camera';
 import { EditReindeerPage } from '../pages/editreindeer/editreindeer';
 import { AddReindeerPage } from '../pages/addreindeer/addreindeer';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,7 @@ import { AddReindeerPage } from '../pages/addreindeer/addreindeer';
     Geolocation,
     BarcodeScanner,
     ReindeerServiceProvider,
-    Camera
-  ]
+    Camera,
+    GoogleMaps  ]
 })
 export class AppModule {}

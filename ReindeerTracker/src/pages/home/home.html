@@ -1,15 +1,13 @@
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-buttons end>
-      <button ion-button icon-only (click)='refresh()'>
-        <ion-icon name="refresh"></ion-icon>
-      </button>
-    </ion-buttons>
+  <ion-navbar hideBackButton color="primary">
+          <button ion-button icon-only menuToggle>
+                  <ion-icon name="menu"></ion-icon>
+          </button>
 
-    <ion-title>
-      Reindeer Tracker
-    </ion-title>
+          <ion-title>
+                  Reindeer Tracker
+          </ion-title>
 
   </ion-navbar>
 
@@ -17,7 +15,8 @@
 
 <ion-content>
 
-  <div #map id="map"></div>
+  <div id="map_canvas"></div>
+
 <!--
   <ion-grid>
     <ion-row>
@@ -55,19 +54,11 @@
     </ion-grid>
 
   </ion-list>
--->
 
+-->
 </ion-content>
 
 
 <ion-footer>
-  <ion-toolbar>
-    <ion-grid>
-      <ion-row>
-        <ion-col (click)='openSettings()'>
-          <ion-icon name="settings"></ion-icon>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-toolbar>
+  
 </ion-footer>
