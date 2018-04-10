@@ -5,7 +5,9 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
-import { GlobalServiceProvider } from '../../providers/global-service/global-service';
+import { Storage } from '@ionic/storage';
+
+
 declare var google;
 
 @Component({
@@ -25,10 +27,16 @@ export class DetailPage {
   details: IDetails[];
   LastLocLat: number;
   LastLocLong: number;
+  lastLocRange: number;
 
-  constructor(public toastCtrl: ToastController,private globalServiceProvider : GlobalServiceProvider, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService : ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
+  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService : ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider, private storage: Storage) {
     this.loadDetails();
-    console.log(globalServiceProvider.range)
+
+    storage.get('lastLocRange').then((val) => {
+      this.lastLocRange = val;
+      console.log("Opgehaalde waarde:" + val)
+    });
+    
    }
 
   loadGoogleMaps() {

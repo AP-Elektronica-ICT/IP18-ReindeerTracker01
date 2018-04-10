@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, NavParams, AlertController, ToastController } from 'ionic-angular';
 import { TrackersPage } from '../trackers/trackers';
 import { ReindeerPage } from '../reindeer/reindeer';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'page-settings',
@@ -10,15 +12,10 @@ import { ReindeerPage } from '../reindeer/reindeer';
 export class SettingsPage {
 
   trackers: any;
-  range : number
+  lastLocRange : number
 
-  constructor(public nav: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController) {
+  constructor(public nav: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, private storage: Storage) {
   }
-
-  cValue(event, nome) {
-    console.log("SliderValue", event._valA);
-}
-
 
 
   manageTrackers() {
@@ -27,5 +24,10 @@ export class SettingsPage {
 
   manageReindeer() {
     this.nav.push(ReindeerPage, {});
+  }
+
+  change(){
+    console.log("Set:" + this.lastLocRange);
+    this.storage.set("lastLocRange",this.lastLocRange)
   }
 }

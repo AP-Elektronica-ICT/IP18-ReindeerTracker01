@@ -23,7 +23,6 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { ReportPage } from '../pages/report/report';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { IonicStorageModule } from '@ionic/storage';
-import { GlobalServiceProvider } from '../providers/global-service/global-service';
 import { ConnectivityService } from '../providers/connectivity-service/connectivity-service';
 
 
@@ -69,7 +68,6 @@ import { ConnectivityService } from '../providers/connectivity-service/connectiv
     NativeGeocoder,
     BarcodeScanner,
     ReindeerServiceProvider,
-    GlobalServiceProvider,
     Camera,
     GoogleMaps
   ]
