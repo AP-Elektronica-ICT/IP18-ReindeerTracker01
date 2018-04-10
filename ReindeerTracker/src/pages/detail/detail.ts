@@ -1,9 +1,11 @@
 
 import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
+
 import { Geolocation } from '@ionic-native/geolocation';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
+import { GlobalServiceProvider } from '../../providers/global-service/global-service';
 declare var google;
 
 @Component({
@@ -24,9 +26,10 @@ export class DetailPage {
   LastLocLat: number;
   LastLocLong: number;
 
-  constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService: ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
+  constructor(public toastCtrl: ToastController,private globalServiceProvider : GlobalServiceProvider, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService : ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider) {
     this.loadDetails();
-  }
+    console.log(globalServiceProvider.range)
+   }
 
   loadGoogleMaps() {
 
@@ -128,7 +131,6 @@ export class DetailPage {
         strokeWeight: 4
       });
       Showplan.setMap(this.map);
-      console.log(this.details[0].averageDistance)
       var Circle = new google.maps.Circle({
         strokeColor: "#FF0000",
         strokeOpacity: 0.8,

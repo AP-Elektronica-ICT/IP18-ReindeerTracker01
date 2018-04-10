@@ -20,6 +20,7 @@ export class ReportPage {
     longLast: string;
     cityLast: String;
     cityFirst: String;
+    age: number;
 
     options: CameraOptions = {
         quality: 100,

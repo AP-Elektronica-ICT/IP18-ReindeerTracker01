@@ -10,16 +10,22 @@ import { ReindeerPage } from '../reindeer/reindeer';
 export class SettingsPage {
 
   trackers: any;
+  range : number
 
   constructor(public nav: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController) {
-
   }
 
-  manageTrackers(){
+  cValue(event, nome) {
+    console.log("SliderValue", event._valA);
+}
+
+
+
+  manageTrackers() {
     this.nav.push(TrackersPage, {});
   }
 
-  manageReindeer(){
+  manageReindeer() {
     this.nav.push(ReindeerPage, {});
   }
 }

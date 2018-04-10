@@ -4,12 +4,15 @@ import 'rxjs/add/operator/map';
 import { IReindeer } from '../../pages/home/home';
 import { IDetails } from '../../pages/detail/detail';
 import { ITracker, ICheckTracker } from '../../pages/trackers/trackers';
+import { GlobalServiceProvider } from '../global-service/global-service';
+
 
  
 @Injectable() 
 export class ReindeerServiceProvider { 
  
-  constructor(public http: HttpClient) { 
+  constructor(public http: HttpClient , private globalServiceProvider : GlobalServiceProvider) { 
+    
   } 
  //-------------------------------------------------------------------------------------------------------//
   getReindeer(id: string): Promise<IReindeer[]>  { 

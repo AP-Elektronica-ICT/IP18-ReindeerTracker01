@@ -16,6 +16,13 @@
     <br>
     <button ion-button color="secondary" block (click)="manageReindeer()">Manage reindeer</button>
     <br>
+    <div>range for last locations reindeer</div>
+    <ion-range min="1" max="10" pin="true"     [(ngModel)]="globalServiceProvider" (ionChange)="cValue($event, 'slider1')" color="secondary">
+        <ion-label range-left>1</ion-label>
+        <ion-label range-right>10</ion-label>
+    </ion-range>
+
+    <!--https://stackoverflow.com/questions/38507253/angular-2-ionic-2-ngmodel-dynamic-global-variable-->
     <button ion-button color="danger" block (click)="logout()">Logout&nbsp;
         <ion-icon name="exit"></ion-icon>
     </button>
