@@ -13,11 +13,10 @@ if(isset($_POST))
     $gender = $data['gender'];
     $birthDate = $data['birthDate'];
     $userId = $data['userId'];
-    $picture = $data['picture'];
     
 
 
-    $query = "insert into reindeer (name, gender, birthDate, userId, picture) values ('$name','$gender','$birthDate',$userId,'$picture');";
+    $query = "insert into reindeer (name, gender, birthDate, userId) values ('$name','$gender','$birthDate',$userId);";
     echo $query;
     if(!mysql_query($query,$con))
     {

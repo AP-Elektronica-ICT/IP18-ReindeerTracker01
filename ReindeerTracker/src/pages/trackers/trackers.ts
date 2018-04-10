@@ -186,7 +186,7 @@ export class TrackersPage {
   checkTrackers(serialnumber: number) {
     this.reindeerProvider.checkBeforeAddTracker(serialnumber)
       .then(data => {
-        if (data[0].exist && !data[0].added) {
+        if (/*data[0].exist && !data[0].added*/ true) {
           this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
             .then(data => {
               if (data) {
@@ -208,7 +208,7 @@ export class TrackersPage {
               }
             });
         }
-        else if (data[0].exist && data[0].added) {
+        /*else if (data[0].exist && data[0].added) {
           let toast = this.toastCtrl.create({
             message: 'This tracker is already registered to the system.',
             duration: 3000,
@@ -223,7 +223,7 @@ export class TrackersPage {
             position: 'top'
           });
           toast.present();
-        }
+        }*/
       });
   }
 

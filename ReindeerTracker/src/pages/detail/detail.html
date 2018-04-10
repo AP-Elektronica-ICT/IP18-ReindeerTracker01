@@ -16,7 +16,7 @@
 <ion-content>
     <div #map id="map"></div>
 
-  <ion-grid>
+  <ion-grid *ngIf="details">
     <ion-row>
       <ion-col>
         <ion-card class="card" ion-item *ngFor="let detail of details">
@@ -35,14 +35,6 @@
     </ion-row>
   </ion-grid>
 
-
-  <div *ngFor="let item of details" padding>
-  <ion-card class="card" ion-item *ngFor="let picture of item.pictures">
-    <ion-card-content>
-      <img [src]="picture.url" />
-    </ion-card-content>
-  </ion-card>
-  </div>
  
 </ion-content>
 

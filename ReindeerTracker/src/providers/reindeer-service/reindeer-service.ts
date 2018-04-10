@@ -66,7 +66,7 @@ export class ReindeerServiceProvider {
   } 
   checkBeforeAddTracker(serialnumber: number): Promise<ICheckTracker[]>  { 
     return new Promise(resolve => { 
-      this.http.get<ICheckTracker[]>('http://168.235.64.81/API/trackers/check/?serialnumber=' + serialnumber).subscribe(data => { 
+      this.http.get<ICheckTracker[]>('http://168.235.64.81/Reindeertracker/API/trackers/check/?serialnumber=' + serialnumber).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 

@@ -3,7 +3,6 @@ import { NavController, NavParams, ToastController, AlertController } from 'ioni
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { IDetails } from '../detail/detail';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Geocoder } from '@ionic-native/google-maps';
 import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
 
 @Component({
@@ -87,13 +86,5 @@ export class ReportPage {
         });
         toast.present();
     }
-
-      hide(){
-          console.log("test");
-      }
-
-
-
-
 
 }

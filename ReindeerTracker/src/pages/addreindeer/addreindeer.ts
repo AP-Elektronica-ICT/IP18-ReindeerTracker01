@@ -15,7 +15,8 @@ export class AddReindeerPage {
     reindeerForm = {
       name: '',
       gender: '',
-      birthDate: ''    
+      birthDate: '',
+      userId: '1'    
     };
   
     constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
