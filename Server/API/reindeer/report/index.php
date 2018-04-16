@@ -9,15 +9,13 @@ if(isset($_POST))
     $test = json_decode($inputJSON, true);
     $data = json_decode($test, true);
     
-    $name = $data['name'];
-    $gender = $data['gender'];
-    $birthDate = $data['birthDate'];
+    $reindeerId = $data['reindeerId'];
     $userId = $data['userId'];
     
 
-
-    $query = "insert into reindeer (name, gender, birthDate, userId) values ('$name','$gender','$birthDate',$userId);";
-   // echo $query;
+    $query = "update reindeer set reported where id = $data";
+    
+    
     if(!mysql_query($query,$con))
     {
         die('Error : ' . mysql_error());
