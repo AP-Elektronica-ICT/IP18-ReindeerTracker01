@@ -24,10 +24,5 @@ if(isset($_POST))
     {
         echo "true";
     }
-
-
-    
-    
-
 }
 ?>
