@@ -186,7 +186,7 @@ export class TrackersPage {
   checkTrackers(serialnumber: number) {
     this.reindeerProvider.checkBeforeAddTracker(serialnumber)
       .then(data => {
-        if (/*data[0].exist && !data[0].added*/ true) {
+        if (data[0].exist == "true" && data[0].added == "false") {
           this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
             .then(data => {
               if (data) {
@@ -208,7 +208,7 @@ export class TrackersPage {
               }
             });
         }
-        /*else if (data[0].exist && data[0].added) {
+        else if (data[0].exist == "true" && data[0].added == "true") {
           let toast = this.toastCtrl.create({
             message: 'This tracker is already registered to the system.',
             duration: 3000,
@@ -216,14 +216,19 @@ export class TrackersPage {
           });
           toast.present();
         }
-        else if (!data[0].exist) {
+        else if (data[0].exist == "false") {
           let toast = this.toastCtrl.create({
             message: 'This is not a valid key.',
             duration: 3000,
             position: 'top'
           });
           toast.present();
-        }*/
+        }
+        else{
+          console.log("lolz")
+          console.log(data[0].added)
+          console.log(data[0].exist)
+        }
       });
   }
 
@@ -328,6 +333,6 @@ export interface ITracker {
 }
 
 export interface ICheckTracker {
-  exist: boolean;
-  added: boolean;
+  exist: string;
+  added: string;
 }

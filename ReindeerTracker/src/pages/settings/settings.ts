@@ -15,6 +15,11 @@ export class SettingsPage {
   lastLocRange : number
 
   constructor(public nav: NavController, public navParams: NavParams, public alertCtrl: AlertController, public toastCtrl: ToastController, private storage: Storage) {
+    
+    storage.get('lastLocRange').then((val) => {
+      this.lastLocRange = val;
+      console.log("Opgehaalde waarde:" + val)
+    });
   }
 
 
