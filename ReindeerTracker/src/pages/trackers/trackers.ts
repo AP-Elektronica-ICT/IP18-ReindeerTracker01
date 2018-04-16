@@ -224,11 +224,6 @@ export class TrackersPage {
           });
           toast.present();
         }
-        else{
-          console.log("lolz")
-          console.log(data[0].added)
-          console.log(data[0].exist)
-        }
       });
   }
 

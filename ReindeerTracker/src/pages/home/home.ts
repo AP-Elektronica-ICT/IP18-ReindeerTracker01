@@ -27,6 +27,7 @@ export class HomePage {
   userId: string;
   myLat: number;
   myLong: number;
+  mapTypeSetting;
 
   constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events, private storage: Storage) {
     menuEvent.subscribe('menu', (action: string) => {
@@ -55,6 +56,11 @@ export class HomePage {
           //this.editSettings()
           break;
         }
+        case 'logout': {
+          this.storage.set("loginHash","")
+          this.nav.pop();
+          break;
+        }
         default: {
           break;
         }
@@ -64,6 +70,10 @@ export class HomePage {
 
     storage.get('userId').then((val) => {
       this.userId = val;
+    });
+
+    storage.get('mapTypeSetting').then((val) => {
+      this.mapTypeSetting = val;
     });
   }
 
@@ -83,8 +93,7 @@ export class HomePage {
 
 
   loadGoogleMaps() {
-
-
+    
     if (this.map == null) {
 
       this.map = GoogleMaps.create('map_canvas', {
@@ -98,9 +107,12 @@ export class HomePage {
         controls: {
           compass: true,
           myLocationButton: true,
-          zoom: true
-        }
+          zoom: true,
+        },
+          mapType: "MAP_TYPE_HYBRID"
       });
+
+      this.map.setMapTypeId("MAP_TYPE_TERRAIN") //werkt nog niet
 
       this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
         this.initMarkers()
@@ -120,7 +132,6 @@ export class HomePage {
             })
         });
       });
-
     }
     else {
       this.initMarkers()

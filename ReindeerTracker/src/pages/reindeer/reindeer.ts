@@ -57,6 +57,7 @@ export class ReindeerPage {
             this.reindeerProvider.deleteReindeer('{"reindeerId":"' + reindeerId + '","userId":"' + this.userId + '"}')
               .then(data => {
                 if (data) {
+                  console.log(data);
                   let toast = this.toastCtrl.create({
                     message: 'Reindeer succesfully removed from the system.',
                     duration: 3000
@@ -72,8 +73,6 @@ export class ReindeerPage {
                   toast.present();
                 }
               });
-
-
           }
         },
         {

@@ -1,4 +1,4 @@
-<ion-menu [content]="content" persistent="true">
+<ion-menu [content]="content" persistent="true" swipeEnabled="false">
     <ion-content>
         <ion-list>
             <ion-list-header>
@@ -25,6 +25,8 @@
                 <ion-icon name="settings"></ion-icon>&nbsp;Settings</ion-item>
             <ion-item (click)="buttonPress('openAccount')">
                 <ion-icon name="person"></ion-icon>&nbsp;Account</ion-item>
+            <ion-item (click)="buttonPress('logout')">
+                    <ion-icon name="exit"></ion-icon>&nbsp;Logout</ion-item>
         </ion-list>
     </ion-content>
 </ion-menu>

@@ -28,8 +28,7 @@ export class AddReindeerPage {
         this.showError("Please enter the name of the reindeer.");
       }
       else {
-        //console.log(JSON.stringify(this.reindeerForm));
-        this.reindeerProvider.addReindeer(JSON.stringify(this.reindeerForm))//'{"name":"' + this.reindeerForm.name + '","gender":"' + this.reindeerForm.gender + '","birthDate":"' + this.reindeerForm.birthDate + '","picture":"' + this.reindeerPicture + '","userId":"' + this.userId + '"}')
+        this.reindeerProvider.addReindeer(JSON.stringify(this.reindeerForm))
           .then(data => {
             if (data) {
               this.nav.pop();
