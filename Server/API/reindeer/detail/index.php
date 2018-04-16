@@ -20,15 +20,29 @@
         $previousLocationLat = "";
         $previousLocationLong = "";
 
+        $firstLocationLat = "";
+        $firstLocationLong = "";
+
+        $query = "select * from data where serialnumber = '$serialnumber' order by time ASC LIMIT 1;";
+       
+        $result = mysql_query($query);
+        while($row = mysql_fetch_assoc($result))
+        {
+            
+            $firstLocationLat = $row['latitude'];
+            $firstLocationLong = $row['longitude'];
+            $time = $row['time'];
+        }
+
         $query = "select * from data where serialnumber = '$serialnumber' order by time DESC LIMIT 1;";
         $result = mysql_query($query);
         while($row = mysql_fetch_assoc($result))
         {
             $status = $row['status'];
             $battery = $row['battery'];
-            $time = $row['time'];
-            $previousLocationLat = $row['lat'];
-            $previousLocationLong = $row['long'];
+            //$time = $row['time'];
+            $previousLocationLat = $row['latitude'];
+            $previousLocationLong = $row['longitude'];
         }
 
         $list = array();
@@ -50,19 +64,9 @@
             array_push($data,$array);
         }
 
-        $pictures = array();
-        $path =  $_SERVER["DOCUMENT_ROOT"]."/Reindeertracker/API/reindeer/img/$id/";
-        $files = scandir($path);
-        foreach($files as $file)
-        {
-            if($file != "." && $file != "..")
-            {
-            $array = array("pictureId"=>$file,"url"=>"https://".$_SERVER['SERVER_NAME']."/Reindeertracker/API/reindeer/img/$id/".$file);
-            array_push($pictures,$array);
-            }
-        }
         
-        $array = array("reindeerId"=>$id,"serialnumber"=>$serialnumber,"name"=>$name,"birthDate"=>$birthDate, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data,"pictures"=>$pictures);
+        
+        $array = array("reindeerId"=>$id,"serialnumber"=>$serialnumber,"name"=>$name,"birthDate"=>$birthDate,"firstLocationLat"=>$firstLocationLat, "firstLocationLong"=>$firstLocationLong, "status"=>$status, "battery"=>$battery,"time"=>$time, "averageDistance"=>array_sum($list)/count($list),"locations"=>$data);
         array_push($json, $array);
     }
     echo json_encode($json);
