@@ -24,6 +24,10 @@ if(isset($_POST))
              echo $row['hash'];
          }
     }
+    else
+    {
+        echo "Your email or password is incorrect";
+    }
 
     if(!mysql_query($query,$con))
     {
