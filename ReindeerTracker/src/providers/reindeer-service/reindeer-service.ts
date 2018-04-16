@@ -35,7 +35,7 @@ export class ReindeerServiceProvider {
     }); 
   } 
  //-------------------------------------------------------------------------------------------------------//
-  getDetails( reindeerId:string): Promise<IDetails[]>  { 
+  getDetails( reindeerId:string, ): Promise<IDetails[]>  { 
     return new Promise(resolve => { 
       this.http.get<IDetails[]>('http://168.235.64.81/Reindeertracker/API/reindeer/detail/?reindeerId='+reindeerId+'&limit=5').subscribe(data => { 
         resolve(data); 
