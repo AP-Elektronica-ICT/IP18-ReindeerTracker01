@@ -11,11 +11,8 @@ if(isset($_POST))
     
     $reindeerId = $data['reindeerId'];
     $userId = $data['userId'];
-    
-
-    $query = "update reindeer set reported where id = $data";
-    
-    
+    $query = "delete from reindeer where id = $reindeerId";
+  
     if(!mysql_query($query,$con))
     {
         die('Error : ' . mysql_error());
@@ -24,5 +21,10 @@ if(isset($_POST))
     {
         echo "true";
     }
+
+
+    
+    
+
 }
 ?>
