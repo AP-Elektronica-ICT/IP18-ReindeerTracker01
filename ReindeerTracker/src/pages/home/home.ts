@@ -196,12 +196,7 @@ export class HomePage {
       });
     });
 
-
-
-
   }
-
-
   openDetail(reindeerId: any) {
 
     this.nav.push(DetailPage, {

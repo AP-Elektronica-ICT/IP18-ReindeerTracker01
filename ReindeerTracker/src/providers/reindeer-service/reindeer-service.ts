@@ -35,9 +35,9 @@ export class ReindeerServiceProvider {
     }); 
   } 
  //-------------------------------------------------------------------------------------------------------//
-  getDetails( reindeerId:string, ): Promise<IDetails[]>  { 
+  getDetails( reindeerId:string, lastLocRange:number ): Promise<IDetails[]>  { 
     return new Promise(resolve => { 
-      this.http.get<IDetails[]>('http://168.235.64.81/Reindeertracker/API/reindeer/detail/?reindeerId='+reindeerId+'&limit=5').subscribe(data => { 
+      this.http.get<IDetails[]>('http://168.235.64.81/Reindeertracker/API/reindeer/detail/?reindeerId='+reindeerId+'&limit=' + lastLocRange).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -135,6 +135,17 @@ export class ReindeerServiceProvider {
   deleteReindeer(data) { 
     return new Promise((resolve, reject) => { 
       this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/delete/', JSON.stringify(data)) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }
+
+  login(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/signin/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, err => { 
