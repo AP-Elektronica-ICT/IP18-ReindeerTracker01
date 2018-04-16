@@ -12,6 +12,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/nativ
 
 export class ReportPage {
 
+    lastLocRange: any;
     userId: string = "1";
     details: IDetails[];
     datetime: String;
@@ -34,14 +35,16 @@ export class ReportPage {
 
 
 
-    constructor(public nav: NavController, private toastCtrl: ToastController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController, private camera: Camera, public nativeGeocoder: NativeGeocoder) {
+    constructor(public nav: NavController, private toastCtrl: ToastController,public storage:Storage, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController, private camera: Camera, public nativeGeocoder: NativeGeocoder) {
         this.loadDetails(this.navParams.get('reindeerId'));
+
+       
     }
 
 
 
     loadDetails(reindeerId: string) {
-        this.reindeerProvider.getDetails(reindeerId)
+        this.reindeerProvider.getDetails(reindeerId,this.lastLocRange)
             .then(data => {
                 this.details = data;
                 console.log(data)

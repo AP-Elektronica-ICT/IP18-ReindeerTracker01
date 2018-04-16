@@ -19,10 +19,11 @@
 
     <div>Range for last locations reindeer</div>
 
-    <ion-range [(ngModel)]="lastLocRange" min="1" max="10" pin="true" (ionChange)="change()">
+    <ion-range [(ngModel)]="lastLocRange" min="1"max="10" pin="true"  (ionChange)="change()">
         <ion-label range-left>1</ion-label>
         <ion-label range-right>10</ion-label>
     </ion-range>
+
 
     <button ion-button color="danger" block (click)="logout()">Logout&nbsp;
         <ion-icon name="exit"></ion-icon>

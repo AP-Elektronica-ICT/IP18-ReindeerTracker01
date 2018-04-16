@@ -9,6 +9,7 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 
 export class EditReindeerPage {
 
+  lastLocRange: any;
   userId: string = "1";
 
 
@@ -19,8 +20,13 @@ export class EditReindeerPage {
   };
 
 
-  constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
-      this.loadDetails(this.navParams.get('reindeerId'));
+  constructor(public nav: NavController, public navParams: NavParams, public storage : Storage,private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
+    storage.get('lastLocRange').then((val) => {
+      //this.lastLocRange = val;
+      this.loadDetails(this.navParams.get('reindeerId'),val);
+      console.log("Opgehaalde waarde:" + val)
+    });  
+    //this.loadDetails(this.navParams.get('reindeerId'),this.lastLocRange);
   }
 
 
@@ -66,8 +72,8 @@ export class EditReindeerPage {
 
   }
 
-  loadDetails(reindeerId: string) {
-    this.reindeerProvider.getDetails(reindeerId)
+  loadDetails(reindeerId: string,lastLocRange: any) {
+    this.reindeerProvider.getDetails(reindeerId,lastLocRange)
       .then(data => {
         this.reindeerForm.name = data[0].name;
         this.reindeerForm.gender = this.reindeerForm.gender = data[0].gender;

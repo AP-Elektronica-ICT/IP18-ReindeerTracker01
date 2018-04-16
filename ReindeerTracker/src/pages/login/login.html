@@ -11,7 +11,22 @@
 
 <ion-content drag-content="false">
 
-        <button ion-button color="primary" (click)="nextPage()">Login</button>
+        <!--<button ion-button color="primary" (click)="nextPage()">Login</button>-->
+        <ion-item id="item">
+                <ion-label color="primary">Email</ion-label>
+                <ion-input [(ngModel)]="email"></ion-input>
+        </ion-item>
+        <ion-item>
+                <ion-label color="primary">Password</ion-label>
+                <ion-input type="password" [(ngModel)]="password"></ion-input>
+        </ion-item>
+        <div class="row">
+                <div class="col">
+                        <button  full ion-button color="primary" (click)="login(email,password)">Login</button>
+                </div>
+                <div class="col">
+                        <button full ion-button color="primary" >Register</button>
+                </div>
+        </div>
 
 </ion-content>
-

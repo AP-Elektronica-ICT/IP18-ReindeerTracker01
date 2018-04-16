@@ -3,6 +3,7 @@ import { NavController, NavParams, AlertController, ToastController } from 'ioni
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { IReindeer } from '../home/home';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -11,12 +12,19 @@ import { IReindeer } from '../home/home';
 })
 export class TrackersPage {
 
+  lastLocRange: any;
   trackers: any;
   userId: string = "1";
   reindeer: IReindeer[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public storage:Storage, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
     this.getTrackers();
+
+    /*storage.get('lastLocRange').then((val) => {
+      this.lastLocRange = val;
+      console.log("Opgehaalde waarde:" + val)
+    });*/
+    
   }
 
 
@@ -290,7 +298,7 @@ export class TrackersPage {
         let reindeerList = data;
         for (let i = 0; i < reindeerList.length; i++) {
           if (reindeerList[i].serialnumber == serial) {
-            this.reindeerProvider.getDetails(reindeerList[i].reindeerId)
+            this.reindeerProvider.getDetails(reindeerList[i].reindeerId,this.lastLocRange)
               .then(data => {
                 let reindeerDetailList = data;
                 let alert = this.alertCtrl.create({

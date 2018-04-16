@@ -78,7 +78,7 @@ export class DetailPage {
   }
 
   loadDetails() {
-    this.reindeerProvider.getDetails(this.navParams.get('reindeerId').toString())
+    this.reindeerProvider.getDetails(this.navParams.get('reindeerId').toString(),this.lastLocRange)
       .then(data => {
         this.details = data;
         this.loadGoogleMaps();
@@ -139,6 +139,7 @@ export class DetailPage {
         strokeWeight: 4
       });
       Showplan.setMap(this.map);
+      this.calculateAvarageDistance();
       var Circle = new google.maps.Circle({
         strokeColor: "#FF0000",
         strokeOpacity: 0.8,
@@ -146,7 +147,7 @@ export class DetailPage {
         fillColor: "#FF0000",
         fillOpacity: 0.35,
         center: { lat: parseFloat(this.details[0].locations[0].lat), lng: parseFloat(this.details[0].locations[0].long) },
-        radius: /*this.details[0].averageDistance*/0
+        radius: this.avaregeDistance
       });
       Circle.setMap(this.map);
     }
@@ -160,6 +161,31 @@ export class DetailPage {
 
 
   }
+
+  getDistanceFromLatLonInKm(lat1,lon1,lat2,lon2) {
+    var R = 6371; // Radius of the earth in km
+    var dLat = this.deg2rad(lat2-lat1);  // deg2rad below
+    var dLon = this.deg2rad(lon2-lon1); 
+    var a = 
+      Math.sin(dLat/2) * Math.sin(dLat/2) +
+      Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * 
+      Math.sin(dLon/2) * Math.sin(dLon/2)
+      ; 
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+    var d = R * c; // Distance in km
+    return d;
+   }
+
+    deg2rad(deg) {
+    return deg * (Math.PI/180)
+   }
+
+   calculateAvarageDistance(){
+     for(var i = 0;i<this.details[0].locations.length-1;i++){
+       this.avaregeDistance = this.avaregeDistance + this.getDistanceFromLatLonInKm(this.details[0].locations[i].lat,this.details[0].locations[i].long,this.details[0].locations[i+1].lat,this.details[0].locations[i+1].long)
+     }
+
+   }
 
 
   addConnectivityListeners() {
