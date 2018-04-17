@@ -24,7 +24,7 @@ import { ReportPage } from '../pages/report/report';
 import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConnectivityService } from '../providers/connectivity-service/connectivity-service';
-
+import { RegisterPage } from '../pages/register/register'; 
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { ConnectivityService } from '../providers/connectivity-service/connectiv
     ReindeerPage,
     EditReindeerPage,
     AddReindeerPage,
-    ReportPage
+    ReportPage, 
+    RegisterPage 
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,8 @@ import { ConnectivityService } from '../providers/connectivity-service/connectiv
     ReindeerPage,
     EditReindeerPage,
     AddReindeerPage,
-    ReportPage
+    ReportPage,  
+    RegisterPage
   ],
   providers: [
     StatusBar,

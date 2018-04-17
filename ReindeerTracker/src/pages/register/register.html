@@ -1,0 +1,40 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title>
+            Anicare
+        </ion-title>
+
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content drag-content="false">
+    <ion-item>
+        <ion-label color="primary">Firstname</ion-label>
+        <ion-input [(ngModel)]="firstname"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary">Lastname</ion-label>
+        <ion-input [(ngModel)]="lastname"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary">Email</ion-label>
+        <ion-input type="email" pattern="[A-Za-z0-9._%+-]{3,}@[a-zA-Z]{3,}([.]{1}[a-zA-Z]{2,}|[.]{1}[a-zA-Z]{2,}[.]{1}[a-zA-Z]{2,})"
+            [(ngModel)]="email"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary">Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary">Repeat Password</ion-label>
+        <ion-input type="password" [(ngModel)]="repeatpassword"></ion-input>
+    </ion-item>
+    <div class="row">
+        <div class="col">
+            <button full ion-button color="primary" (click)="register(firstname,lastname,email,password,repeatpassword)">Register</button>
+        </div>
+    </div>
+
+</ion-content>

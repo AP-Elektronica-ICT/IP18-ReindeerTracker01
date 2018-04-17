@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { RegisterPage } from '../register/register'; 
 
 @Component({
   selector: 'page-login',
@@ -42,6 +43,10 @@ export class LoginPage {
   });
 
  }
+
+ nextPage(){ 
+  this.nav.push(RegisterPage); 
+ } 
 
 
 
