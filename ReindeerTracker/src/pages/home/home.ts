@@ -5,7 +5,7 @@ import { ConnectivityService } from '../../providers/connectivity-service/connec
 import { DetailPage } from '../detail/detail';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 
-import { GoogleMaps, GoogleMapsEvent, GoogleMapsAnimation, MyLocation, GoogleMap } from '@ionic-native/google-maps';
+import { GoogleMaps, GoogleMapsEvent, GoogleMapsAnimation, MyLocation, GoogleMap, LocationService } from '@ionic-native/google-maps';
 import { AddReindeerPage } from '../addreindeer/addreindeer';
 import { ReindeerPage } from '../reindeer/reindeer';
 import { TrackersPage } from '../trackers/trackers';
@@ -121,7 +121,7 @@ export class HomePage {
         this.initMarkers()
 
         this.map.on(GoogleMapsEvent.MY_LOCATION_BUTTON_CLICK).subscribe(() => {
-          this.map.getMyLocation()
+          LocationService.getMyLocation()
             .then((location: MyLocation) => {
 
               this.myLat = location.latLng.lat
@@ -143,7 +143,7 @@ export class HomePage {
 
   initMarkers() {
 
-    this.map.getMyLocation()
+    LocationService.getMyLocation()
       .then((location: MyLocation) => {
 
         this.myLat = location.latLng.lat;
