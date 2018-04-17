@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 })
 export class AddReindeerPage {
 
-    userId: string = "1";
+    hash: string;
   
     reindeerForm = {
       name: '',
@@ -19,8 +20,10 @@ export class AddReindeerPage {
       userId: '1'    
     };
   
-    constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
-
+    constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController, private storage: Storage) {
+      storage.get('hash').then((val) => {
+        this.hash = val;
+      });
     }
   
     addReindeer() {

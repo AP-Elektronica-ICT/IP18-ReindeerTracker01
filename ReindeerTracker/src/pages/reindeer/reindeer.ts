@@ -6,6 +6,7 @@ import { DetailPage } from '../detail/detail';
 import { AddReindeerPage } from '../addreindeer/addreindeer';
 import { EditReindeerPage } from '../editreindeer/editreindeer';
 import { ReportPage } from '../report/report';
+import { Storage } from '@ionic/storage';
 
 
 @Component({
@@ -15,15 +16,19 @@ import { ReportPage } from '../report/report';
 })
 export class ReindeerPage {
   reindeer: IReindeer[];
-  userId: string = "1";
+  hash: string;
 
-  constructor(public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, private toastCtrl: ToastController, public alertCtrl: AlertController) {
+  constructor(public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, private toastCtrl: ToastController, public alertCtrl: AlertController, private storage: Storage) {
     this.loadReindeer();
+
+    storage.get('hash').then((val) => {
+      this.hash = val;
+    });
 
   }
 
   loadReindeer() {
-    this.reindeerProvider.getReindeer(this.userId)
+    this.reindeerProvider.getReindeer(this.hash)
       .then(data => {
         this.reindeer = data;
         console.log(data);
@@ -54,7 +59,7 @@ export class ReindeerPage {
         {
           text: 'Yes, delete permanently',
           handler: () => {
-            this.reindeerProvider.deleteReindeer('{"reindeerId":"' + reindeerId + '","userId":"' + this.userId + '"}')
+            this.reindeerProvider.deleteReindeer('{"reindeerId":"' + reindeerId + '","hash":"' + this.hash + '"}')
               .then(data => {
                 if (data) {
                   console.log(data);

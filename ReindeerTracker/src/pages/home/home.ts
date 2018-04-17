@@ -24,7 +24,7 @@ export class HomePage {
 
   map: GoogleMap;
   reindeer: IReindeer[];
-  userId: string;
+  hash: string;
   myLat: number;
   myLong: number;
   mapTypeSetting;
@@ -68,8 +68,8 @@ export class HomePage {
     });
     menu.enable(true);
 
-    storage.get('userId').then((val) => {
-      this.userId = val;
+    storage.get('hash').then((val) => {
+      this.hash = val;
     });
 
     storage.get('mapTypeSetting').then((val) => {
@@ -82,13 +82,11 @@ export class HomePage {
   }
 
   loadReindeer() {
-    this.reindeerProvider.getReindeer(this.userId)
+    this.reindeerProvider.getReindeer(this.hash)
       .then(data => {
         this.reindeer = data;
         this.loadGoogleMaps();
       });
-
-
   }
 
 
@@ -226,7 +224,6 @@ export class HomePage {
   editSettings() {
     this.nav.push(SettingsPage);
   }
-
 
 }
 

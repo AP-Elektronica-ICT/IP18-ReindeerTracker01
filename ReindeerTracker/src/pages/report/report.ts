@@ -4,6 +4,8 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 import { IDetails } from '../detail/detail';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/native-geocoder';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
     selector: 'page-report',
@@ -13,7 +15,7 @@ import { NativeGeocoder, NativeGeocoderReverseResult } from '@ionic-native/nativ
 export class ReportPage {
 
     lastLocRange: any;
-    userId: string = "1";
+    hash: string;
     details: IDetails[];
     datetime: String;
     picture: string;
@@ -38,13 +40,15 @@ export class ReportPage {
     constructor(public nav: NavController, private toastCtrl: ToastController,public storage:Storage, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController, private camera: Camera, public nativeGeocoder: NativeGeocoder) {
         this.loadDetails(this.navParams.get('reindeerId'));
 
-       
+        storage.get('hash').then((val) => {
+            this.hash = val;
+          });
     }
 
 
 
     loadDetails(reindeerId: string) {
-        this.reindeerProvider.getDetails(reindeerId,this.lastLocRange)
+        this.reindeerProvider.getDetails(reindeerId,this.lastLocRange,this.hash)
             .then(data => {
                 this.details = data;
                 console.log(data)

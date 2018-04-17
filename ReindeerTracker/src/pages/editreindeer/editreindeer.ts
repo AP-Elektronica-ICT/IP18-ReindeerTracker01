@@ -10,7 +10,7 @@ import { ReindeerServiceProvider } from '../../providers/reindeer-service/reinde
 export class EditReindeerPage {
 
   lastLocRange: any;
-  userId: string = "1";
+  hash: string;
 
 
   reindeerForm = {
@@ -25,7 +25,11 @@ export class EditReindeerPage {
       //this.lastLocRange = val;
       this.loadDetails(this.navParams.get('reindeerId'),val);
       console.log("Opgehaalde waarde:" + val)
-    });  
+    });
+
+    storage.get('hash').then((val) => {
+      this.hash = val;
+    });
     //this.loadDetails(this.navParams.get('reindeerId'),this.lastLocRange);
   }
 
@@ -73,7 +77,7 @@ export class EditReindeerPage {
   }
 
   loadDetails(reindeerId: string,lastLocRange: any) {
-    this.reindeerProvider.getDetails(reindeerId,lastLocRange)
+    this.reindeerProvider.getDetails(reindeerId,lastLocRange,this.hash)
       .then(data => {
         this.reindeerForm.name = data[0].name;
         this.reindeerForm.gender = this.reindeerForm.gender = data[0].gender;

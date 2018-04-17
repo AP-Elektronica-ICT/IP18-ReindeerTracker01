@@ -28,13 +28,17 @@ export class DetailPage {
   LastLocLat: number;
   LastLocLong: number;
   lastLocRange: number;
+  hash: string;
 
   constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService : ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider, private storage: Storage) {
     this.loadDetails();
 
     storage.get('lastLocRange').then((val) => {
       this.lastLocRange = val;
-      console.log("Opgehaalde waarde:" + val)
+    });
+
+    storage.get('hash').then((val) => {
+      this.hash = val;
     });
     
    }
@@ -78,7 +82,7 @@ export class DetailPage {
   }
 
   loadDetails() {
-    this.reindeerProvider.getDetails(this.navParams.get('reindeerId').toString(),this.lastLocRange)
+    this.reindeerProvider.getDetails(this.navParams.get('reindeerId').toString(),this.lastLocRange, this.hash)
       .then(data => {
         this.details = data;
         this.loadGoogleMaps();

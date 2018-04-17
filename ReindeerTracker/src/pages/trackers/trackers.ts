@@ -14,7 +14,7 @@ export class TrackersPage {
 
   lastLocRange: any;
   trackers: any;
-  userId: string = "1";
+  hash: string;
   reindeer: IReindeer[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage:Storage, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
@@ -24,6 +24,10 @@ export class TrackersPage {
       this.lastLocRange = val;
       console.log("Opgehaalde waarde:" + val)
     });*/
+
+    storage.get('hash').then((val) => {
+      this.hash = val;
+    });
     
   }
 
@@ -68,7 +72,7 @@ export class TrackersPage {
         {
           text: 'Yes, delete permanently',
           handler: () => {
-            this.reindeerProvider.deleteTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
+            this.reindeerProvider.deleteTracker('{"serialnumber":"' + serialnumber + '","hash":"' + this.hash + '"}')
               .then(data => {
                 if (data) {
                   let toast = this.toastCtrl.create({
@@ -107,7 +111,7 @@ export class TrackersPage {
         {
           text: 'Yes, unassign',
           handler: () => {
-            this.reindeerProvider.unassignTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
+            this.reindeerProvider.unassignTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.hash + '"}')
               .then(data => {
                 if (data) {
                   let toast = this.toastCtrl.create({
@@ -184,7 +188,7 @@ export class TrackersPage {
 
   getTrackers() {
 
-    this.reindeerProvider.getTrackers(this.userId)
+    this.reindeerProvider.getTrackers(this.hash)
       .then(data => {
         this.trackers = data;
         console.log(data);
@@ -192,10 +196,10 @@ export class TrackersPage {
   }
 
   checkTrackers(serialnumber: number) {
-    this.reindeerProvider.checkBeforeAddTracker(serialnumber)
+    this.reindeerProvider.checkBeforeAddTracker(serialnumber,this.hash)
       .then(data => {
         if (data[0].exist == "true" && data[0].added == "false") {
-          this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '"}')
+          this.reindeerProvider.addTracker('{"serialnumber":"' + serialnumber + '","hash":"' + this.hash + '"}')
             .then(data => {
               if (data) {
                 let toast = this.toastCtrl.create({
@@ -237,7 +241,7 @@ export class TrackersPage {
 
   assignTracker(serialnumber: number) {
 
-    this.reindeerProvider.getReindeer(this.userId)
+    this.reindeerProvider.getReindeer(this.hash)
       .then(data => {
         this.reindeer = data;
         console.log(data);
@@ -263,7 +267,7 @@ export class TrackersPage {
           text: 'Assign',
           handler: data => {
             console.log("Reindeerid: " + data);
-            this.reindeerProvider.assignTracker('{"serialnumber":"' + serialnumber + '","userId":"' + this.userId + '","reindeerId":"' + data + '"}')
+            this.reindeerProvider.assignTracker('{"serialnumber":"' + serialnumber + '","hash":"' + this.hash + '","reindeerId":"' + data + '"}')
               .then(data => {
                 if (data) {
                   let toast = this.toastCtrl.create({
@@ -293,12 +297,12 @@ export class TrackersPage {
 
 
   showInfo(serial: string) {
-    this.reindeerProvider.getReindeer(this.userId)
+    this.reindeerProvider.getReindeer(this.hash)
       .then(data => {
         let reindeerList = data;
         for (let i = 0; i < reindeerList.length; i++) {
           if (reindeerList[i].serialnumber == serial) {
-            this.reindeerProvider.getDetails(reindeerList[i].reindeerId,this.lastLocRange)
+            this.reindeerProvider.getDetails(reindeerList[i].reindeerId,this.lastLocRange,this.hash)
               .then(data => {
                 let reindeerDetailList = data;
                 let alert = this.alertCtrl.create({
