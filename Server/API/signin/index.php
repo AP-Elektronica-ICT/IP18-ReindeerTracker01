@@ -2,7 +2,7 @@
 
 include $_SERVER["DOCUMENT_ROOT"]."/Reindeertracker/API/db_login.php";
 header('Access-Control-Allow-Origin: *');
-
+$json = array();
 if(isset($_POST))
 {
     $inputJSON = file_get_contents('php://input');
@@ -12,30 +12,29 @@ if(isset($_POST))
     $email = $data['email'];
     $password = $data['password'];
 
+    
+    
+    $query = "select hash from users where email = '$email' AND password = '$password'";
 
-
-    $query = "select id from users where email = '$email' AND password = '$password'";
     $result = mysql_query($query);
 
     if(mysql_num_rows($result) > 0)
     {
          while($row = mysql_fetch_assoc($result))
          {
-             echo $row['hash'];
+             
+             $array = array("status"=>$row['hash']);
+             array_push($json, $array);
          }
     }
     else
     {
-        echo "Your email or password is incorrect";
+        
+        $array = array("status"=>'false');
+        array_push($json, $array);
     }
 
-    if(!mysql_query($query,$con))
-    {
-        die('Error : ' . mysql_error());
-    }
-    else
-    {
-        echo "true";
-    }
+   
 }
+echo json_encode($json);
 ?>
