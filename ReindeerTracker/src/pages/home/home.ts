@@ -66,29 +66,34 @@ export class HomePage {
         }
       }
     });
+
     menu.enable(true);
 
-    storage.get('hash').then((val) => {
-      this.hash = val;
-    });
+    
+
 
     storage.get('mapTypeSetting').then((val) => {
       this.mapTypeSetting = val;
     });
+
   }
 
   ionViewDidLoad() {
-    this.loadReindeer();
+    this.storage.get('hash').then((val) => {
+      this.hash = val;
+      this.loadReindeer();
+    });
   }
 
   loadReindeer() {
+    console.log("DATA HIER: " + this.hash);
     this.reindeerProvider.getReindeer(this.hash)
       .then(data => {
         this.reindeer = data;
+        
         this.loadGoogleMaps();
       });
   }
-
 
   loadGoogleMaps() {
     
@@ -176,8 +181,6 @@ export class HomePage {
         }
 
       })
-
-
 
   }
 

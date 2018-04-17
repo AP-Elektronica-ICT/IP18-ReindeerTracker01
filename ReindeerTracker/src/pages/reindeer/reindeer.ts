@@ -19,12 +19,14 @@ export class ReindeerPage {
   hash: string;
 
   constructor(public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, private toastCtrl: ToastController, public alertCtrl: AlertController, private storage: Storage) {
-    this.loadReindeer();
 
-    storage.get('hash').then((val) => {
+  }
+
+  ionViewDidLoad() {
+    this.storage.get('hash').then((val) => {
       this.hash = val;
+      this.loadReindeer();
     });
-
   }
 
   loadReindeer() {

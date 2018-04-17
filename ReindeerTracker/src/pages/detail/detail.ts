@@ -31,17 +31,19 @@ export class DetailPage {
   hash: string;
 
   constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService : ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider, private storage: Storage) {
-    this.loadDetails();
 
     storage.get('lastLocRange').then((val) => {
       this.lastLocRange = val;
     });
-
-    storage.get('hash').then((val) => {
-      this.hash = val;
-    });
     
    }
+
+   ionViewDidLoad() {
+    this.storage.get('hash').then((val) => {
+      this.hash = val;
+      this.loadDetails();
+    });
+  }
 
   loadGoogleMaps() {
 
