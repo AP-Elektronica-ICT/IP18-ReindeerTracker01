@@ -105,5 +105,5 @@
         <variable name="LOCATION_WHEN_IN_USE_DESCRIPTION" value="Use geocoder service" />
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.3.0" />
-    <engine name="android" spec="7.0.0" />
+    <engine name="android" spec="~7.0.0" />
 </widget>
