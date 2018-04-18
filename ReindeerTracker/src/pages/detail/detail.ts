@@ -6,6 +6,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { ConnectivityService } from '../../providers/connectivity-service/connectivity-service';
 import { Storage } from '@ionic/storage';
+import { EditReindeerPage } from '../editreindeer/editreindeer'; 
 
 
 declare var google;
@@ -113,7 +114,7 @@ export class DetailPage {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
       if (this.details[0].locations.length != 0) {
-        for (let i = 1; i < this.details[0].locations.length - 1; i++) {
+        for (let i = 1; i < this.details[0].locations.length; i++) {
           this.addMarker(this.details[0].locations[i].lat, this.details[0].locations[i].long, "https://thumb.ibb.co/jOO0Nc/pin.png");
         }
         this.addMarker(this.details[0].locations[0].lat, this.details[0].locations[0].long, "https://thumb.ibb.co/dfB2fx/deer.png");
@@ -121,7 +122,7 @@ export class DetailPage {
         for (let i = 0; i < this.markers.length; i++) {
           this.markers[i].addListener('click', (event) => {
             let toast = this.toastCtrl.create({
-              message: "Date Location " + this.details[0].locations[i].time.toString(),
+              message: "Date Location " + this.details[0].locations[this.markers.length-i -1].time,//Yorick date formatten 
               duration: 2000,
             });
             toast.present(toast);
@@ -153,7 +154,7 @@ export class DetailPage {
         fillColor: "#FF0000",
         fillOpacity: 0.35,
         center: { lat: parseFloat(this.details[0].locations[0].lat), lng: parseFloat(this.details[0].locations[0].long) },
-        radius: this.avaregeDistance
+        radius: this.calculateAvarageDistance()*1000 
       });
       Circle.setMap(this.map);
     }
@@ -188,10 +189,15 @@ export class DetailPage {
 
    calculateAvarageDistance(){
      for(var i = 0;i<this.details[0].locations.length-1;i++){
-       this.avaregeDistance = this.avaregeDistance + this.getDistanceFromLatLonInKm(this.details[0].locations[i].lat,this.details[0].locations[i].long,this.details[0].locations[i+1].lat,this.details[0].locations[i+1].long)
-     }
+      this.avaregeDistance=  this.getDistanceFromLatLonInKm(this.details[0].locations[i].lat,this.details[0].locations[i].long,this.details[0].locations[i+1].lat,this.details[0].locations[i+1].long) 
+    } 
+    return this.avaregeDistance 
 
    }
+
+   openEditPage(){ 
+    this.nav.push(EditReindeerPage) 
+  } 
 
 
   addConnectivityListeners() {
