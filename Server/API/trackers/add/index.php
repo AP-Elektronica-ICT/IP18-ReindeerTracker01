@@ -13,7 +13,14 @@ if(isset($_POST))
 
     
     $serialnumber = $data['serialnumber'];
-    $userId = $data['userId'];
+    $userId = 0;
+    $query = "select userId from users where hash = '$hash';";
+    $result = mysql_query($query);
+    while($row = mysql_fetch_assoc($result))
+    {
+        $userId = $row['userId'];
+    }
+
     $sql = "update  devices set userId = $userId where serialnumber =$serialnumber;";
     
     if(!mysql_query($sql,$con))

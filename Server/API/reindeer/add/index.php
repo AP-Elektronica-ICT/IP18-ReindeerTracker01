@@ -12,9 +12,18 @@ if(isset($_POST))
     $name = $data['name'];
     $gender = $data['gender'];
     $birthDate = $data['birthDate'];
-    $userId = $data['userId'];
+    $hash = $data['hash'];
     
-
+    $userId = 0;
+    $query = "select userId from users where hash = '$hash';";
+    $result = mysql_query($query);
+    while($row = mysql_fetch_assoc($result))
+    {
+        $userId = $row['userId'];
+    }
+    
+    
+    
 
     $query = "insert into reindeer (name, gender, birthDate, userId) values ('$name','$gender','$birthDate',$userId);";
    // echo $query;
