@@ -3,6 +3,7 @@ import { NavController, NavParams, ToastController } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { LoginPage } from '../login/login';
 
 @Component({
     selector: 'page-register',
@@ -31,12 +32,24 @@ export class RegisterPage {
             toast.present();
         }
         else {
-            this.reindeerProvider.login('{"firstname":"' + firstName + '","lastname":"' + lastName + '","email":"' + email + '","password":"' + password + '","repeatpassword":"' + repeatpassword + '"}')
+            this.reindeerProvider.register('{"firstName":"' + firstName + '","lastName":"' + lastName + '","email":"' + email + '","password":"' + password + '"}')
                 .then(data => {
+                    if(data[0].status){
+                        let toast = this.toastCtrl.create({
+                            message: 'Successfully registered! Please login.',
+                            duration: 3000
+                        });
+                        toast.present();
+                        this.nav.push(LoginPage);
+                    }
+                    else{
+                        let toast = this.toastCtrl.create({
+                            message: 'Something went wrong, please try again.',
+                            duration: 3000
+                        });
+                        toast.present();
+                    }
                     console.log(firstName, lastName, email, password, repeatpassword)
-
-
-
                 });
         }
 
