@@ -10,11 +10,11 @@ if(isset($_POST))
     $data = json_decode($test, true);
     
     $firstName = $data['firstName'];
-    $name = $data['name'];
+    $lastName = $data['lastName'];
     $email = $data['email'];
     $password = $data['password'];
     $hash =  bin2hex(mcrypt_create_iv(10, MCRYPT_DEV_URANDOM));
-    $query "select email from users where email = '$email'";
+    $query = "select email from users where email = '$email'";
     $result = mysql_query($query);
     if(mysql_num_rows($result) > 0)
     {
@@ -22,7 +22,7 @@ if(isset($_POST))
     }
     else
     {
-        $query = "insert into users (firstName, name, email, password, hash) values ('$firstName','$name','$email','$password','$hash');";
+        $query = "insert into users (firstName, lastName, email, password, hash) values ('$firstName','$lastName','$email','$password','$hash');";
         if(!mysql_query($query,$con))
         {
             die('Error : ' . mysql_error());
