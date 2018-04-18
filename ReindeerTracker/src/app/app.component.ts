@@ -23,6 +23,7 @@ export class MyApp {
   buttonPress(action: string){
     this.menuEvent.publish('menu',action);
     this.menuCtrl.close();
+    console.log("MENU ACTIE: " + action)
   }
 }
 
