@@ -34,7 +34,8 @@ export class RegisterPage {
         else {
             this.reindeerProvider.register('{"firstName":"' + firstName + '","lastName":"' + lastName + '","email":"' + email + '","password":"' + password + '"}')
                 .then(data => {
-                    if(data[0].status){
+                    console.log(data)
+                    if(data){
                         let toast = this.toastCtrl.create({
                             message: 'Successfully registered! Please login.',
                             duration: 3000
