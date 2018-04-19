@@ -36,9 +36,9 @@ export class ReindeerServiceProvider {
     }); 
   } 
  
-  setDetails(data) { 
+  updateDetails(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/detail/?reindeerId=1&limit=5', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/update', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, (err) => { 

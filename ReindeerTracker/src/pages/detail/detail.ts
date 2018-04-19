@@ -281,5 +281,5 @@ export interface IDetails {
   name: string;
   locations: any[];
   pictures: any[];
-  gender: any;
+  gender: string;
 }

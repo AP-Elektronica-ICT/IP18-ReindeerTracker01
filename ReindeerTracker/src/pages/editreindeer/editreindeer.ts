@@ -14,41 +14,40 @@ export class EditReindeerPage {
   lastLocRange: any;
   hash: string;
 
-
   reindeerForm = {
     name: '',
     gender: '',
-    birthDate: ''
+    birthDate: '',
+    hash: '',
+    reindeerId: ''
   };
 
 
   constructor(public nav: NavController, public navParams: NavParams, public storage : Storage,private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController) {
     storage.get('lastLocRange').then((val) => {
-      //this.lastLocRange = val;
-      this.loadDetails(this.navParams.get('reindeerId'),val);
-      console.log("Opgehaalde waarde:" + val)
+      this.reindeerForm.reindeerId = this.navParams.get('reindeerId'),val
+      this.loadDetails(this.reindeerForm.reindeerId,val);
     });
 
     storage.get('hash').then((val) => {
       this.hash = val;
+      this.reindeerForm.hash = val;
     });
-    //this.loadDetails(this.navParams.get('reindeerId'),this.lastLocRange);
   }
 
 
-  addReindeer() {
+  editReindeer() {
     if (this.reindeerForm.name == "") {
       this.showError("Please enter the name of the reindeer.");
     }
     else {
-      //this.reindeerForm.pictures[0] = this.reindeerPicture;
       console.log(JSON.stringify(this.reindeerForm));
-      /*this.reindeerProvider.addReindeer('{"name":"' + this.reindeerForm.name + '","gender":"' + this.reindeerForm.gender + '","birthDate":"' + this.reindeerForm.birthDate + '","picture":"' + this.reindeerPicture + '","userId":"' + this.userId + '"}')
+      this.reindeerProvider.updateDetails(JSON.stringify(this.reindeerForm))
         .then(data => {
           if (data) {
             this.nav.pop();
             let toast = this.toastCtrl.create({
-              message: 'The reindeer is successfully added to the system.',
+              message: 'The reindeer info is successfully updated.',
               duration: 3000,
               position: 'top'
             });
@@ -63,26 +62,18 @@ export class EditReindeerPage {
             });
             toast.present();
           }
-        });*/
+        });
     }
 
   }
 
-  editReindeer() {
-    if (this.reindeerForm.name == "") {
-      this.showError("Please enter the name of the reindeer.");
-    }
-    else{
-
-    }
-
-  }
 
   loadDetails(reindeerId: string,lastLocRange: any) {
     this.reindeerProvider.getDetails(reindeerId,lastLocRange,this.hash)
       .then(data => {
         this.reindeerForm.name = data[0].name;
-        this.reindeerForm.gender = this.reindeerForm.gender = data[0].gender;
+        this.reindeerForm.gender = data[0].gender;
+        console.log(data[0].gender)
         this.reindeerForm.birthDate = data[0].birthDate.toString();
       });
   }
