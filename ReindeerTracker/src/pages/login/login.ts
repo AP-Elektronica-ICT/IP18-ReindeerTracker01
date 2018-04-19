@@ -36,6 +36,7 @@ export class LoginPage {
 
     else{
       this.storage.set("hash",data[0].status)
+      this.storage.set("firstName",data[0].firstName)
       this.nav.push(HomePage);
       console.log("LOGGED IN WITH HASH: " + data[0].status);
     }

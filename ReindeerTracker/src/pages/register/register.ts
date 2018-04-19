@@ -26,7 +26,7 @@ export class RegisterPage {
         }
         else if (password != repeatpassword) {
             let toast = this.toastCtrl.create({
-                message: 'Your passwords are not the same',
+                message: 'Your passwords are not the same,please try again',
                 duration: 3000
             });
             toast.present();

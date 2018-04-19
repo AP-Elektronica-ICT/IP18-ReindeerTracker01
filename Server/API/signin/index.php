@@ -23,7 +23,7 @@ if(isset($_POST))
          while($row = mysql_fetch_assoc($result))
          {
              
-             $array = array("status"=>$row['hash']);
+             $array = array("status"=>$row['hash'],"firstName"=>$row['firstName']);
              array_push($json, $array);
          }
     }

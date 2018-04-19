@@ -155,5 +155,27 @@ export class ReindeerServiceProvider {
         });  
     });  
   } 
+
+  changePassword(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/changePassword/', JSON.stringify(data),) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }
+
+  changeEmail(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/changeEmail/', JSON.stringify(data),) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }
  
 }
