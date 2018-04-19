@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
+import { Storage } from '@ionic/storage';
+
 
 @Component({
   selector: 'page-editreindeer',
