@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
-import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicApp, IonicErrorHandler, IonicModule, NavController } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
@@ -25,6 +25,9 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConnectivityService } from '../providers/connectivity-service/connectivity-service';
 import { RegisterPage } from '../pages/register/register'; 
+import { AccountSettingsPage } from '../pages/accountsettings/accountsettings';
+import { ChangePasswordPage } from '../pages/changepassword/changepassword';
+import { ChangeEmailPage } from '../pages/changeemail/changeemail';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { RegisterPage } from '../pages/register/register';
     EditReindeerPage,
     AddReindeerPage,
     ReportPage, 
-    RegisterPage 
+    RegisterPage,
+    AccountSettingsPage,
+    ChangePasswordPage,
+    ChangeEmailPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,10 @@ import { RegisterPage } from '../pages/register/register';
     EditReindeerPage,
     AddReindeerPage,
     ReportPage,  
-    RegisterPage
+    RegisterPage,
+    AccountSettingsPage,
+    ChangePasswordPage,
+    ChangeEmailPage
   ],
   providers: [
     StatusBar,
@@ -71,7 +80,7 @@ import { RegisterPage } from '../pages/register/register';
     BarcodeScanner,
     ReindeerServiceProvider,
     Camera,
-    GoogleMaps
+    GoogleMaps,
   ]
 })
 export class AppModule {}

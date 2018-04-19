@@ -11,6 +11,7 @@ import { ReindeerPage } from '../reindeer/reindeer';
 import { TrackersPage } from '../trackers/trackers';
 import { SettingsPage } from '../settings/settings';
 import { Storage } from '@ionic/storage';
+import { AccountSettingsPage } from '../accountsettings/accountsettings';
 
 
 
@@ -32,28 +33,10 @@ export class HomePage {
   constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events, private storage: Storage) {
     menuEvent.subscribe('menu', (action: string) => {
       switch (action) {
-        case 'addReindeer': {
-          this.addReindeer()
-          break;
-        }
-        case 'showReindeer': {
-          this.showReindeer()
-          break;
-        }
-        case 'editTrackers': {
-          this.editTrackers()
-          break;
-        }
+      
+        
         case 'refresh': {
           this.refresh()
-          break;
-        }
-        case 'openSettings': {
-          this.editSettings()
-          break;
-        }
-        case 'openAccount': {
-          //this.editSettings()
           break;
         }
         case 'logout': {
@@ -221,18 +204,6 @@ export class HomePage {
     toast.present();
   }
 
-  addReindeer() {
-    this.nav.push(AddReindeerPage);
-  }
-  showReindeer() {
-    this.nav.push(ReindeerPage);
-  }
-  editTrackers() {
-    this.nav.push(TrackersPage);
-  }
-  editSettings() {
-    this.nav.push(SettingsPage);
-  }
 
 }
 
