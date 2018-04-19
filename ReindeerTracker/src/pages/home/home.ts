@@ -58,8 +58,14 @@ export class HomePage {
           break;
         }
         case 'logout': {
-          this.storage.set("loginHash","")
+          this.storage.set("hash","")
           this.nav.pop();
+          let toast = this.toastCtrl.create({
+            message: 'Successfully logged out!',
+            duration: 2000,
+            position: 'top'
+          });
+          toast.present();
           break;
         }
         default: {

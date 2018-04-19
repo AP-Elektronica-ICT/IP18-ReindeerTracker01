@@ -13,23 +13,39 @@ if(isset($_POST))
     $lastName = $data['lastName'];
     $email = $data['email'];
     $password = $data['password'];
+    $hashCreated = false;
     $hash =  bin2hex(mcrypt_create_iv(10, MCRYPT_DEV_URANDOM));
+    while(!$hashCreated)
+    {
+        $query = "select hash from users where hash = '$hash';";
+        $result = mysql_query($query);
+        if(mysql_num_rows($result) > 0)
+        {
+            $hash =  bin2hex(mcrypt_create_iv(10, MCRYPT_DEV_URANDOM));
+        }
+        else
+        {
+            $hashCreated = true;
+        }
+    }
+    
+    
     $query = "select email from users where email = '$email'";
     $result = mysql_query($query);
     if(mysql_num_rows($result) > 0)
     {
-        echo "This email is alreay used";
+        echo "false";
     }
     else
     {
         $query = "insert into users (firstName, lastName, email, password, hash) values ('$firstName','$lastName','$email','$password','$hash');";
         if(!mysql_query($query,$con))
         {
-            die('Error : ' . mysql_error());
+            echo "error";
         }
         else
         {
-            echo $hash;
+            echo "true";
         }
     }
     

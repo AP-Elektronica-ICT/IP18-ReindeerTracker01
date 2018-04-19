@@ -18,11 +18,15 @@ if(isset($_POST))
     {
         $reindeerId = $row['id'];
     }
+    if($reindeerId == null)
+    {
+		$reindeerId = 0;    
+    }
 
     $sql = "INSERT INTO data (serialnumber,reindeerId,latitude, longitude,status,battery)
-    VALUES($reindeerId,'$lat','$long','$status',$battery)";
-    echo $sql;
-  
+    VALUES($serialnumber,$reindeerId,'$lat','$long','$status',$battery)";
+    
+    
     if(!mysql_query($sql,$con))
     {
         die('Error : ' . mysql_error());
