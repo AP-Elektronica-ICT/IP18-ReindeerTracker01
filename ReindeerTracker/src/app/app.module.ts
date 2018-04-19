@@ -25,6 +25,9 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder';
 import { IonicStorageModule } from '@ionic/storage';
 import { ConnectivityService } from '../providers/connectivity-service/connectivity-service';
 import { RegisterPage } from '../pages/register/register'; 
+import { AccountSettingsPage } from '../pages/accountsettings/accountsettings';
+import { ChangePasswordPage } from '../pages/changepassword/changepassword';
+import { ChangeEmailPage } from '../pages/changeemail/changeemail';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,10 @@ import { RegisterPage } from '../pages/register/register';
     EditReindeerPage,
     AddReindeerPage,
     ReportPage, 
-    RegisterPage 
+    RegisterPage,
+    AccountSettingsPage,
+    ChangePasswordPage,
+    ChangeEmailPage
   ],
   imports: [
     BrowserModule,
@@ -58,7 +64,10 @@ import { RegisterPage } from '../pages/register/register';
     EditReindeerPage,
     AddReindeerPage,
     ReportPage,  
-    RegisterPage
+    RegisterPage,
+    AccountSettingsPage,
+    ChangePasswordPage,
+    ChangeEmailPage
   ],
   providers: [
     StatusBar,

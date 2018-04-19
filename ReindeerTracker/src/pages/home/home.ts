@@ -11,6 +11,7 @@ import { ReindeerPage } from '../reindeer/reindeer';
 import { TrackersPage } from '../trackers/trackers';
 import { SettingsPage } from '../settings/settings';
 import { Storage } from '@ionic/storage';
+import { AccountSettingsPage } from '../accountsettings/accountsettings';
 
 
 
@@ -53,7 +54,7 @@ export class HomePage {
           break;
         }
         case 'openAccount': {
-          //this.editSettings()
+          this.accountSettings()
           break;
         }
         case 'logout': {
@@ -226,6 +227,9 @@ export class HomePage {
   }
   editSettings() {
     this.nav.push(SettingsPage);
+  }
+  accountSettings() {
+    this.nav.push(AccountSettingsPage);
   }
 
 }

@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Change Email Address
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-item>
+        <ion-label color="primary">Current Email </ion-label>
+        <ion-input  [(ngModel)]="currentemail"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary">New Email</ion-label>
+        <ion-input   [(ngModel)]="newemail"></ion-input>
+    </ion-item>
+    <div class="row">
+        <div class="col">
+            <button full ion-button color="primary" (click)="changeEmail(currentemail,newemail)">Change</button>
+        </div>
+    </div>
+
+
+</ion-content>
