@@ -1,32 +1,24 @@
-<ion-header>
-
-        <ion-navbar color="primary">
-                <ion-title>
-                        Anicare
-                </ion-title>
-
-        </ion-navbar>
-
-</ion-header>
-
 <ion-content drag-content="false">
-        <ion-item id="item">
-                <ion-label color="primary">Email</ion-label>
-                <ion-input [(ngModel)]="email"></ion-input>
-        </ion-item>
-        <ion-item>
-                <ion-label color="primary">Password</ion-label>
-                <ion-input type="password" [(ngModel)]="password"></ion-input>
-        </ion-item>
-        <div class="row">
-                <div class="col">
-                        <button full ion-button color="primary" (click)="login(email,password)">Login</button>
-                </div>
-                <div class="col">
-                        <button full ion-button color="primary" (click)="nextPage()">Register now</button>
-                </div>
+
+        <img src="assets/imgs/reindeer.png" />
+
+        <div class="input">
+
+                <ion-item id="item">
+                        <ion-label color="primary"><ion-icon name="mail"></ion-icon>&nbsp;&nbsp;Email</ion-label>
+                        <ion-input [(ngModel)]="email"></ion-input>
+                </ion-item>
+                <ion-item>
+                        <ion-label color="primary"><ion-icon name="lock"></ion-icon>&nbsp;&nbsp;Password</ion-label>
+                        <ion-input type="password" [(ngModel)]="password"></ion-input>
+                </ion-item>
+
         </div>
 
+        <div class="buttons">
+                <button block ion-button color="secondary" (click)="login(email,password)">Login</button>
+                <button block ion-button color="primary" (click)="register()">Register</button>
+        </div>
 
 
 </ion-content>

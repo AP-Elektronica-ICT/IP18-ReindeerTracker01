@@ -45,7 +45,7 @@ export class LoginPage {
 
  }
 
- nextPage(){ 
+ register(){ 
   this.nav.push(RegisterPage); 
  } 
 
