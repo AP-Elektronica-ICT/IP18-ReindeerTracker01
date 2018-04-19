@@ -31,6 +31,7 @@ export class HomePage {
   mapTypeSetting;
 
   constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events, private storage: Storage) {
+    
     menuEvent.subscribe('menu', (action: string) => {
       switch (action) {
       
@@ -75,11 +76,9 @@ export class HomePage {
   }
 
   loadReindeer() {
-    console.log("DATA HIER: " + this.hash);
     this.reindeerProvider.getReindeer(this.hash)
       .then(data => {
         this.reindeer = data;
-        
         this.loadGoogleMaps();
       });
   }
