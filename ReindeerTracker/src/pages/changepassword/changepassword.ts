@@ -23,12 +23,9 @@ export class ChangePasswordPage {
   }
 
 
-  manageTrackers() {
-    this.nav.push(TrackersPage, {});
+  changePasssword(currentpassword,newpassword,repeatpassword) {
+    
   }
 
-  manageReindeer() {
-    this.nav.push(ReindeerPage, {});
-  }
 
 }
