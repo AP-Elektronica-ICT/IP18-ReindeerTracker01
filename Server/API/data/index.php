@@ -23,17 +23,16 @@ if(isset($_POST))
 		$reindeerId = 0;    
     }
 
-    $sql = "INSERT INTO data (serialnumber,reindeerId,latitude, longitude,status,battery)
-    VALUES($serialnumber,$reindeerId,'$lat','$long','$status',$battery)";
-    
-    
-    if(!mysql_query($sql,$con))
+    $query = "select * from data where serialnumber=$serialnumber AND latitude='$lat' AND longitude='$long' AND status='$status' AND battery='$battery'";
+    $result = mysql_query($query);
+    if(mysql_num_rows($query) == 0)
     {
-        die('Error : ' . mysql_error());
-    }
-    else
-    {
-        echo "true";
+        $sql = "INSERT INTO data (serialnumber,reindeerId,latitude, longitude,status,battery)
+        VALUES($serialnumber,$reindeerId,'$lat','$long','$status',$battery)";
+        
+        
+        mysql_query($sql,$con):
+        
     }
 
 }
