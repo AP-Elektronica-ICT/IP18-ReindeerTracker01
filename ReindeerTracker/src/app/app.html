@@ -4,14 +4,14 @@
             <ion-list-header>
                 Reindeer
             </ion-list-header>
-            <ion-item (click)="buttonPress('addReindeer')">
+            <ion-item (click)="addReindeer()">
                 <ion-icon name="add"></ion-icon>&nbsp;Add Reindeer</ion-item>
-            <ion-item (click)="buttonPress('showReindeer')">
+            <ion-item (click)="showReindeer()">
                 <ion-icon name="list"></ion-icon>&nbsp;Show Reindeer</ion-item>
             <ion-list-header>
                 Trackers
             </ion-list-header>
-            <ion-item (click)="buttonPress('editTrackers')">
+            <ion-item (click)="editTrackers()">
                 <ion-icon name="create"></ion-icon>&nbsp;Edit Trackers</ion-item>
             <ion-list-header>
                 Map
@@ -21,9 +21,9 @@
             <ion-list-header>
                 Other
             </ion-list-header>
-            <ion-item (click)="buttonPress('openSettings')">
+            <ion-item (click)="editSettings()">
                 <ion-icon name="settings"></ion-icon>&nbsp;Settings</ion-item>
-            <ion-item (click)="buttonPress('openAccount')">
+            <ion-item (click)="accountSettings()">
                 <ion-icon name="person"></ion-icon>&nbsp;Account</ion-item>
             <ion-item (click)="buttonPress('logout')">
                     <ion-icon name="exit"></ion-icon>&nbsp;Logout</ion-item>

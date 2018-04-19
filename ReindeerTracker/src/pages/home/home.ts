@@ -33,28 +33,10 @@ export class HomePage {
   constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events, private storage: Storage) {
     menuEvent.subscribe('menu', (action: string) => {
       switch (action) {
-        case 'addReindeer': {
-          this.addReindeer()
-          break;
-        }
-        case 'showReindeer': {
-          this.showReindeer()
-          break;
-        }
-        case 'editTrackers': {
-          this.editTrackers()
-          break;
-        }
+      
+        
         case 'refresh': {
           this.refresh()
-          break;
-        }
-        case 'openSettings': {
-          this.editSettings()
-          break;
-        }
-        case 'openAccount': {
-          this.accountSettings()
           break;
         }
         case 'logout': {
@@ -222,21 +204,6 @@ export class HomePage {
     toast.present();
   }
 
-  addReindeer() {
-    this.nav.push(AddReindeerPage);
-  }
-  showReindeer() {
-    this.nav.push(ReindeerPage);
-  }
-  editTrackers() {
-    this.nav.push(TrackersPage);
-  }
-  editSettings() {
-    this.nav.push(SettingsPage);
-  }
-  accountSettings() {
-    this.nav.push(AccountSettingsPage);
-  }
 
 }
 
