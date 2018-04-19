@@ -18,15 +18,10 @@ export class TrackersPage {
   reindeer: IReindeer[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public storage:Storage, private Scanner: BarcodeScanner, public alertCtrl: AlertController, public toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider) {
-    this.getTrackers();
-
-    /*storage.get('lastLocRange').then((val) => {
-      this.lastLocRange = val;
-      console.log("Opgehaalde waarde:" + val)
-    });*/
-
+    
     storage.get('hash').then((val) => {
       this.hash = val;
+      this.getTrackers();
     });
     
   }

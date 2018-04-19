@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, Events } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { Storage } from '@ionic/storage';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
@@ -12,7 +12,7 @@ import { RegisterPage } from '../register/register';
 })
 export class LoginPage {
 
-    constructor(public nav: NavController,private toastCtrl: ToastController, public navParams: NavParams,public reindeerProvider: ReindeerServiceProvider, private storage: Storage) {
+    constructor(public menuEvent: Events, public nav: NavController,private toastCtrl: ToastController, public navParams: NavParams,public reindeerProvider: ReindeerServiceProvider, private storage: Storage) {
       storage.get('hash').then((val) => {
         if(val != "0" && val != null && val != ""){
           console.log("ALREADY LOGGED IN WITH HASH: " + val);
@@ -26,6 +26,8 @@ export class LoginPage {
    this.reindeerProvider.login('{"email":"' + email + '","password":"' + password + '"}')
    .then(data => {
 
+    console.log("Incoming data: " + data)
+
     if(data[0].status == "false"){
       let toast = this.toastCtrl.create({
         message: 'The email or password you entered is incorrect.',
@@ -37,6 +39,7 @@ export class LoginPage {
     else{
       this.storage.set("hash",data[0].status)
       this.storage.set("firstName",data[0].firstName)
+      this.menuEvent.publish('menu',"showWelcome");
       this.nav.push(HomePage);
       console.log("LOGGED IN WITH HASH: " + data[0].status);
     }

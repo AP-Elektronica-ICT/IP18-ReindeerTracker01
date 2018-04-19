@@ -29,6 +29,22 @@ export class MyApp {
 
     storage.get('firstName').then((val) => {
       this.firstName = val;
+      console.log("Firstname: " + this.firstName)
+    });
+
+    menuEvent.subscribe('menu', (action: string) => {
+      switch (action) {
+        case 'showWelcome': {
+          storage.get('firstName').then((val) => {
+            this.firstName = val;
+            console.log("Firstname: " + this.firstName)
+          });
+          break;
+        }
+        default: {
+          break;
+        }
+      }
     });
   }
 

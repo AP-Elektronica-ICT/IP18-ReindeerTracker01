@@ -15,63 +15,80 @@
 
     <div *ngIf="trackers">
 
-        <ion-list>
-            <ion-list-header>
-                Assigned trackers
-            </ion-list-header>
+        <div *ngIf="trackers.length > 0">
 
-            <div *ngFor="let tracker of trackers">
-                <ion-item-sliding #item *ngIf="tracker.assigned == 'true' ">
-                    <ion-item>
-                        <button ion-button color="dark">Tracker ID: {{ tracker.serialnumber }}</button>
-                        <button ion-button color="light">Reindeer: {{ tracker.name }}</button>
-                    </ion-item>
+            <ion-list>
+                <ion-list-header>
+                    Assigned trackers
+                </ion-list-header>
 
-                    <ion-item-options side="right">
-                        <button ion-button color="default" (click)="unassignTracker(tracker.serialnumber)">Unassign&nbsp;
-                            <ion-icon name="close"></ion-icon>
-                        </button>
-                        <button ion-button color="danger" (click)="deleteTracker(tracker.serialnumber)">Delete&nbsp;
-                            <ion-icon name="trash"></ion-icon>
-                        </button>
-                        <button ion-button color="light" (click)="showInfo(tracker.serialnumber)">More info&nbsp;
-                            <ion-icon name="information-circle"></ion-icon>
-                        </button>
+                <div *ngFor="let tracker of trackers">
+                    <ion-item-sliding #item *ngIf="tracker.assigned == 'true' ">
+                        <ion-item>
+                            <button ion-button color="dark">Tracker ID: {{ tracker.serialnumber }}</button>
+                            <button ion-button color="light">Reindeer: {{ tracker.name }}</button>
+                        </ion-item>
 
-                    </ion-item-options>
+                        <ion-item-options side="right">
+                            <button ion-button color="default" (click)="unassignTracker(tracker.serialnumber)">Unassign&nbsp;
+                                <ion-icon name="close"></ion-icon>
+                            </button>
+                            <button ion-button color="danger" (click)="deleteTracker(tracker.serialnumber)">Delete&nbsp;
+                                <ion-icon name="trash"></ion-icon>
+                            </button>
+                            <button ion-button color="light" (click)="showInfo(tracker.serialnumber)">More info&nbsp;
+                                <ion-icon name="information-circle"></ion-icon>
+                            </button>
 
-
-                </ion-item-sliding>
-            </div>
-
-        </ion-list>
-
-        <ion-list>
-            <ion-list-header>
-                Unassigned trackers
-            </ion-list-header>
-
-            <div *ngFor="let tracker of trackers">
-                <ion-item-sliding #item *ngIf="tracker.assigned == 'false' ">
-                    <ion-item>
-                        <button ion-button color="dark">Tracker ID: {{ tracker.serialnumber }}</button>
-                    </ion-item>
-
-                    <ion-item-options side="right">
-                        <button ion-button color="secondary" (click)="assignTracker(tracker.serialnumber)">Assign&nbsp;
-                            <ion-icon name="add"></ion-icon>
-                        </button>
-                        <button ion-button color="danger" (click)="deleteTracker(tracker.serialnumber)">Delete&nbsp;
-                            <ion-icon name="trash"></ion-icon>
-                        </button>
-
-                    </ion-item-options>
+                        </ion-item-options>
 
 
-                </ion-item-sliding>
-            </div>
+                    </ion-item-sliding>
+                </div>
 
-        </ion-list>
+            </ion-list>
+
+            <ion-list>
+                <ion-list-header>
+                    Unassigned trackers
+                </ion-list-header>
+
+                <div *ngFor="let tracker of trackers">
+                    <ion-item-sliding #item *ngIf="tracker.assigned == 'false' ">
+                        <ion-item>
+                            <button ion-button color="dark">Tracker ID: {{ tracker.serialnumber }}</button>
+                        </ion-item>
+
+                        <ion-item-options side="right">
+                            <button ion-button color="secondary" (click)="assignTracker(tracker.serialnumber)">Assign&nbsp;
+                                <ion-icon name="add"></ion-icon>
+                            </button>
+                            <button ion-button color="danger" (click)="deleteTracker(tracker.serialnumber)">Delete&nbsp;
+                                <ion-icon name="trash"></ion-icon>
+                            </button>
+
+                        </ion-item-options>
+
+
+                    </ion-item-sliding>
+                </div>
+
+            </ion-list>
+        </div>
+
+        <div *ngIf="trackers.length <= 0">
+            <ion-card>
+
+                <ion-card-header>
+                    No trackers found!
+                </ion-card-header>
+
+                <ion-card-content>
+                    There were no trackers found, you can add a tracker by clicking the button on the bottom of the page.
+                </ion-card-content>
+
+            </ion-card>
+        </div>
     </div>
 
 </ion-content>

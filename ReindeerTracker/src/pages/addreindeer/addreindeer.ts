@@ -17,6 +17,7 @@ export class AddReindeerPage {
       name: '',
       gender: '',
       birthDate: '',
+      extraInfo: '',
       userId: '1'    
     };
   
