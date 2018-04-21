@@ -62,7 +62,13 @@ export class MyApp {
     this.menuCtrl.close();
     this.nav.push(ReindeerPage);
   }
-  editTrackers() {
+  addTracker() {
+    this.menuCtrl.close();
+    this.nav.push(TrackersPage, {
+      action: "addTracker"
+    });
+  }
+  showTrackers() {
     this.menuCtrl.close();
     this.nav.push(TrackersPage);
   }

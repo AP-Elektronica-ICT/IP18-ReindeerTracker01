@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'; 
 import { HttpClient } from '@angular/common/http'; 
 import 'rxjs/add/operator/map'; 
-import { IReindeer } from '../../pages/home/home';
+import { IReindeer, ICheck } from '../../pages/home/home';
 import { IDetails } from '../../pages/detail/detail';
 import { ITracker, ICheckTracker } from '../../pages/trackers/trackers';
 
@@ -17,6 +17,16 @@ export class ReindeerServiceProvider {
   getReindeer(hash: string): Promise<IReindeer[]>  { 
     return new Promise(resolve => { 
       this.http.get<IReindeer[]>('http://168.235.64.81/Reindeertracker/API/reindeer/list/?hash='+hash).subscribe(data => { 
+        resolve(data); 
+      }, err => { 
+        console.log(err); 
+      }); 
+    }); 
+  } 
+
+  checkBackground(hash: string): Promise<ICheck[]>  { 
+    return new Promise(resolve => { 
+      this.http.get<ICheck[]>('http://168.235.64.81/Reindeertracker/API/check/?hash='+hash).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 

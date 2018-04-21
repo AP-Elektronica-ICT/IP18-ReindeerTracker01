@@ -109,9 +109,10 @@ export class DetailPage {
         mapTypeControl: true
       }
 
-
+    
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      this.updateMapType()
 
       if (this.details[0].locations.length != 0) {
         for (let i = 1; i < this.details[0].locations.length; i++) {
@@ -262,7 +263,32 @@ export class DetailPage {
     toast.present();
   }
 
-
+  updateMapType(){
+    this.storage.get('mapTypeSetting').then((val) => {
+      console.log("mapTypeSetting: " + val);
+      switch (val) {
+        case 'NORMAL': {
+          this.map.setMapTypeId(google.maps.MapTypeId.ROADMAP) 
+          break;
+        }
+        case 'SATELLITE': {
+          this.map.setMapTypeId(google.maps.MapTypeId.SATELLITE)
+          break;
+        }
+        case 'HYBRID': {
+          this.map.setMapTypeId(google.maps.MapTypeId.HYBRID)
+          break;
+        }
+        case 'TERRAIN': {
+          this.map.setMapTypeId(google.maps.MapTypeId.TERRAIN)
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+  }
 }
 
 
@@ -282,4 +308,5 @@ export interface IDetails {
   locations: any[];
   pictures: any[];
   gender: string;
+  extraInfo: string;
 }

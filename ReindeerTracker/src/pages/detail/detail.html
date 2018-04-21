@@ -28,6 +28,7 @@
             <span *ngIf="detail.battery"><br>Battery: {{detail.battery}}%</span>
             <span *ngIf="detail.time"><br>Last activity: {{detail.time | date:'d/MM/yyyy'}}</span>
             <span *ngIf="detail.birthDate"><br>Birthdate: {{detail.birthDate | date:'d/MM/yyyy'}}</span>
+            <span *ngIf="detail.extraInfo"><br>Extra info: {{detail.extraInfo}}</span>
           </ion-card-content>
         </ion-card>
       </ion-col>

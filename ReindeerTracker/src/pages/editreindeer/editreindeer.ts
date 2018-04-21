@@ -19,7 +19,8 @@ export class EditReindeerPage {
     gender: '',
     birthDate: '',
     hash: '',
-    reindeerId: ''
+    reindeerId: '',
+    extraInfo: ''
   };
 
 
@@ -73,8 +74,8 @@ export class EditReindeerPage {
       .then(data => {
         this.reindeerForm.name = data[0].name;
         this.reindeerForm.gender = data[0].gender;
-        console.log(data[0].gender)
         this.reindeerForm.birthDate = data[0].birthDate.toString();
+        this.reindeerForm.extraInfo = data[0].extraInfo;
       });
   }
 

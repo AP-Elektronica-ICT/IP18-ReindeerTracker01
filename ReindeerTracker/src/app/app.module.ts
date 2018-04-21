@@ -28,6 +28,9 @@ import { RegisterPage } from '../pages/register/register';
 import { AccountSettingsPage } from '../pages/accountsettings/accountsettings';
 import { ChangePasswordPage } from '../pages/changepassword/changepassword';
 import { ChangeEmailPage } from '../pages/changeemail/changeemail';
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { BackgroundMode } from '@ionic-native/background-mode';
+
 
 @NgModule({
   declarations: [
@@ -81,6 +84,8 @@ import { ChangeEmailPage } from '../pages/changeemail/changeemail';
     ReindeerServiceProvider,
     Camera,
     GoogleMaps,
+    LocalNotifications,
+    BackgroundMode
   ]
 })
 export class AppModule {}

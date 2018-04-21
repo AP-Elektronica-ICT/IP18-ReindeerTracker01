@@ -12,7 +12,8 @@ import { TrackersPage } from '../trackers/trackers';
 import { SettingsPage } from '../settings/settings';
 import { Storage } from '@ionic/storage';
 import { AccountSettingsPage } from '../accountsettings/accountsettings';
-
+import { Observable } from 'rxjs/Rx';
+import { LocalNotifications } from '@ionic-native/local-notifications';
 
 
 @Component({
@@ -30,18 +31,18 @@ export class HomePage {
   myLong: number;
   mapTypeSetting;
 
-  constructor(public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public menuEvent: Events, private storage: Storage) {
-    
-    menuEvent.subscribe('menu', (action: string) => {
+  constructor(private localNotifications: LocalNotifications, public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public GlobalEvent: Events, private storage: Storage) {
+
+
+    GlobalEvent.subscribe('menu', (action: string) => {
       switch (action) {
-      
-        
+
         case 'refresh': {
           this.refresh()
           break;
         }
         case 'logout': {
-          this.storage.set("hash","")
+          this.storage.set("hash", "")
           this.nav.pop();
           let toast = this.toastCtrl.create({
             message: 'Successfully logged out!',
@@ -51,20 +52,16 @@ export class HomePage {
           toast.present();
           break;
         }
+        case 'mapTypeUpdate': {
+          this.updateMapType();
+          break;
+        }
         default: {
           break;
         }
       }
     });
-
     menu.enable(true);
-
-    
-
-
-    storage.get('mapTypeSetting').then((val) => {
-      this.mapTypeSetting = val;
-    });
 
   }
 
@@ -72,7 +69,27 @@ export class HomePage {
     this.storage.get('hash').then((val) => {
       this.hash = val;
       this.loadReindeer();
+
+      this.localNotifications.on('click').subscribe(x => {
+        console.log("melding geklikt")
+      });
+
+      let serverCheck = Observable.interval(20000).subscribe(x => {
+
+        this.reindeerProvider.checkBackground(this.hash)
+          .then(data => {
+            if (data.length > 0) {
+              this.localNotifications.schedule({
+                id: 1,
+                title: data[0].title,
+                text: data[0].text,
+              });
+            }
+          });
+      });
     });
+
+
   }
 
   loadReindeer() {
@@ -84,7 +101,7 @@ export class HomePage {
   }
 
   loadGoogleMaps() {
-    
+
     if (this.map == null) {
 
       this.map = GoogleMaps.create('map_canvas', {
@@ -100,15 +117,16 @@ export class HomePage {
           myLocationButton: true,
           zoom: true,
         },
-          mapType: "MAP_TYPE_HYBRID"
+        mapType: "MAP_TYPE_HYBRID"
       });
 
-      this.map.setMapTypeId("MAP_TYPE_TERRAIN") //werkt nog niet
 
       this.map.one(GoogleMapsEvent.MAP_READY).then(() => {
         this.initMarkers()
 
         this.map.on(GoogleMapsEvent.MY_LOCATION_BUTTON_CLICK).subscribe(() => {
+          
+
           LocationService.getMyLocation()
             .then((location: MyLocation) => {
 
@@ -122,6 +140,9 @@ export class HomePage {
               });
             })
         });
+
+        this.updateMapType();
+
       });
     }
     else {
@@ -203,6 +224,33 @@ export class HomePage {
     toast.present();
   }
 
+  updateMapType(){
+    this.storage.get('mapTypeSetting').then((val) => {
+      console.log("mapTypeSetting: " + val);
+      switch (val) {
+        case 'NORMAL': {
+          this.map.setMapTypeId("MAP_TYPE_NORMAL") 
+          break;
+        }
+        case 'SATELLITE': {
+          this.map.setMapTypeId("MAP_TYPE_SATELLITE")
+          break;
+        }
+        case 'HYBRID': {
+          this.map.setMapTypeId("MAP_TYPE_HYBRID")
+          break;
+        }
+        case 'TERRAIN': {
+          this.map.setMapTypeId("MAP_TYPE_TERRAIN")
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
+  }
+
 
 }
 
@@ -215,4 +263,9 @@ export interface IReindeer {
   long: number;
   name: string;
   reported: boolean;
+}
+
+export interface ICheck {
+  title: string;
+  text: string;
 }

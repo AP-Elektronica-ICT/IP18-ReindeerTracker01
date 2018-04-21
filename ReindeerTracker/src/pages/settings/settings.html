@@ -14,11 +14,30 @@
     <button ion-button color="secondary" block (click)="manageReindeer()">Manage reindeer</button>
     <br>
 
-    <div>Range for last locations reindeer</div>
+    <ion-card>
+        <ion-card-content>
+            Amount of last locations to show in detail page.
+            <ion-range [(ngModel)]="lastLocRange" min="1" max="10" pin="true" (ionChange)="changeRange()">
+                <ion-label range-left>1</ion-label>
+                <ion-label range-right>10</ion-label>
+            </ion-range>
+        </ion-card-content>
 
-    <ion-range [(ngModel)]="lastLocRange" min="1"max="10" pin="true"  (ionChange)="change()">
-        <ion-label range-left>1</ion-label>
-        <ion-label range-right>10</ion-label>
-    </ion-range>
+    </ion-card>
+
+    <ion-card>
+            <ion-card-content>
+                Type of map.
+                <ion-select [(ngModel)]="mapType" name="mapType" (ionChange)="changeMapType()">
+                        <ion-option value="NORMAL">Normal</ion-option>
+                        <ion-option value="SATELLITE">Satellite</ion-option>
+                        <ion-option value="HYBRID">Hybrid</ion-option>
+                        <ion-option value="TERRAIN">Terrain</ion-option>
+                </ion-select>
+            </ion-card-content>
+    
+        </ion-card>
+
+
 
 </ion-content>

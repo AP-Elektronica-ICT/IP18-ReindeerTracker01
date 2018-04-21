@@ -106,5 +106,7 @@
         <variable name="LOCATION_ALWAYS_USAGE_DESCRIPTION" value="This app wants to get your location always, even this app runs in background." />
     </plugin>
     <plugin name="cordova-sqlite-storage" spec="^2.3.0" />
+    <plugin name="de.appplant.cordova.plugin.local-notification" spec="https://github.com/katzer/cordova-plugin-local-notifications#ios10" />
+    <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
     <engine name="android" spec="7.0.0" />
 </widget>

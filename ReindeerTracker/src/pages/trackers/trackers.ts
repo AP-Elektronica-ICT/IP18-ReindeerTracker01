@@ -23,6 +23,10 @@ export class TrackersPage {
       this.hash = val;
       this.getTrackers();
     });
+
+    if(this.navParams.get('action') == "addTracker"){
+      this.addTracker()
+    }
     
   }
 

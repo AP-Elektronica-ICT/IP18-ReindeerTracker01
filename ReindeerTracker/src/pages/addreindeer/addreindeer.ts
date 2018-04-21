@@ -18,12 +18,13 @@ export class AddReindeerPage {
       gender: '',
       birthDate: '',
       extraInfo: '',
-      userId: '1'    
+      hash: ''    
     };
   
     constructor(public nav: NavController, public navParams: NavParams, private toastCtrl: ToastController, public reindeerProvider: ReindeerServiceProvider, public alertCtrl: AlertController, private storage: Storage) {
       storage.get('hash').then((val) => {
         this.hash = val;
+        this.reindeerForm.hash = val;
       });
     }
   
