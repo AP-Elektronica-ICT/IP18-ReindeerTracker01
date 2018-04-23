@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>
+            Reindeer Tracker
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="reports">
+    <ion-list *ngFor="let report of reports">
+        <ion-item>
+            <ion-label>Reindeer ID: {{report.reindeerId}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Serialnumber: {{report.serialnumber}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Reindeer name: {{report.name}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Gender: {{report.gender}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Birth Date: {{report.birthDate | date:'d/MM/yyyy'}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Date when added: {{report.dateWhenAdded}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Date when found: {{report.dateWhenFound}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <b>Place where added</b>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Lat: {{report.latWhereAdded}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Long: {{report.longWhereAdded}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>City: {{report.cityWhereAdded}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>
+                <b>Place where found</b>
+            </ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Lat: {{report.latWhereFound}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>Long: {{report.longWhereFound}}</ion-label>
+        </ion-item>
+        <ion-item>
+            <ion-label>City: {{report.cityWhereFound}}</ion-label>
+        </ion-item>
+        <ion-item *ngIf="report.picture">
+            <ion-card>
+                <ion-card-content>
+                    <img [src]="_DomSanitizationService.bypassSecurityTrustUrl(report.picture)" />
+                </ion-card-content>
+            </ion-card>
+        </ion-item>
+    </ion-list>
+</div>
+
+</ion-content>

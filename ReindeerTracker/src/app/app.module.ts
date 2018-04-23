@@ -30,6 +30,7 @@ import { ChangePasswordPage } from '../pages/changepassword/changepassword';
 import { ChangeEmailPage } from '../pages/changeemail/changeemail';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { ViewReportPage } from '../pages/viewreport/viewreport';
 
 
 @NgModule({
@@ -47,7 +48,8 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     RegisterPage,
     AccountSettingsPage,
     ChangePasswordPage,
-    ChangeEmailPage
+    ChangeEmailPage,
+    ViewReportPage
   ],
   imports: [
     BrowserModule,
@@ -70,7 +72,8 @@ import { BackgroundMode } from '@ionic-native/background-mode';
     RegisterPage,
     AccountSettingsPage,
     ChangePasswordPage,
-    ChangeEmailPage
+    ChangeEmailPage,
+    ViewReportPage
   ],
   providers: [
     StatusBar,

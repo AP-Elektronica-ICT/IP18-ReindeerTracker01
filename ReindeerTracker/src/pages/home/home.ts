@@ -30,6 +30,8 @@ export class HomePage {
   myLat: number;
   myLong: number;
   mapTypeSetting;
+  lat: number = 0;
+  long: number = 0;
 
   constructor(private localNotifications: LocalNotifications, public nav: NavController, public connectivityService: ConnectivityService, public reindeerProvider: ReindeerServiceProvider, public toastCtrl: ToastController, menu: MenuController, public GlobalEvent: Events, private storage: Storage) {
 
@@ -79,17 +81,18 @@ export class HomePage {
         this.reindeerProvider.checkBackground(this.hash)
           .then(data => {
             if (data.length > 0) {
-              this.localNotifications.schedule({
-                id: 1,
-                title: data[0].title,
-                text: data[0].text,
-              });
+              for(let i = 0; i < data.length; i++){
+                this.localNotifications.schedule({
+                  id: i,
+                  title: data[i].title,
+                  text: data[i].text,
+                });
+              }
             }
           });
+          
       });
     });
-
-
   }
 
   loadReindeer() {
@@ -165,20 +168,30 @@ export class HomePage {
             this.addMarker(this.reindeer[i].lat, this.reindeer[i].long, "https://thumb.ibb.co/dfB2fx/deer.png", this.reindeer[i].reindeerId);
         }
 
-        var lat = null;
-        var long = null;
+
 
         for (let i = 0; i < this.reindeer.length; i++) {
-          if (this.reindeer[i].status == false && this.reindeer[i].lat != 0 && this.reindeer[i].long != 0) {
-            lat = this.reindeer[i].lat;
-            long = this.reindeer[i].long;
+          console.log(this.reindeer[i].status)
+          console.log(this.reindeer[i].lat)
+          console.log(this.reindeer[i].long)
+
+          let status: string = (this.reindeer[i].status).toString()
+
+          if(status == "false" ) {
+            if(this.reindeer[i].lat != 0 && this.reindeer[i].long != 0){
+              this.lat = this.reindeer[i].lat;
+              this.long = this.reindeer[i].long;
+            }
           }
         }
 
-        if (lat != null && long != null) {
+        
+
+        if (this.lat != 0 && this.long != 0) {
           this.map.animateCamera({
-            target: { lat: lat, lng: long },
-            zoom: 2
+            target: { lat: this.lat, lng: this.long },
+            zoom: 10,
+            duration: 1000
           });
         }
         else {
@@ -250,8 +263,6 @@ export class HomePage {
       }
     });
   }
-
-
 }
 
 export interface IReindeer {

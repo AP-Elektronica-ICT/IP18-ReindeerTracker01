@@ -22,7 +22,16 @@ export class LoginPage {
     storage.get('hash').then((val) => {
       if (val != "0" && val != null && val != "") {
         console.log("ALREADY LOGGED IN WITH HASH: " + val);
-        this.nav.push(HomePage);
+        storage.get('firstName').then((val) => {
+
+          let toast = this.toastCtrl.create({
+            message: 'Already logged in, welcome ' + val + "!",
+            duration: 2000,
+            position: 'top'
+          });
+          toast.present();
+          this.nav.push(HomePage);
+        });
       }
     });
 

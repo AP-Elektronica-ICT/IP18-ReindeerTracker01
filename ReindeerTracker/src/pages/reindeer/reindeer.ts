@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ToastController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ToastController, AlertController, Events } from 'ionic-angular';
 import { ReindeerServiceProvider } from '../../providers/reindeer-service/reindeer-service';
 import { IReindeer } from '../home/home';
 import { DetailPage } from '../detail/detail';
@@ -7,6 +7,7 @@ import { AddReindeerPage } from '../addreindeer/addreindeer';
 import { EditReindeerPage } from '../editreindeer/editreindeer';
 import { ReportPage } from '../report/report';
 import { Storage } from '@ionic/storage';
+import { ViewReportPage } from '../viewreport/viewreport';
 
 
 @Component({
@@ -18,9 +19,24 @@ export class ReindeerPage {
   reindeer: IReindeer[];
   hash: string;
 
-  constructor(public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, private toastCtrl: ToastController, public alertCtrl: AlertController, private storage: Storage) {
+  constructor(public nav: NavController, public navParams: NavParams, public reindeerProvider: ReindeerServiceProvider, private toastCtrl: ToastController, public alertCtrl: AlertController, private storage: Storage, public GlobalEvent: Events) {
 
+    GlobalEvent.subscribe('reindeer', (action: string) => {
+      switch (action) {
+  
+        case 'refresh': {
+          this.reindeer = [];
+          this.loadReindeer();
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   }
+
+  
 
   ionViewDidLoad() {
     this.storage.get('hash').then((val) => {
@@ -98,6 +114,13 @@ export class ReindeerPage {
     });
     
   }
+
+  viewReport(reindeerId: string) {
+    this.nav.push(ViewReportPage, {
+      reindeerId: reindeerId,
+  });
+  
+}
 
   refresh() {
     this.reindeer = [];

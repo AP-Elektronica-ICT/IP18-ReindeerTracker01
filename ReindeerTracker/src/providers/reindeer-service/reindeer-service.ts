@@ -4,6 +4,7 @@ import 'rxjs/add/operator/map';
 import { IReindeer, ICheck } from '../../pages/home/home';
 import { IDetails } from '../../pages/detail/detail';
 import { ITracker, ICheckTracker } from '../../pages/trackers/trackers';
+import { IReport } from '../../pages/viewreport/viewreport';
 
 
  
@@ -26,7 +27,7 @@ export class ReindeerServiceProvider {
 
   checkBackground(hash: string): Promise<ICheck[]>  { 
     return new Promise(resolve => { 
-      this.http.get<ICheck[]>('http://168.235.64.81/Reindeertracker/API/check/?hash='+hash).subscribe(data => { 
+      this.http.get<ICheck[]>('http://168.235.64.81/Reindeertracker/API/notification/?hash='+hash).subscribe(data => { 
         resolve(data); 
       }, err => { 
         console.log(err); 
@@ -48,7 +49,7 @@ export class ReindeerServiceProvider {
  
   updateDetails(data) { 
     return new Promise((resolve, reject) => { 
-      this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/update', JSON.stringify(data)) 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/edit/', JSON.stringify(data)) 
         .subscribe(res => { 
           resolve(res); 
         }, (err) => { 
@@ -187,5 +188,24 @@ export class ReindeerServiceProvider {
         }); 
     }); 
   }
- 
+  reportReindeer(data) { 
+    return new Promise((resolve, reject) => { 
+      this.http.post('http://168.235.64.81/Reindeertracker/API/reindeer/report/', JSON.stringify(data),) 
+        .subscribe(res => { 
+          resolve(res); 
+        }, err => { 
+          console.log(err) 
+        }); 
+    }); 
+  }
+
+  getReport(reidneerId: string, hash: string): Promise<IReport[]>  { 
+    return new Promise(resolve => { 
+      this.http.get<IReport[]>('http://168.235.64.81/Reindeertracker/API/reindeer/getreport/?reindeerId=' + reidneerId + '&hash=' + hash).subscribe(data => { 
+        resolve(data); 
+      }, err => { 
+        console.log(err); 
+      }); 
+    }); 
+  } 
 }
