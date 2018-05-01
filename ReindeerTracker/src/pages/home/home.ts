@@ -76,7 +76,7 @@ export class HomePage {
         console.log("melding geklikt")
       });
 
-      let serverCheck = Observable.interval(20000).subscribe(x => {
+      let serverCheck = Observable.interval(5000).subscribe(x => {
 
         this.reindeerProvider.checkBackground(this.hash)
           .then(data => {

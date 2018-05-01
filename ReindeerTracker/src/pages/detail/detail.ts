@@ -30,6 +30,7 @@ export class DetailPage {
   LastLocLong: number;
   lastLocRange: number;
   hash: string;
+  date: string;
 
   constructor(public toastCtrl: ToastController, public navCtrl: NavController, public navParams: NavParams, public nav: NavController, public connectivityService : ConnectivityService, private geolocation: Geolocation, public reindeerProvider: ReindeerServiceProvider, private storage: Storage) {
 
@@ -120,10 +121,11 @@ export class DetailPage {
         }
         this.addMarker(this.details[0].locations[0].lat, this.details[0].locations[0].long, "https://thumb.ibb.co/dfB2fx/deer.png");
 
-        for (let i = 0; i < this.markers.length; i++) {
+        
+        for (let i = 0; i < this.markers.length; i++) {           
           this.markers[i].addListener('click', (event) => {
             let toast = this.toastCtrl.create({
-              message: "Date Location " + this.details[0].locations[this.markers.length-i -1].time,//Yorick date formatten 
+              message: "Date Location " + this.details[0].locations[this.markers.length-i -1].time,
               duration: 2000,
             });
             toast.present(toast);
@@ -197,7 +199,9 @@ export class DetailPage {
    }
 
    openEditPage(){ 
-    this.nav.push(EditReindeerPage) 
+    this.nav.push(EditReindeerPage, {
+      reindeerId: this.navParams.get('reindeerId').toString(),
+    });
   } 
 
 
