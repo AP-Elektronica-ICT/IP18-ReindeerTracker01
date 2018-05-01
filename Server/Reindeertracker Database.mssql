@@ -1,0 +1,226 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.12deb2+deb8u2
+-- http://www.phpmyadmin.net
+--
+-- Host: localhost
+-- Generation Time: May 01, 2018 at 03:09 PM
+-- Server version: 5.5.59-0+deb8u1
+-- PHP Version: 5.6.33-0+deb8u1
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `Reindeertracker`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data`
+--
+
+CREATE TABLE IF NOT EXISTS `data` (
+`id` int(20) NOT NULL,
+  `serialnumber` int(6) NOT NULL,
+  `reindeerId` int(5) NOT NULL,
+  `latitude` text NOT NULL,
+  `longitude` text NOT NULL,
+  `status` varchar(5) NOT NULL,
+  `battery` int(3) NOT NULL,
+  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `data`
+--
+
+INSERT INTO `data` (`id`, `serialnumber`, `reindeerId`, `latitude`, `longitude`, `status`, `battery`, `time`) VALUES
+(19, 44444, 9, '65.812359', '27.603910', 'true', 20, '2018-02-26 09:18:09'),
+(20, 44444, 9, '65.806429', '27.681958', 'true', 20, '2018-02-26 09:18:10'),
+(21, 44444, 9, '65.821104', '27.739581', 'true', 20, '2018-02-26 09:18:11'),
+(22, 44444, 9, '65.842638', '27.758672', 'true', 20, '2018-02-26 09:18:12'),
+(111, 88888, 0, '51.229468', '4.416070\r', 'true', 50, '2018-04-23 11:37:31'),
+(112, 88888, 0, '51.229543', '4.415883\r', 'true', 50, '2018-04-23 11:38:14'),
+(113, 88888, 0, '51.229809', '4.415638\r', 'true', 50, '2018-04-23 11:38:55'),
+(114, 88888, 0, '51.229901', '4.415704\r', 'true', 50, '2018-04-23 11:39:32'),
+(117, 88888, 0, '51.228706', '4.406580 ', 'true', 30, '2018-04-23 11:59:12'),
+(118, 45887, 0, '51.228303', '4.406353 ', 'true', 78, '2018-04-23 12:00:40'),
+(119, 45887, 0, '51.227951', '4.402546 ', 'true', 78, '2018-04-23 12:01:25'),
+(120, 45887, 0, '51.230477', '4.420139 ', 'true', 78, '2018-04-23 12:06:03'),
+(121, 45887, 0, '51.230463', '4.420136 ', 'true', 7, '2018-04-23 12:07:00'),
+(122, 45887, 0, '51.230451', '4.420152 ', 'true', 7, '2018-04-23 12:07:41'),
+(123, 45887, 0, '51.230466', '4.420175 ', 'true', 7, '2018-04-23 12:08:22'),
+(124, 45887, 0, '51.230441', '4.420114 ', 'true', 7, '2018-04-23 12:09:03'),
+(125, 45887, 0, '51.230442', '4.420151 ', 'true', 7, '2018-04-23 12:10:30'),
+(128, 45887, 39, '51.230792', '4.415565 ', 'true', 46, '2018-04-23 13:43:54'),
+(129, 45887, 39, '51.230983', '4.415581 ', 'true', 46, '2018-04-23 13:44:24'),
+(130, 45887, 39, '51.228659', '4.405127 ', 'true', 46, '2018-04-23 14:02:09'),
+(131, 45887, 39, '51.228535', '4.405162 ', 'true', 46, '2018-04-23 14:02:43'),
+(132, 45887, 39, '51.228647', '4.405126 ', 'true', 46, '2018-04-23 14:03:21'),
+(133, 66666, 0, '51.218747', '4.462785', 'true', 80, '2018-04-24 03:58:16'),
+(134, 66666, 0, '51.219150', '4.468278', 'true', 79, '2018-04-24 04:58:16'),
+(135, 66666, 0, '51.217161', '4.471840', 'true', 78, '2018-04-24 05:58:16'),
+(136, 66666, 0, '51.212967', '4.474286', 'true', 77, '2018-04-24 06:58:16'),
+(137, 66666, 0, '51.211892', '4.464545', 'true', 76, '2018-04-24 07:58:16'),
+(138, 66666, 0, '51.217644', '4.456862', 'true', 75, '2018-04-24 02:58:53'),
+(140, 45887, 45, '51.231180', '4.415698 ', 'true', 46, '2018-04-24 12:13:34'),
+(141, 45887, 45, '51.231372', '4.415412 ', 'true', 46, '2018-04-24 12:13:50'),
+(142, 45887, 45, '51.231455', '4.415276 ', 'true', 46, '2018-04-24 12:14:06'),
+(143, 45887, 45, '51.228893', '4.404909 ', 'false', 46, '2018-04-24 13:54:27'),
+(144, 45887, 45, '51.228876', '4.404908 ', 'false', 46, '2018-04-24 13:55:04'),
+(145, 11111, 0, '6500.02359', '02530.56951', 'false', 73, '2018-04-25 20:03:21');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `devices`
+--
+
+CREATE TABLE IF NOT EXISTS `devices` (
+`id` int(11) NOT NULL,
+  `serialnumber` int(5) NOT NULL,
+  `userId` int(6) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `devices`
+--
+
+INSERT INTO `devices` (`id`, `serialnumber`, `userId`) VALUES
+(1, 66666, 21),
+(2, 44444, 1),
+(3, 22222, 1),
+(4, 88888, 16),
+(5, 45887, 21);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reindeer`
+--
+
+CREATE TABLE IF NOT EXISTS `reindeer` (
+`id` int(5) NOT NULL,
+  `serialnumber` varchar(5) NOT NULL,
+  `userId` int(6) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `birthDate` date NOT NULL,
+  `gender` varchar(10) NOT NULL,
+  `reported` varchar(5) NOT NULL DEFAULT 'false',
+  `added` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `extraInfo` text NOT NULL,
+  `dateWhenAdded` varchar(20) NOT NULL,
+  `dateWhenFound` varchar(20) NOT NULL,
+  `cityWhereAdded` varchar(30) NOT NULL,
+  `latWhereAdded` text NOT NULL,
+  `longWhereAdded` text NOT NULL,
+  `cityWhereFound` varchar(30) NOT NULL,
+  `latWhereFound` text NOT NULL,
+  `longWhereFound` text NOT NULL,
+  `picture` longblob NOT NULL,
+  `notBattery` varchar(5) NOT NULL DEFAULT 'false',
+  `notReindeer` varchar(5) NOT NULL DEFAULT 'false'
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reindeer`
+--
+
+INSERT INTO `reindeer` (`id`, `serialnumber`, `userId`, `name`, `birthDate`, `gender`, `reported`, `added`, `extraInfo`, `dateWhenAdded`, `dateWhenFound`, `cityWhereAdded`, `latWhereAdded`, `longWhereAdded`, `cityWhereFound`, `latWhereFound`, `longWhereFound`, `picture`, `notBattery`, `notReindeer`) VALUES
+(9, '44444', 1, 'Franske', '2018-07-08', 'female', 'false', '0000-00-00 00:00:00', '', '', '', '', '', '', '', '', '', '', 'true', ''),
+(38, '88888', 0, 'DemoReindeer', '1969-12-28', 'male', 'false', '2018-04-23 12:08:14', 'Green', '', '', '', '', '', '', '', '', '', 'true', 'true'),
+(39, '', 0, 'DemoReindeer2', '2014-07-27', 'male', 'false', '2018-04-23 12:14:25', 'Red', '', '', '', '', '', '', '', '', '', 'true', 'true'),
+(40, '', 0, 'Demo', '2012-04-30', 'male', 'false', '2018-04-24 09:03:59', 'None', '', '', '', '', '', '', '', '', '', 'true', 'true'),
+(41, '', 18, 'Demo', '1994-04-24', 'male', 'false', '2018-04-24 09:18:50', 'None', '', '', '', '', '', '', '', '', '', 'false', 'false'),
+(42, '', 18, 'Reindeer', '1974-04-24', 'female', 'false', '2018-04-24 09:22:33', 'None', '', '', '', '', '', '', '', '', '', 'true', 'true'),
+(45, '45887', 21, 'Demo', '1999-09-28', 'male', 'false', '2018-04-24 12:10:53', 'Info', '', '', '', '', '', '', '', '', '', 'true', 'false'),
+(46, '66666', 21, '2', '2008-12-30', 'female', 'false', '2018-04-24 12:13:50', 'h', '', '', '', '', '', '', '', '', '', 'false', 'false');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+`id` int(6) NOT NULL,
+  `firstName` varchar(50) NOT NULL,
+  `lastName` varchar(50) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `password` varchar(30) NOT NULL,
+  `hash` text NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `firstName`, `lastName`, `email`, `password`, `hash`) VALUES
+(1, 'Jens', 'Cools', 'jens', 'boer', '3ef88f6608d7e5b17a92'),
+(6, 'test', 'register', 'testje@hotmail.com', 'test', '0500a396f991b5c794f1'),
+(8, 'Tom', 'Knaepkens', 'tom.knaepkens@hotmail.com', 'pass', '542c96f0459a5b512fc9'),
+(14, 'Yorick', 'Scheyltjens', 'yorick.scheyltjens@hotmail.com', 'boerin', '58d26b0650fd0514afbf'),
+(21, 'Demo', 'Demo', 'demo@demo.com', 'Demo', 'f2caf8884f4af524375e');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `data`
+--
+ALTER TABLE `data`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `devices`
+--
+ALTER TABLE `devices`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `reindeer`
+--
+ALTER TABLE `reindeer`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `data`
+--
+ALTER TABLE `data`
+MODIFY `id` int(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=146;
+--
+-- AUTO_INCREMENT for table `devices`
+--
+ALTER TABLE `devices`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT for table `reindeer`
+--
+ALTER TABLE `reindeer`
+MODIFY `id` int(5) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=47;
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+MODIFY `id` int(6) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=22;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
